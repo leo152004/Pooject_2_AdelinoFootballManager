@@ -39,7 +39,19 @@ public class Equipas {
     }
 
     public static Jogadores getEquipaPlayer(String equipa, int player) {
-        return equipaList.get(player).equipaPlayers.get(player);
+        int equipaN = numberEquipas();
+        for (int i = 0; i < numberEquipas(); i++) {
+            if (equipaList.get(i).nome.equals(equipa))
+                equipaN = i;
+            else if(i == numberEquipas() - 1) {
+                System.out.println("Equipa não encontrada");
+                break;
+            }
+        }
+
+        if(equipaN < numberEquipas())
+            return equipaList.get(equipaN).equipaPlayers.get(player);
+        return null;
     }
 
     public static String getEquipaName(int Equipa) {
@@ -48,6 +60,14 @@ public class Equipas {
 
     public static int getEquipaSize(int Equipa) {
         return equipaList.get(Equipa).equipaPlayers.size();
+    }
+
+    public static String getEquipaLiga(int Equipa) {
+        return equipaList.get(Equipa).Liga;
+    }
+
+    public static Equipas getFullEquipa(int Equipa) {
+        return equipaList.get(Equipa);
     }
 
     //Getters e setters

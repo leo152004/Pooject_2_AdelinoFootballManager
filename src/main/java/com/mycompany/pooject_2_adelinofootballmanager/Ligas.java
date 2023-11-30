@@ -21,9 +21,9 @@ public class Ligas {
 
     public static void imprime(String Liga) {
         String info = "Liga: " + Liga + "\nEquipas:\n";
-        for (int i = 0; i < Equipas.equipaList.size(); i++) {
-            if (Equipas.equipaList.get(i).getLiga().equals(Liga)) {
-                info += Equipas.equipaList.get(i);
+        for (int i = 0; i < Equipas.numberEquipas(); i++) {
+            if (Equipas.getEquipaLiga(i).equals(Liga)) {
+                info += Equipas.getFullEquipa(i);
             }
         }
         System.out.println(info);
