@@ -4,14 +4,23 @@
  */
 package com.mycompany.pooject_2_adelinofootballmanager;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
-/**
+/*
  *
  * @author hontman
  */
 public class Partida {
-    static Scanner scan = new Scanner(System.in);
+
+    private Map<String, Jogadores> jogadoresComCartao = new HashMap<>();
+    private String data, local, vencedor;
+    private int golosfeitos1, golosfeitos2;
+    private static Scanner scan = new Scanner(System.in);
+
+    Random random = new Random();
 
     public static void start(){
         boolean repeat = true;
@@ -56,7 +65,7 @@ public class Partida {
                         else break;
                     }
 
-                    Partida(ChoosenEquipa, ChoosenEquipa2);
+                    startPartida(ChoosenEquipa, ChoosenEquipa2);
                     break;
 
                 case 2:
@@ -90,7 +99,7 @@ public class Partida {
                         else break;
                     }
 
-                    Partida(ChoosenEquipa3, ChoosenEquipa4);
+                    startPartida(ChoosenEquipa3, ChoosenEquipa4);
                     break;
                 case 3:
                     System.out.println("Escolha a equipa:");
@@ -108,7 +117,7 @@ public class Partida {
 
                     int ChoosenEquipa6 = scan.nextInt();
 
-                    Partida(ChoosenEquipa5, ChoosenEquipa6);
+                    startPartida(ChoosenEquipa5, ChoosenEquipa6);
                     break;
                 default:
                     System.out.println("Opção Inválida");
@@ -118,8 +127,18 @@ public class Partida {
         }
     }
 
-    private static void Partida(int Equipa1, int Equipa2) {
+    private void getCard(int Equipa1, int Equipa2, String color){
+        int player = random.nextInt(Equipas.getEquipaSize(Equipa1)) + Equipas.getEquipaSize(Equipa2);
+        if (player > Equipas.getEquipaSize(Equipa1)) {
+            player -= Equipas.getEquipaSize(Equipa1);
+            jogadoresComCartao.put(color, Equipas.getEquipaPlayer(Equipas.getEquipaName(Equipa2), player));
+        }
+        jogadoresComCartao.put(color, Equipas.getEquipaPlayer(Equipas.getEquipaName(Equipa1), player));
 
+    }
+
+    private static void startPartida(int Equipa1, int Equipa2) {
+        //inserir coisas de partida aqui
     }
     
 }

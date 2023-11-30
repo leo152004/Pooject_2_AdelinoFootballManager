@@ -8,6 +8,8 @@ package com.mycompany.pooject_2_adelinofootballmanager;
  *
  * @author hontman
  */
+import com.github.javafaker.Faker;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -29,33 +31,58 @@ public class Menu {
             System.out.println("| 7.Sair /-------------------------|");
             System.out.println("|----------------//----------------|");
 
-            option = scan.nextInt();
-            scan.nextLine();
+            try {
+                option = scan.nextInt();
+                scan.nextLine();
 
-            switch (option) {
-                case 1:
-                    Managers.theManager("jogadores");
-                    break;
-            case 2:
-                Managers.theManager("ligas");
-                break;
-            case 3:
-                Managers.theManager("equipas");
-                break;
-            case 4:
-                Managers.theManager("treinadores");
-                break;
-            case 5:
-                Managers.theManager("arbitros");
-                break;
-            case 6:
-                Managers.theManager("criarPartida");
-                break;
-            case 7:
-                exit = 0;
-               break;
-            default:
+                switch (option) {
+                    case 1:
+                        Managers.theManager("jogadores");
+                        break;
+                    case 2:
+                        Managers.theManager("ligas");
+                        break;
+                    case 3:
+                        Managers.theManager("equipas");
+                        break;
+                    case 4:
+                        Managers.theManager("treinadores");
+                        break;
+                    case 5:
+                        Managers.theManager("arbitros");
+                        break;
+                    case 6:
+                        Managers.theManager("criarPartida");
+                        break;
+                    case 7:
+                        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⡀⢸⣿⣷⣶⣤⣄⣀⡀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⠛⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⠛⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⢀⣀⣀⣀⣀⣀⣿⣦⡀⠀⢸⣿⢿⣿⣿⣿⣿⣿⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿:⢸⡇⠀⣿⣿⣿⣿⣿⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠈⠉⠉⠉⠉⠉⣿⠟⠁⠀⢸⣿⣾⣿⣿⣿⣿⣿⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⣤⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⣤⠀⠀⠀⠀⠀⠀⠀\n" +
+                                "⠀⠀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⢸⣿⡿⠿⠛⠋⣉⣁⣀⣀⣀⣀⣀⣀⣀⣀⠀⠀\n" +
+                                "⠀⠀⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠀⠀");
+                        exit = 0;
+                       break;
+                       case 8: //easteregg
+                           Faker faker = new Faker();
+                           System.out.println(faker.chuckNorris().fact());
+                           break;
+                    default:
+                        System.out.println("Opção inválida!");
+                }
+            }
+            catch (Exception e) {
                 System.out.println("Opção inválida!");
+                theMenu();
             }
         }
     }

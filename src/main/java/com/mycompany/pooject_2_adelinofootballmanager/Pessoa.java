@@ -18,12 +18,8 @@ public class Pessoa {
 
     static Random random = new Random();
     public Pessoa() {
-        this.nome = faker.name().fullName();
-        this.idade = random.nextInt(20,40);
-    }
-
-    public String autoName(){
-        return faker.name().fullName();
+        this.nome = faker.name().fullName();//VerificarNome(faker.name().fullName());
+        this.idade = random.nextInt(25,40);
     }
     public String getNome() {
         return nome;
@@ -32,6 +28,18 @@ public class Pessoa {
             this.nome = nome;
             this.idade = idade;
     }
+//    public String VerificarNome(String nome){
+//        if(nome.length() <= 30){
+//            if(nome.length() < 30){
+//                VerificarNome(nome + " ");
+//            }
+//            else
+//                return nome;
+//        }
+//        else
+//            VerificarNome(faker.name().fullName());
+//        return nome;
+//    }
 
     @Override
     public String toString(){

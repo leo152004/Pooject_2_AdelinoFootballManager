@@ -13,6 +13,10 @@ public class Pooject_2_AdelinoFootballManager {
         Ligas ligaPT = new Ligas("Portuguesa");
         Ligas ligaAL = new Ligas("Alema");
         Ligas ligaES = new Ligas("Espanhola");
+        for(int i = 0; i <= 99; i++)
+            Jogadores.autoPlayer();
+        for (int i = 0; i <= 5; i++)
+            new Arbitros();
     }
 
     public static void main(String[] args) {

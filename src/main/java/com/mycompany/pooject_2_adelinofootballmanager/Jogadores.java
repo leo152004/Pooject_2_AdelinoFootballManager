@@ -14,37 +14,36 @@ import java.util.Scanner;
 
 
 public class Jogadores extends Pessoa {
-    static ArrayList<Jogadores> jogadores = new ArrayList<Jogadores>(99);
-    private final String posicao, equipa;
+    static ArrayList<Jogadores> jogadores = new ArrayList<>(99);
+    private final String posicao;
+    private ArrayList<String> lesoes = new ArrayList<>();
     private final int statAt, statDef, angerLevel, titulos, nEquipa;
 
     static Scanner scan = new Scanner(System.in);
-    Random rand = new Random();
+//    Random rand = new Random();
 
-    public Jogadores(String position, String team, int ataque, int defesa, int anger, int titulos, int nEquipa) {
+    public Jogadores(String position, int ataque, int defesa, int anger, int titulos, int nEquipa) {
         super();
         this.posicao = position;
-        this.equipa = team;
         this.nEquipa = nEquipa;
         this.statAt = ataque;
         this.statDef = defesa;
         this.angerLevel = anger;
         this.titulos = titulos;
         jogadores.add(this);
-        Equipas.equipaList.get(nEquipa).equipaPlayers.add(this);
+        Equipas.addToEquipa(nEquipa, this);
     }
 
-    public Jogadores(String nome, int idade, String posicao, String equipa, int ataque, int defesa, int angerLevel, int titulos, int nEquipa) {
+    public Jogadores(String nome, int idade, String posicao, int ataque, int defesa, int angerLevel, int titulos, int nEquipa) {
         super(nome, idade);
         this.posicao = posicao;
-        this.equipa = equipa;
         this.nEquipa = nEquipa;
-        this.statAt = StatsSetter(ataque);
-        this.statDef = StatsSetter(defesa);
+        this.statAt = StatsSetter(ataque, "ataque");
+        this.statDef = StatsSetter(defesa, "defesa");
         this.angerLevel = angerLevel;
         this.titulos = titulos;
         jogadores.add(this);
-        Equipas.equipaList.get(nEquipa - 1).equipaPlayers.add(this);
+        Equipas.addToEquipa(nEquipa - 1, this);
     }
 
     private static String givenChoiceP() {
@@ -57,9 +56,9 @@ public class Jogadores extends Pessoa {
         int position = scan.nextInt();
 
         return switch (position) {
-            case 1 -> "Avançado";
-            case 2 -> "Medio";
-            case 3 -> "Defesa";
+            case 1 -> "Avançado    ";
+            case 2 -> "Medio       ";
+            case 3 -> "Defesa      ";
             case 4 -> "Guarda-Redes";
             default -> {
                 System.out.println("Opção inválida!");
@@ -69,13 +68,11 @@ public class Jogadores extends Pessoa {
     }
     private static int givenChoiceT() {
             System.out.println("Selecione a equipa do jogador:");
-            for(int i = 0; i < Equipas.equipaList.size(); i++) {
-                System.out.println(i+1 + ". " + Equipas.equipaList.get(i).getName());
+            for(int i = 0; i < Equipas.numberEquipas(); i++) {
+                System.out.println(i+1 + ". " + Equipas.getEquipaName(i));
             }
 
-            int EquipaID = scan.nextInt();
-
-            return EquipaID;
+        return scan.nextInt();
     }
 
     public static void inserirJogador() {
@@ -93,7 +90,6 @@ public class Jogadores extends Pessoa {
         scan.nextLine();
         String position = givenChoiceP();
         int whatTeam = givenChoiceT();
-        String team = Equipas.equipaList.get(whatTeam).getName();
         System.out.println("Digite o nivel de agrissividade do jogador (número):");
         try {
             anger = scan.nextInt();
@@ -128,7 +124,7 @@ public class Jogadores extends Pessoa {
             scan.nextLine();
         }
         try {
-            new Jogadores(name, age, position, team, ataque, defesa, anger, titulos, whatTeam);
+            new Jogadores(name, age, position, ataque, defesa, anger, titulos, whatTeam);
         }
         catch (Exception e) {
             System.out.println("Por favor, insira valores validos!");
@@ -138,31 +134,36 @@ public class Jogadores extends Pessoa {
 
     public static void autoPlayer() {
         int posi = random.nextInt(1, 4);
-        String position;
-        switch (posi) {
-            case 1:
-                position = "Avançado";
-                break;
-            case 2:
-                position = "Medio";
-                break;
-            case 3:
-                position = "Defesa";
-                break;
-            case 4:
-                position = "Guarda-Redes";
-                break;
-            default:
-                position = "Avançado";
-                break;
-        }
-        int tem = random.nextInt(0, Equipas.equipaList.size());
-        String team = Equipas.equipaList.get(tem).getName();
+        String position = switch (posi) {
+            case 2 -> "Medio";
+            case 3 -> "Defesa";
+            case 4 -> "Guarda-Redes";
+            default -> "Avançado";
+        };
+        int tem = random.nextInt(Equipas.numberEquipas() - 1);
         int anger = random.nextInt(100);
-        int titulos = random.nextInt(100);
-        int ataque = random.nextInt(100);
-        int defesa = random.nextInt(100);
-        new Jogadores (position, team, ataque, defesa, anger, titulos, tem);
+        int titulos = random.nextInt(50);
+        int ataque;
+        int defesa;
+        switch (position) {
+            case "Avançado" -> {
+                ataque = random.nextInt(50, 100);
+                defesa = random.nextInt(20, 50);
+            }
+            case "Defesa" -> {
+                defesa = random.nextInt(50, 100);
+                ataque = random.nextInt(20, 50);
+            }
+            case "Medio" -> {
+                ataque = random.nextInt(50, 100);
+                defesa = random.nextInt(50, 100);
+            }
+            default -> {
+                ataque = random.nextInt(20);
+                defesa = random.nextInt(70, 100);
+            }
+        }
+        new Jogadores (position, ataque, defesa, anger, titulos, tem);
     }
 
     public static void allData() {
@@ -172,8 +173,9 @@ public class Jogadores extends Pessoa {
     }
 
     public static void Data(String player) {
+        player = player.toLowerCase();
         for (int i = 0; i < jogadores.size(); i++) {
-            if (jogadores.get(i).getNome().equals(player)) {
+            if (jogadores.get(i).getNome().toLowerCase().equals(player)) {
                 System.out.println(jogadores.get(i));
                 break;
             }
@@ -183,18 +185,28 @@ public class Jogadores extends Pessoa {
         }
     }
 
-    private int StatsSetter(int stats) {
-        if (stats < 100)
+    public void painMaker(){
+        random.nextInt(3);
+        String wound = Enum.getRandomWound();
+        this.lesoes.add(wound);
+    }
+
+    private int StatsSetter(int stats, String stat) {
+        if (stats <= 100)
             return stats;
+        else if (stats > 100) {
+            System.out.println("O valor de " + stat + " não pode ser maior que 100!");
+            return 100;
+        }
         else {
-            System.out.println("O valor de stats não pode ser maior que 100!");
+            System.out.println("O valor de " + stat + " não pode ser menor que 0!");
             return 0;
         }
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | Posição: " + posicao + " | Equipa: " + equipa + " | Ataque: " + statAt + " | Defesa: " + statDef + " | Nivel de Agressividade: " + angerLevel + " | Titulos: " + titulos;
+        return super.toString() +"| Posição: " + posicao + " | Equipa: " + Equipas.getEquipaName(nEquipa) + " | Ataque: " + statAt + " | Defesa: " + statDef + " | Nivel de Agressividade: " + angerLevel + " | Titulos: " + titulos;
     }
 }
 
