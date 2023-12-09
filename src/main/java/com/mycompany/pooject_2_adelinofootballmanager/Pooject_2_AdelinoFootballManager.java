@@ -10,9 +10,10 @@ package com.mycompany.pooject_2_adelinofootballmanager;
  */
 public class Pooject_2_AdelinoFootballManager {
     private static void starter() {
-        Ligas ligaPT = new Ligas("Portuguesa");
-        Ligas ligaAL = new Ligas("Alema");
-        Ligas ligaES = new Ligas("Espanhola");
+        new Ligas("Portuguesa");
+        new Ligas("Alema");
+        new Ligas("Espanhola");
+
         for(int i = 0; i <= 99; i++)
             Jogadores.autoPlayer();
         for (int i = 0; i <= 5; i++)

@@ -204,6 +204,14 @@ public class Jogadores extends Pessoa {
         }
     }
 
+    public int getAnger(){
+        return angerLevel;
+    }
+
+    public int getEquipa(){
+        return nEquipa;
+    }
+
     @Override
     public String toString() {
         return super.toString() +"| Posição: " + posicao + " | Equipa: " + Equipas.getEquipaName(nEquipa) + " | Ataque: " + statAt + " | Defesa: " + statDef + " | Nivel de Agressividade: " + angerLevel + " | Titulos: " + titulos;

@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Equipas {
     private final String nome, Liga;
     private static Treinador trainer;
-    private static int vitorias, derrotas, empates, pontos;
+    private int vitorias, derrotas, empates;
 
     private static Scanner scan = new Scanner(System.in);
 
@@ -38,20 +38,8 @@ public class Equipas {
         return equipaList.size();
     }
 
-    public static Jogadores getEquipaPlayer(String equipa, int player) {
-        int equipaN = numberEquipas();
-        for (int i = 0; i < numberEquipas(); i++) {
-            if (equipaList.get(i).nome.equals(equipa))
-                equipaN = i;
-            else if(i == numberEquipas() - 1) {
-                System.out.println("Equipa não encontrada");
-                break;
-            }
-        }
-
-        if(equipaN < numberEquipas())
-            return equipaList.get(equipaN).equipaPlayers.get(player);
-        return null;
+    public static Jogadores getEquipaPlayer(int equipa, int player) {
+        return equipaList.get(equipa).equipaPlayers.get(player);
     }
 
     public static String getEquipaName(int Equipa) {
@@ -87,26 +75,21 @@ public class Equipas {
         return empates;
     }
 
-    public int getPontos() {
-        return pontos;
-    }
-
     public String getLiga(){
         return Liga;
     }
 
-    public void setVitorias(int vitorias){
-        this.vitorias = vitorias;
+    public void setVitorias(){
+        this.vitorias++;
     }
-    public void setDerrotas(int derrotas){
-        this.derrotas = derrotas;
+    public void setDerrotas(){
+        this.derrotas++;
     }
-
-    public void setEmpates (int empates){
-        this.empates = empates;
+    public void setEmpates(){
+        this.empates++;
     }
-    public void setPontos (int pontos){
-        this.pontos = pontos;
+    public void setPontos(){
+        Ligas.getLiga(Liga).setPontos();
     }
 
     //Funções normais da classe
@@ -121,7 +104,7 @@ public class Equipas {
             System.out.println("Não há equipas!");
         else{
             for (Equipas equipas : e){
-                System.out.println(equipas.getName() + ": " + equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates, " + equipas.getPontos() + " pontos");
+                System.out.println(equipas.getName() + "(liga: " + equipas.getLiga() + ")" + ": "+ equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates");
                 System.out.println("Treinador: " + trainer.getNome() + "\nJogadores:");
                 for (Jogadores players : equipas.equipaPlayers)
                     System.out.println(players.getNome());
@@ -186,7 +169,6 @@ public class Equipas {
     }
     @Override
     public String toString() {
-        return nome + " - " + vitorias + " Vitorias, " + empates + " Empates, " + derrotas + " Derrotas, "
-                + pontos + "\n";
+        return nome + " - " + vitorias + " Vitorias, " + empates + " Empates, " + derrotas + " Derrotas" + "\n";
     }
 }
