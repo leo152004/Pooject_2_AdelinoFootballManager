@@ -72,7 +72,7 @@ public class Jogadores extends Pessoa {
                 System.out.println(i+1 + ". " + Equipas.getEquipaName(i));
             }
 
-        return scan.nextInt();
+        return scan.nextInt() - 1;
     }
 
     public static void inserirJogador() {

@@ -33,7 +33,7 @@ public class Partida {
                     while (true) {
                         System.out.println("Escolha a equipa:");
                         for (int i = 0; i < 3; i++)
-                            System.out.println((i+1) + Ligas.LigaEquipas.get(i).getName());
+                            System.out.println((i+1) + " " + Ligas.LigaEquipas.get(i).getName());
 
 
                         ChoosenEquipa = scan.nextInt() - 1;

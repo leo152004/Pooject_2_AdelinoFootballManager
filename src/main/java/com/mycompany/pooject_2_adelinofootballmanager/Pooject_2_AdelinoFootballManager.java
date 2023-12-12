@@ -14,7 +14,7 @@ public class Pooject_2_AdelinoFootballManager {
         new Ligas("Alema");
         new Ligas("Espanhola");
 
-        for(int i = 0; i <= 99; i++)
+        for(int i = 0; i <= 81; i++)
             Jogadores.autoPlayer();
         for (int i = 0; i <= 5; i++)
             new Arbitros();
