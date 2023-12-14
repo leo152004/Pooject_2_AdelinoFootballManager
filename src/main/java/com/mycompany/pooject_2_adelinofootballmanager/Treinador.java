@@ -16,7 +16,8 @@ public class Treinador extends Pessoa{
     static ArrayList<Treinador> treinadores = new ArrayList<Treinador>(9);
 
     static Scanner scan = new Scanner(System.in);
-    private final String especializacao, taticasFavo;
+    private String especializacao;
+    private String taticasFavo;
     private final int equipa;
 
     public Treinador(String nome, int idade, String especializacao, String taticasFavo, int equipa) {
@@ -82,8 +83,42 @@ public class Treinador extends Pessoa{
     }
 
     public static Treinador autoTraining(int Team) {
-        String especializacao = "none";
-        String taticasFavo = "none";
-        return new Treinador(especializacao, taticasFavo, Team);
+        return new Treinador(especializacao(), taticas(), Team);
+    }
+
+    public String getEspecializacao() {
+        return especializacao;
+    }
+    public void setEspecializacao(String especializacao){
+        this.especializacao = especializacao;
+    }
+
+    public static String especializacao(){
+        String[] especializacoes = {"Licença A: Federação Portuguesa de Futebol (FPF)", "Mestrado em Treino Desportivo: Especialização em Futebol", "Cursos de Futebol","Licença B: Federação Portuguesa de Futebol (FPF)"};
+        String text = "";
+        for(Treinador t : treinadores){
+            t.setEspecializacao(especializacoes[random.nextInt(especializacoes.length)]);
+            text = t.getEspecializacao();
+        }
+        return text;
+
+    }
+
+    public String getTaticasFavo() {
+        return taticasFavo;
+    }
+    public void setTaticasFavo(String taticasFavo){
+        this.taticasFavo = taticasFavo;
+    }
+
+    public static String taticas(){
+        String[] taticas = {"4-3-3","4-4-2","4-5-1","3-5-2","4-3-2-1","4-2-3-1","4-2-4","5-3-2"};
+        String text = "";
+        for(Treinador t : treinadores){
+            t.setTaticasFavo(taticas[random.nextInt(taticas.length)]);
+            text = t.getTaticasFavo();
+        }
+        return text;
+
     }
 }

@@ -114,16 +114,16 @@ public class Managers {
                     for (int i = 0; i < Treinador.treinadores.size(); i++) {
                         System.out.println("| " + (i + 1) + ". " + Treinador.treinadores.get(i).getNome());
                     }
-                    System.out.println("| " + Treinador.treinadores.size() + ".Voltar /----------------------|");
+                    System.out.println("| " + (Treinador.treinadores.size()+1) + ".Voltar /----------------------|");
                     System.out.println("|----------------//----------------|");
 
                     int choice4 = scanner.nextInt();
                     scanner.nextLine();
 
-                    if(choice4 > 0 && choice4 < Treinador.treinadores.size()) {
+                    if(choice4 > 0 && choice4 <= Treinador.treinadores.size()) {
                         Treinador.imprime(Treinador.treinadores.get(choice4-1).getNome());
                     }
-                    else if (choice4 == Treinador.treinadores.size()) {
+                    else if (choice4 == Treinador.treinadores.size()+1) {
                         break;
                     } else{
                         System.out.println("Opção inválida!");
