@@ -133,6 +133,10 @@ public class Jogadores extends Pessoa {
     }
 
     public static void autoPlayer() {
+        int tem = random.nextInt(Equipas.numberEquipas() - 1);
+        if(!(Equipas.getMinEquipaSize() >= 9))
+            while (Equipas.getEquipaSize(tem) >= 9)
+                tem = random.nextInt(Equipas.numberEquipas() - 1);
         int posi = random.nextInt(1, 4);
         String position = switch (posi) {
             case 2 -> "Medio";
@@ -140,7 +144,40 @@ public class Jogadores extends Pessoa {
             case 4 -> "Guarda-Redes";
             default -> "Avançado";
         };
-        int tem = random.nextInt(Equipas.numberEquipas() - 1);
+        int anger = random.nextInt(100);
+        int titulos = random.nextInt(50);
+        int ataque;
+        int defesa;
+        switch (position) {
+            case "Avançado" -> {
+                ataque = random.nextInt(50, 100);
+                defesa = random.nextInt(20, 50);
+            }
+            case "Defesa" -> {
+                defesa = random.nextInt(50, 100);
+                ataque = random.nextInt(20, 50);
+            }
+            case "Medio" -> {
+                ataque = random.nextInt(50, 100);
+                defesa = random.nextInt(50, 100);
+            }
+            default -> {
+                ataque = random.nextInt(20);
+                defesa = random.nextInt(70, 100);
+            }
+        }
+        new Jogadores (position, ataque, defesa, anger, titulos, tem);
+    }
+
+    public static void autoPlayer(int team) {
+        int posi = random.nextInt(1, 4);
+        String position = switch (posi) {
+            case 2 -> "Medio";
+            case 3 -> "Defesa";
+            case 4 -> "Guarda-Redes";
+            default -> "Avançado";
+        };
+        int tem = team;
         int anger = random.nextInt(100);
         int titulos = random.nextInt(50);
         int ataque;
@@ -186,9 +223,10 @@ public class Jogadores extends Pessoa {
     }
 
     public void painMaker(){
-        random.nextInt(3);
-        String wound = Enum.getRandomWound();
-        this.lesoes.add(wound);
+        for(int i = 0; i < random.nextInt(3); i++){
+            String wound = Enum.getRandomWound();
+            this.lesoes.add(wound);
+        }
     }
 
     private int StatsSetter(int stats, String stat) {

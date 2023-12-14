@@ -65,13 +65,13 @@ public class Managers {
 
                     switch (choice2) {
                         case 1:
-                            Ligas.imprime("pt");
+                            Ligas.imprime("Portuguesa");
                             break;
                         case 2:
-                            Ligas.imprime("al");
+                            Ligas.imprime("Alema");
                             break;
                         case 3:
-                            Ligas.imprime("es");
+                            Ligas.imprime("Espanhola");
                             break;
                         case 4:
                             break;
@@ -87,20 +87,20 @@ public class Managers {
                     for (int i = 0; i < Equipas.numberEquipas(); i++) {
                         System.out.println("| " + (i + 1) + ". " + Equipas.getEquipaName(i));
                     }
-                    System.out.println("| " + Equipas.numberEquipas() + ".Inserir Equipa /--------------|");
-                    System.out.println("| " + (Equipas.numberEquipas() + 1) + ".Voltar /----------------------|");
+                    System.out.println("| " + (Equipas.numberEquipas()+1) + ". Inserir Equipa /--------------|");
+                    System.out.println("| " + (Equipas.numberEquipas() + 2) + ". Voltar /----------------------|");
                     System.out.println("|----------------//----------------|");
 
                     int choice3 = scanner.nextInt();
                     scanner.nextLine();
 
-                    if(choice3 > 0 && choice3 < Equipas.numberEquipas()) {
+                    if(choice3 > 0 && choice3 <= Equipas.numberEquipas()) {
                         Equipas.imprime(Equipas.getEquipaName(choice3-1));
                     }
-                    else if (choice3 == Equipas.numberEquipas()){
+                    else if (choice3 == Equipas.numberEquipas()+1){
                         Equipas.inserirEquipa();
                     }
-                    else if (choice3 == Equipas.numberEquipas()+1){
+                    else if (choice3 == Equipas.numberEquipas()+2){
                         break;
                     }
                     else {
@@ -114,7 +114,7 @@ public class Managers {
                     for (int i = 0; i < Treinador.treinadores.size(); i++) {
                         System.out.println("| " + (i + 1) + ". " + Treinador.treinadores.get(i).getNome());
                     }
-                    System.out.println("| " + (Treinador.treinadores.size()+1) + ".Voltar /----------------------|");
+                    System.out.println("| " + (Treinador.treinadores.size()+1) + ". Voltar /----------------------|");
                     System.out.println("|----------------//----------------|");
 
                     int choice4 = scanner.nextInt();
@@ -136,16 +136,16 @@ public class Managers {
                     for (int i = 0; i < Arbitros.arbitros.size(); i++) {
                         System.out.println("| " + (i + 1) + ". " + Arbitros.arbitros.get(i).getNome());
                     }
-                    System.out.println("| 6.Voltar /-----------------------|");
+                    System.out.println("| 7.Voltar /-----------------------|");
                     System.out.println("|----------------//----------------|");
 
                     int choice5 = scanner.nextInt();
                     scanner.nextLine();
 
-                    if(choice5 > 0 && choice5 < Arbitros.arbitros.size()) {
+                    if(choice5 > 0 && choice5 <= Arbitros.arbitros.size()) {
                         Arbitros.imprime(Arbitros.arbitros.get(choice5-1).getNome());
                     }
-                    else if (choice5 == Arbitros.arbitros.size()) {
+                    else if (choice5 == 7) {
                         break;
                     } else{
                         System.out.println("Opção inválida!");

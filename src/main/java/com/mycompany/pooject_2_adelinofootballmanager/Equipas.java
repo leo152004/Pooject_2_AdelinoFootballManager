@@ -14,12 +14,12 @@ import java.util.Scanner;
 public class Equipas {
     private final String nome, Liga;
     private static Treinador trainer;
-    private int vitorias, derrotas, empates;
+    private int vitorias, derrotas, empates, pontos;
 
-    private static Scanner scan = new Scanner(System.in);
+    private static final Scanner scan = new Scanner(System.in);
 
-    private static ArrayList<Equipas> equipaList = new ArrayList<Equipas>(9);
-    private ArrayList<Jogadores> equipaPlayers = new ArrayList<Jogadores>(11);
+    private static final ArrayList<Equipas> equipaList = new ArrayList<Equipas>(9);
+    private final ArrayList<Jogadores> equipaPlayers = new ArrayList<Jogadores>(11);
 
     //Construtor
     public Equipas(String nome, Treinador treinador, String Liga) {
@@ -54,6 +54,14 @@ public class Equipas {
         return equipaList.get(Equipa).Liga;
     }
 
+    public static int getMinEquipaSize(){
+        int min = 0;
+        for (int i = 0; i < numberEquipas(); i++)
+            if (min < getEquipaSize(i))
+                min = getEquipaSize(i);
+        return min;
+    }
+
     public static Equipas getFullEquipa(int Equipa) {
         return equipaList.get(Equipa);
     }
@@ -81,15 +89,14 @@ public class Equipas {
 
     public void setVitorias(){
         this.vitorias++;
+        this.pontos += 3;
     }
     public void setDerrotas(){
         this.derrotas++;
     }
     public void setEmpates(){
         this.empates++;
-    }
-    public void setPontos(){
-        Ligas.getLiga(Liga).setPontos();
+        this.pontos++;
     }
 
     //Funções normais da classe
@@ -102,38 +109,43 @@ public class Equipas {
         }
         if(e.isEmpty())
             System.out.println("Não há equipas!");
-        else{
-            for (Equipas equipas : e){
-                System.out.println(equipas.getName() + "(liga: " + equipas.getLiga() + ")" + ": "+ equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates");
-                System.out.println("Treinador: " + trainer.getNome() + "\nJogadores:");
-                for (Jogadores players : equipas.equipaPlayers)
-                    System.out.println(players.getNome());
-            }
+
+        for (Equipas equipas : e){
+            System.out.println(equipas.getName() + "(liga: " + equipas.getLiga() + ")" + ": "+ equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates");
+            System.out.println("Treinador: " + trainer.getNome() + "\nJogadores:");
+            for (Jogadores players : equipas.equipaPlayers)
+                System.out.println(players.getNome());
+
         }
     }
 
-    public static String VerifyEquipa(String nome){
-        if(nome.length() <= 30){
-            if(nome.length() < 30){
-                VerifyEquipa(nome + " ");
-            }
-            else
-                return nome;
-        }
-        else{
-            System.out.println("Nome demasiado grande, por fazer escolher um até 15 caracteres!");
-            nome = scan.nextLine();
-            VerifyEquipa(nome);
-        }
-        return null;
-    }
+//    public static String VerifyEquipa(String nome){
+//        if(nome.length() <= 30){
+//            if(nome.length() < 30){
+//                VerifyEquipa(nome + " ");
+//            }
+//            else
+//                return nome;
+//        }
+//        else{
+//            System.out.println("Nome demasiado grande, por fazer escolher um até 15 caracteres!");
+//            nome = scan.nextLine();
+//            VerifyEquipa(nome);
+//        }
+//        return null;
+//    }
 
     public static void inserirEquipa() {
             System.out.println("Insira o nome da equipa: ");
             String nome = scan.nextLine();
-            nome = VerifyEquipa(nome);
+//            nome = VerifyEquipa(nome);
             System.out.println("Insira a Liga a que pertence: ");
-            String liga = scan.nextLine();
+            for (int i = 0; i < Ligas.AllLigas.size(); i++){
+                System.out.println((i+1) + ". " + Ligas.getLiga(i).getLigaName());
+            }
+            int liga = scan.nextInt();
+            scan.nextLine();
+            String Liga = Ligas.getLiga(liga-1).getLigaName();
             System.out.println("Gostaria de inserir o Treinador manualmente?(s/n)");
             char choiceT = scan.next().charAt(0);
             Treinador trainer;
@@ -165,10 +177,10 @@ public class Equipas {
                     Jogadores.autoPlayer();
                 }
             }
-            new Equipas(nome, trainer, liga);
+            new Equipas(nome, trainer, Liga);
     }
     @Override
     public String toString() {
-        return nome + " - " + vitorias + " Vitorias, " + empates + " Empates, " + derrotas + " Derrotas" + "\n";
+        return nome + " - " + vitorias + " Vitorias, " + empates + " Empates, " + derrotas + " Derrotas," + pontos + " Pontos." + "\n";
     }
 }
