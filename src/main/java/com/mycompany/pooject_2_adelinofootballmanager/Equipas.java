@@ -99,6 +99,28 @@ public class Equipas {
         this.pontos++;
     }
 
+    public static void mudarLiga(){
+        boolean mudada = false;
+        while(mudada){
+            System.out.println("Que liga gostaria de editar?\n");
+            for (int i = 0; i < numberEquipas(); i++) {
+                System.out.println((i + 1) + ". " + Equipas.getEquipaName(i));
+            }
+            int choice = scan.nextInt();
+            scan.nextLine();
+
+            if (choice > 0 && choice <= numberEquipas()) {
+                System.out.println("A equipa " + equipaList.get(choice - 1).getName() + " pertence à Liga + " + equipaList.get(choice - 1).getLiga() + ", para qual deseja mudar?");
+                for (int i = 0; i < 3; i++)
+                    if(Ligas.getLiga(i).getLigaName().equals(equipaList.get(choice).getName()))
+                        System.out.println(i + ". " + Ligas.getLiga(i).getLigaName());
+                mudada = true;
+            } else {
+                System.out.println("Opção invalida!");
+            }
+        }
+    }
+
     //Funções normais da classe
     public static void imprime(String equipa) {
         ArrayList<Equipas> e = new ArrayList<>();
@@ -148,37 +170,49 @@ public class Equipas {
             String Liga = Ligas.getLiga(liga-1).getLigaName();
             System.out.println("Gostaria de inserir o Treinador manualmente?(s/n)");
             char choiceT = scan.next().charAt(0);
+            scan.nextLine();
             Treinador trainer;
             if(choiceT == 's')
                 trainer = Treinador.inserirTreinador();
             else
                 trainer = Treinador.autoTraining(Equipas.equipaList.size());
-            System.out.println("Gostaria de inserir jogadores manualmente?");
-            System.out.println("1. Sim, inserir os 11 jogadores manualmente");
-            System.out.println("2. Inserir alguns manualmente e autocompletar");
-            System.out.println("3. Inserir automaticamente");
-            int choice = scan.nextInt();
-            if (choice == 1) {
+            new Equipas(nome, trainer, Liga);
+            addPlayers();
+    }
+
+    private static void addPlayers() {
+        System.out.println("Gostaria de inserir jogadores manualmente?");
+        System.out.println("1. Sim, inserir os 11 jogadores manualmente");
+        System.out.println("2. Inserir alguns manualmente e autocompletar");
+        System.out.println("3. Inserir automaticamente");
+        int choice = scan.nextInt();
+        switch(choice) {
+            case 1:
                 for (int i = 0; i <= 11; i++) {
-                    Jogadores.inserirJogador();
+                    Jogadores.inserirJogador(equipaList.size());
                 }
-            } else if (choice == 2) {
+                break;
+            case 2:
                 System.out.println("Quantos gostaria de inserir ?");
                 int playerMaking = scan.nextInt();
                 scan.nextLine();
                 for (int i = 0; i < playerMaking; i++) {
-                    Jogadores.inserirJogador();
+                    Jogadores.inserirJogador(equipaList.size());
                 }
                 for (int i = 0; i < 11 - playerMaking; i++) {
-                    Jogadores.autoPlayer();
+                    Jogadores.autoPlayer(equipaList.size());
                 }
-            } else {
+                break;
+            case 3:
                 for (int i = 0; i < 11; i++) {
-                    Jogadores.autoPlayer();
+                    Jogadores.autoPlayer(equipaList.size());
                 }
-            }
-            new Equipas(nome, trainer, Liga);
+                break;
+            default:
+                System.out.println("Opção inválida");
+        }
     }
+
     @Override
     public String toString() {
         return nome + " - " + vitorias + " Vitorias, " + empates + " Empates, " + derrotas + " Derrotas," + pontos + " Pontos." + "\n";

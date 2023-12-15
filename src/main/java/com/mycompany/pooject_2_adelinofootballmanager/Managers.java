@@ -87,8 +87,9 @@ public class Managers {
                     for (int i = 0; i < Equipas.numberEquipas(); i++) {
                         System.out.println("| " + (i + 1) + ". " + Equipas.getEquipaName(i));
                     }
-                    System.out.println("| " + (Equipas.numberEquipas()+1) + ". Inserir Equipa /--------------|");
-                    System.out.println("| " + (Equipas.numberEquipas() + 2) + ". Voltar /----------------------|");
+                    System.out.println("| " + (Equipas.numberEquipas()+1) + ". Editar a Liga /---------------|");
+                    System.out.println("| " + (Equipas.numberEquipas()+2) + ". Inserir Equipa /--------------|");
+                    System.out.println("| " + (Equipas.numberEquipas()+3) + ". Voltar /----------------------|");
                     System.out.println("|----------------//----------------|");
 
                     int choice3 = scanner.nextInt();
@@ -101,6 +102,9 @@ public class Managers {
                         Equipas.inserirEquipa();
                     }
                     else if (choice3 == Equipas.numberEquipas()+2){
+                        Equipas.mudarLiga();
+                    }
+                    else if (choice3 == Equipas.numberEquipas()+3){
                         break;
                     }
                     else {

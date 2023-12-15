@@ -132,11 +132,64 @@ public class Jogadores extends Pessoa {
         }
     }
 
+    public static void inserirJogador(int team) {
+        int age, anger, titulos, ataque, defesa;
+        System.out.println("Digite o nome do jogador:");
+        String name = scan.nextLine();
+        System.out.println("Digite a idade do jogador (número):");
+        try {
+            age = scan.nextInt();
+        }
+        catch(Exception e) {
+            System.out.println("Por favor insira um número:");
+            age = scan.nextInt();
+        }
+        scan.nextLine();
+        String position = givenChoiceP();
+        int whatTeam = team;
+        System.out.println("Digite o nivel de agrissividade do jogador (número):");
+        try {
+            anger = scan.nextInt();
+        }
+        catch(Exception e) {
+            System.out.println("Por favor insira um número:");
+            anger = scan.nextInt();
+        }
+        scan.nextLine();
+        System.out.println("Digite o número de titulos do jogador (número):");
+        try {
+            titulos = scan.nextInt();
+        }
+        catch(Exception e) {
+            titulos = scan.nextInt();
+        }
+        scan.nextLine();
+        System.out.println("Digite o ataque do jogador (número):");
+        try {
+            ataque = scan.nextInt();
+        }
+        catch(Exception e) {
+            ataque = scan.nextInt();
+            scan.nextLine();
+        }
+        System.out.println("Digite a defesa do jogador (número):");
+        try {
+            defesa = scan.nextInt();
+        }
+        catch(Exception e) {
+            defesa = scan.nextInt();
+            scan.nextLine();
+        }
+        try {
+            new Jogadores(name, age, position, ataque, defesa, anger, titulos, whatTeam);
+        }
+        catch (Exception e) {
+            System.out.println("Por favor, insira valores validos!");
+            inserirJogador();
+        }
+    }
+
     public static void autoPlayer() {
-        int tem = random.nextInt(Equipas.numberEquipas() - 1);
-        if(!(Equipas.getMinEquipaSize() >= 9))
-            while (Equipas.getEquipaSize(tem) >= 9)
-                tem = random.nextInt(Equipas.numberEquipas() - 1);
         int posi = random.nextInt(1, 4);
         String position = switch (posi) {
             case 2 -> "Medio";
@@ -144,6 +197,13 @@ public class Jogadores extends Pessoa {
             case 4 -> "Guarda-Redes";
             default -> "Avançado";
         };
+        int tem = random.nextInt(Equipas.numberEquipas() - 1);
+        while (Equipas.getMinEquipaSize() < 9){
+            tem = random.nextInt(Equipas.numberEquipas() - 1);
+            if (Equipas.getEquipaSize(tem) < 9){
+                break;
+            }
+        }
         int anger = random.nextInt(100);
         int titulos = random.nextInt(50);
         int ataque;
@@ -177,7 +237,6 @@ public class Jogadores extends Pessoa {
             case 4 -> "Guarda-Redes";
             default -> "Avançado";
         };
-        int tem = team;
         int anger = random.nextInt(100);
         int titulos = random.nextInt(50);
         int ataque;
@@ -200,7 +259,7 @@ public class Jogadores extends Pessoa {
                 defesa = random.nextInt(70, 100);
             }
         }
-        new Jogadores (position, ataque, defesa, anger, titulos, tem);
+        new Jogadores (position, ataque, defesa, anger, titulos, team);
     }
 
     public static void allData() {
@@ -223,10 +282,9 @@ public class Jogadores extends Pessoa {
     }
 
     public void painMaker(){
-        for(int i = 0; i < random.nextInt(3); i++){
-            String wound = Enum.getRandomWound();
-            this.lesoes.add(wound);
-        }
+        random.nextInt(3);
+        String wound = Enum.getRandomWound();
+        this.lesoes.add(wound);
     }
 
     private int StatsSetter(int stats, String stat) {
