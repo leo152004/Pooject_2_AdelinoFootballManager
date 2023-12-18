@@ -13,11 +13,14 @@ public class Partida {
     private String data, local;
     private static Scanner scan = new Scanner(System.in);
     static Random random = new Random();
-
     public static void start(){
         boolean repeat = true;
         while(repeat) {
             repeat = false;
+
+            String arbitro = selectorDeArbitro();
+
+            boolean coin = random.nextBoolean();
 
             System.out.println("Escolha a Liga:");
             System.out.println("1. Liga Portuguesa");
@@ -57,7 +60,7 @@ public class Partida {
                         else break;
                     }
 
-                    startPartida(ChoosenEquipa, ChoosenEquipa2);
+                    startPartida(arbitro, coin, ChoosenEquipa, ChoosenEquipa2);
                     break;
 
                 case 2:
@@ -76,7 +79,7 @@ public class Partida {
 
                     int ChoosenEquipa4 = scan.nextInt() +2 ;
 
-                    startPartida(ChoosenEquipa3, ChoosenEquipa4);
+                    startPartida(arbitro, coin, ChoosenEquipa3, ChoosenEquipa4);
                     break;
                 case 3:
                     System.out.println("Escolha a equipa:");
@@ -95,7 +98,7 @@ public class Partida {
                     int ChoosenEquipa6 = scan.nextInt() +5 ;
 
 
-                    startPartida(ChoosenEquipa5, ChoosenEquipa6);
+                    startPartida(arbitro, coin, ChoosenEquipa5, ChoosenEquipa6);
                     break;
                 default:
                     System.out.println("Opção Inválida");
@@ -139,7 +142,43 @@ public class Partida {
         return EquipaLoss;
     }
 
-    private static void startPartida(int Equipa1, int Equipa2) {
+    public static String selectorDeArbitro(){
+        while (true) {
+            System.out.println("Selecione o árbitro a usar:");
+            for (int i = 0; i < Arbitros.arbitros.size(); i++) {
+                System.out.println("| " + (i + 1) + ". " + Arbitros.arbitros.get(i).getNome());
+            }
+            int choice = scan.nextInt();
+            scan.nextLine();
+            if (choice > 0 && choice <= Arbitros.arbitros.size()) {
+                return Arbitros.arbitros.get(choice-1).getNome();
+            }
+            else {
+                System.out.println("Por favor selecione um valor valido");
+            }
+        }
+    }
+
+    public void setData(String data){
+        this.data = data;
+    }
+    public String getData(){return data;}
+    public static String defineData()
+    {
+        int dia, mes, ano;
+        ano = 2023;
+        mes = random.nextInt(1,12);
+        dia = switch (mes) {
+            case 1, 3, 5, 7, 8, 10, 12 -> random.nextInt(1, 31);
+            case 2 -> random.nextInt(1, 28);
+            case 4, 6, 9, 11 -> random.nextInt(1, 30);
+            default -> 1;
+        };
+        String data ="";
+        data += "Data: " + dia + "/" + mes + "/" + ano+ ".\n";
+        return data;
+    }
+    private static void startPartida(String arbitro, boolean coin, int Equipa1, int Equipa2) {
         jogadoresComCartao.clear();
         // Simulate the match
         String EquipaVencedora1 = Equipas.getEquipaName(Equipa1);
@@ -148,10 +187,15 @@ public class Partida {
         chanceCard(Equipa1);
         chanceCard(Equipa2);
 
-        int golosfeitos1 = random.nextInt(100 - findCards(Equipa1));
-        int golosfeitos2 = random.nextInt(100 - findCards(Equipa2));
-        int golos1 = Math.round((float) golosfeitos1/10);
-        int golos2 = Math.round((float) golosfeitos2/10);
+        int chanceWin1 = 100 - findCards(Equipa1) + Equipas.getFullEquipa(Equipa1).getEquipaPlayers().size()-Equipas.getFullEquipa(Equipa1).pain();
+        int chanceWin2 = 100 - findCards(Equipa2) + Equipas.getFullEquipa(Equipa2).getEquipaPlayers().size()-Equipas.getFullEquipa(Equipa1).pain();
+        if (coin)
+            chanceWin1 += 5;
+        else
+            chanceWin2 += 5;
+
+        int golos1 = Math.round((float) random.nextInt(chanceWin1)/10);
+        int golos2 = Math.round((float) random.nextInt(chanceWin2)/10);
         if (golos1 > golos2) {
             vencedor = EquipaVencedora1;
             Equipas.getFullEquipa(Equipa1).setVitorias();
@@ -166,13 +210,14 @@ public class Partida {
             Equipas.getFullEquipa(Equipa2).setEmpates();
         }
 
-
-        // Display the match result
+        System.out.println("\n");
         System.out.println("Resultado da partida:");
+        System.out.println("Árbitro: " + arbitro);
+        System.out.println("Local: " + Equipas.getCidade(Equipa1));
+        System.out.println(defineData());
         System.out.println(EquipaVencedora1 + ": " + golos1 + " golos");
         System.out.println(EquipaVencedora2 + ": "+ golos2 + " golos");
-
-        System.out.println("Vencedor: " + vencedor);
+        System.out.println("Vencedor: " + vencedor + "\n");
     }
 
 }

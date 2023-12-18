@@ -66,7 +66,7 @@ public class Ligas {
                 LigaEquipas.add(AL3);
             }
             case "Espanhola" -> {
-                Equipas ES1 = new Equipas("Real Madrid", Treinador.autoTraining(6), "Espanhola");
+                Equipas ES1 = new Equipas("Real Madrid", Treinador.autoTraining(6), "Espanhola", "Madrid");
                 LigaEquipas.add(ES1);
                 Equipas ES2 = new Equipas("Barcelona", Treinador.autoTraining(7), "Espanhola");
                 LigaEquipas.add(ES2);

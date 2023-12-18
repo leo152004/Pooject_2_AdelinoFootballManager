@@ -281,8 +281,7 @@ public class Jogadores extends Pessoa {
         }
     }
 
-    public void painMaker(){
-        random.nextInt(3);
+    public void painMaker() {
         String wound = Enum.getRandomWound();
         this.lesoes.add(wound);
     }

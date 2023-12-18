@@ -5,6 +5,7 @@
 package com.mycompany.pooject_2_adelinofootballmanager;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -13,19 +14,23 @@ import java.util.Scanner;
  */
 public class Equipas {
     private final String nome, Liga;
-    private static Treinador trainer;
+    private final Treinador trainer;
     private int vitorias, derrotas, empates, pontos;
 
+    private String cidade;
+
+    private Random rand = new Random();
     private static final Scanner scan = new Scanner(System.in);
 
     private static final ArrayList<Equipas> equipaList = new ArrayList<Equipas>(9);
-    private final ArrayList<Jogadores> equipaPlayers = new ArrayList<Jogadores>(11);
+    private ArrayList<Jogadores> equipaPlayers = new ArrayList<Jogadores>(11);
 
     //Construtor
-    public Equipas(String nome, Treinador treinador, String Liga) {
+    public Equipas(String nome, Treinador treinador, String Liga, String cidade) {
         this.nome = nome;
         this.trainer = treinador;
         this.Liga = Liga;
+        this.cidade =cidade;
         equipaList.add(this);
     }
 
@@ -37,11 +42,26 @@ public class Equipas {
     public static int numberEquipas(){
         return equipaList.size();
     }
+    public Treinador getTrainer(){
+        return trainer;
+    }
+
+    public int pain(){
+        int nLesoes = 0;
+        int chance = rand.nextInt(100);
+        for(int i = 0; i < equipaPlayers.size(); i++)
+            if(chance < 10) {
+                equipaPlayers.get(i).painMaker();
+                nLesoes++;
+            }
+        return nLesoes;
+    }
 
     public static Jogadores getEquipaPlayer(int equipa, int player) {
         return equipaList.get(equipa).equipaPlayers.get(player);
     }
-
+    public void setCidade(String cidade){this.cidade = cidade;}
+    public static String getCidade(int Equipa){return equipaList.get(Equipa).cidade;}
     public static String getEquipaName(int Equipa) {
         return equipaList.get(Equipa).nome;
     }
@@ -64,6 +84,10 @@ public class Equipas {
 
     public static Equipas getFullEquipa(int Equipa) {
         return equipaList.get(Equipa);
+    }
+
+    public ArrayList<Jogadores> getEquipaPlayers(){
+        return equipaPlayers;
     }
 
     //Getters e setters
@@ -134,28 +158,11 @@ public class Equipas {
 
         for (Equipas equipas : e){
             System.out.println(equipas.getName() + "(liga: " + equipas.getLiga() + ")" + ": "+ equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates");
-            System.out.println("Treinador: " + trainer.getNome() + "\nJogadores:");
+            System.out.println("Treinador: " + equipas.getTrainer().getNome() + "\nJogadores:");
             for (Jogadores players : equipas.equipaPlayers)
                 System.out.println(players.getNome());
-
         }
     }
-
-//    public static String VerifyEquipa(String nome){
-//        if(nome.length() <= 30){
-//            if(nome.length() < 30){
-//                VerifyEquipa(nome + " ");
-//            }
-//            else
-//                return nome;
-//        }
-//        else{
-//            System.out.println("Nome demasiado grande, por fazer escolher um até 15 caracteres!");
-//            nome = scan.nextLine();
-//            VerifyEquipa(nome);
-//        }
-//        return null;
-//    }
 
     public static void inserirEquipa() {
             System.out.println("Insira o nome da equipa: ");
@@ -176,7 +183,9 @@ public class Equipas {
                 trainer = Treinador.inserirTreinador();
             else
                 trainer = Treinador.autoTraining(Equipas.equipaList.size());
-            new Equipas(nome, trainer, Liga);
+            System.out.println("Que cidade pertence a equipa?");
+            String cidade = scan.nextLine();
+            new Equipas(nome, trainer, Liga, cidade);
             addPlayers();
     }
 
