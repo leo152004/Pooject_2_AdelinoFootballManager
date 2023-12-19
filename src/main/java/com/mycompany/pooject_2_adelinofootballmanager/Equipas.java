@@ -15,7 +15,8 @@ import java.util.Scanner;
 public class Equipas {
     private final String nome, Liga;
     private final Treinador trainer;
-    private int vitorias, derrotas, empates, pontos;
+    private int vitorias, derrotas, empates, pontos,golosSofridos, golosMarcados;
+    private int desempenho = 50;
 
     private String cidade;
 
@@ -98,7 +99,13 @@ public class Equipas {
     public int getVitorias() {
         return vitorias;
     }
+    public int getGolosSofridos(){return golosSofridos;}
+    public int getGolosMarcados(){return golosMarcados;}
 
+    public int getDesempenho(){return desempenho;}
+    public void setDesempenho(int desempenho){
+        this.desempenho += desempenho;
+    }
     public int getDerrotas() {
         return derrotas;
     }
@@ -109,6 +116,14 @@ public class Equipas {
 
     public String getLiga(){
         return Liga;
+    }
+
+    public void setGolosSofridos( int golosSofridos ) {
+        this.golosSofridos += golosSofridos;
+    }
+
+    public void setGolosMarcados(int golosMarcados){
+        this.golosMarcados += golosMarcados;
     }
 
     public void setVitorias(){
@@ -124,9 +139,9 @@ public class Equipas {
     }
 
     public static void mudarLiga(){
-        boolean mudada = false;
+        boolean mudada = true;
         while(mudada){
-            System.out.println("Que liga gostaria de editar?\n");
+            System.out.println("Que equipa gostaria de mudar de liga?\n");
             for (int i = 0; i < numberEquipas(); i++) {
                 System.out.println((i + 1) + ". " + Equipas.getEquipaName(i));
             }
@@ -134,13 +149,17 @@ public class Equipas {
             scan.nextLine();
 
             if (choice > 0 && choice <= numberEquipas()) {
-                System.out.println("A equipa " + equipaList.get(choice - 1).getName() + " pertence à Liga + " + equipaList.get(choice - 1).getLiga() + ", para qual deseja mudar?");
-                for (int i = 0; i < 3; i++)
-                    if(Ligas.getLiga(i).getLigaName().equals(equipaList.get(choice).getName()))
-                        System.out.println(i + ". " + Ligas.getLiga(i).getLigaName());
-                mudada = true;
-            } else {
+                System.out.println("A equipa " + equipaList.get(choice - 1).getName() + " pertence à Liga " + equipaList.get(choice - 1).getLiga() + ", para qual deseja mudar?");
+                for (int i = 0; i < 3; i++) {
+                    System.out.println((i+1) + "." + Ligas.getLiga(i).getLigaName());
+                }
+                int choice2 = scan.nextInt();
+                scan.nextLine();
+
+            }
+            else {
                 System.out.println("Opção invalida!");
+                mudada = false;
             }
         }
     }
@@ -157,7 +176,7 @@ public class Equipas {
             System.out.println("Não há equipas!");
 
         for (Equipas equipas : e){
-            System.out.println(equipas.getName() + "(liga: " + equipas.getLiga() + ")" + ": "+ equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates");
+            System.out.println(equipas.getName() + "(liga: " + equipas.getLiga() + ")" + ": "+ equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates, "+ equipas.getGolosMarcados() + " GM," + equipas.getGolosSofridos() + " GS," + equipas.getDesempenho() + " DM.");
             System.out.println("Treinador: " + equipas.getTrainer().getNome() + "\nJogadores:");
             for (Jogadores players : equipas.equipaPlayers)
                 System.out.println(players.getNome());
@@ -224,6 +243,6 @@ public class Equipas {
 
     @Override
     public String toString() {
-        return nome + " - " + vitorias + " Vitorias, " + empates + " Empates, " + derrotas + " Derrotas," + pontos + " Pontos." + "\n";
+        return nome + " - " + vitorias + " Vitorias, " + empates + " Empates, " + derrotas + " Derrotas," + golosMarcados+" Golos Marcados," + golosSofridos + " Golos Sofridos," + desempenho + " Desempenho Médio," + pontos + " Pontos." + "\n";
     }
 }

@@ -20,16 +20,17 @@ public class Menu {
         System.out.println("\nBem Vindo ao Adelino Football Manager 23");
 
         while (exit == 1) {
-            System.out.println("Selecione uma opção:");
-            System.out.println("|----------------//----------------|");
-            System.out.println("| 1.Jogadores /--------------------|");
-            System.out.println("| 2.Ligas /------------------------|");
-            System.out.println("| 3.Equipas /----------------------|");
-            System.out.println("| 4.Treinadores /------------------|");
-            System.out.println("| 5.Arbitros /---------------------|");
-            System.out.println("| 6.Criar uma partida /------------|");
-            System.out.println("| 7.Sair /-------------------------|");
-            System.out.println("|----------------//----------------|");
+            System.out.println("╔══════════════════════════════════╗");
+            System.out.println("║        Selecione uma opção:      ║");
+            System.out.println("╠══════════════════════════════════╣");
+            System.out.println("║ 1. Jogadores                     ║");
+            System.out.println("║ 2. Ligas                         ║");
+            System.out.println("║ 3. Equipas                       ║");
+            System.out.println("║ 4. Treinadores                   ║");
+            System.out.println("║ 5. Arbitros                      ║");
+            System.out.println("║ 6. Criar uma partida             ║");
+            System.out.println("║ 7. Sair                          ║");
+            System.out.println("╚══════════════════════════════════╝");
 
             try {
                 option = scan.nextInt();

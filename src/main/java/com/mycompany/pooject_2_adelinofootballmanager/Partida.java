@@ -200,24 +200,38 @@ public class Partida {
             vencedor = EquipaVencedora1;
             Equipas.getFullEquipa(Equipa1).setVitorias();
             Equipas.getFullEquipa(Equipa2).setDerrotas();
+            Equipas.getFullEquipa(Equipa1).setDesempenho((5));
+            Equipas.getFullEquipa(Equipa2).setDesempenho((-5));
+
+
         } else if (golos2 > golos1) {
             vencedor = EquipaVencedora2;
             Equipas.getFullEquipa(Equipa2).setVitorias();
             Equipas.getFullEquipa(Equipa1).setDerrotas();
+            Equipas.getFullEquipa(Equipa1).setDesempenho((-5));
+            Equipas.getFullEquipa(Equipa2).setDesempenho((5));
         } else {
             vencedor = "Empate";
             Equipas.getFullEquipa(Equipa1).setEmpates();
             Equipas.getFullEquipa(Equipa2).setEmpates();
+            Equipas.getFullEquipa(Equipa1).setDesempenho((0));
+            Equipas.getFullEquipa(Equipa2).setDesempenho((0));
+
         }
 
         System.out.println("\n");
-        System.out.println("Resultado da partida:");
+        System.out.println(Equipas.getEquipaName(Equipa1) + " vs " + Equipas.getEquipaName(Equipa2));
         System.out.println("Árbitro: " + arbitro);
         System.out.println("Local: " + Equipas.getCidade(Equipa1));
         System.out.println(defineData());
+        System.out.println("Resultado da partida:");
         System.out.println(EquipaVencedora1 + ": " + golos1 + " golos");
         System.out.println(EquipaVencedora2 + ": "+ golos2 + " golos");
         System.out.println("Vencedor: " + vencedor + "\n");
+        Equipas.getFullEquipa(Equipa1).setGolosMarcados(golos1);
+        Equipas.getFullEquipa(Equipa2).setGolosMarcados(golos2);
+        Equipas.getFullEquipa(Equipa1).setGolosSofridos(golos2);
+        Equipas.getFullEquipa(Equipa2).setGolosSofridos(golos1);
     }
 
 }

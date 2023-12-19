@@ -20,13 +20,14 @@ public class Managers {
             repeat = false;
             switch (managerChosen) {
                 case "jogadores":
-                    System.out.println("Selecione uma opção para o jogador: ");
-                    System.out.println("|----------------//----------------|");
-                    System.out.println("| 1.Dados dos jogadores /----------|");
-                    System.out.println("| 2.Dados de um jogador /----------|");
-                    System.out.println("| 3.Inserir jogador /--------------|");
-                    System.out.println("| 4.Voltar /-----------------------|");
-                    System.out.println("|----------------//----------------|");
+                    System.out.println("╔════════════════════════════════════════╗");
+                    System.out.println("║  Selecione uma opção para o jogador:   ║");
+                    System.out.println("║════════════════════════════════════════║");
+                    System.out.println("║ 1.Dados dos jogadores                  ║");
+                    System.out.println("║ 2.Dados de um jogador                  ║");
+                    System.out.println("║ 3.Inserir jogador                      ║");
+                    System.out.println("║ 4.Voltar.                              ║");
+                    System.out.println("╚════════════════════════════════════════╝");
 
                     int choice1 = scanner.nextInt();
                     scanner.nextLine();
@@ -52,13 +53,14 @@ public class Managers {
                     }
                     break;
                 case "ligas":
-                    System.out.println("Selecione uma em Ligas: ");
-                    System.out.println("|----------------//----------------|");
-                    System.out.println("| 1.Liga Portuguesa /--------------|");
-                    System.out.println("| 2.Liga Alemã /-------------------|");
-                    System.out.println("| 3.Liga Espanhola /---------------|");
-                    System.out.println("| 4.Voltar /-----------------------|");
-                    System.out.println("|----------------//----------------|");
+                    System.out.println("╔════════════════════════════════════════╗");
+                    System.out.println("║          Selecione uma Liga:           ║");
+                    System.out.println("║════════════════════════════════════════║");
+                    System.out.println("║ 1.Liga Portuguesa.                     ║");
+                    System.out.println("║ 2.Liga Alemã.                          ║");
+                    System.out.println("║ 3.Liga Espanhola.                      ║");
+                    System.out.println("║ 4.Voltar.                              ║");
+                    System.out.println("╚════════════════════════════════════════╝");
 
                     int choice2 = scanner.nextInt();
                     scanner.nextLine();
@@ -82,15 +84,16 @@ public class Managers {
                     }
                     break;
                 case "equipas":
-                    System.out.println("Selecione uma Equipa: ");
-                    System.out.println("|----------------//----------------|");
+                    System.out.println("╔════════════════════════════════════════╗");
+                    System.out.println("║        Selecione uma Equipa:           ║");
+                    System.out.println("║════════════════════════════════════════║");
                     for (int i = 0; i < Equipas.numberEquipas(); i++) {
-                        System.out.println("| " + (i + 1) + ". " + Equipas.getEquipaName(i));
+                        System.out.println("║ " + (i + 1) + ". " + Equipas.getEquipaName(i));
                     }
-                    System.out.println("| " + (Equipas.numberEquipas()+1) + ". Editar a Liga /---------------|");
-                    System.out.println("| " + (Equipas.numberEquipas()+2) + ". Inserir Equipa /--------------|");
-                    System.out.println("| " + (Equipas.numberEquipas()+3) + ". Voltar /----------------------|");
-                    System.out.println("|----------------//----------------|");
+                    System.out.println("║ " + (Equipas.numberEquipas()+1) + ". Editar a Equipa.                   ║");
+                    System.out.println("║ " + (Equipas.numberEquipas()+2) + ". Mudar Equipa de Liga.              ║");
+                    System.out.println("║ " + (Equipas.numberEquipas()+3) + ". Voltar.                            ║");
+                    System.out.println("╚════════════════════════════════════════╝");
 
                     int choice3 = scanner.nextInt();
                     scanner.nextLine();
@@ -113,13 +116,14 @@ public class Managers {
                     }
                     break;
                 case "treinadores":
-                    System.out.println("Selecione um Treinador: ");
-                    System.out.println("|----------------//----------------|");
+                    System.out.println("╔════════════════════════════════════════╗");
+                    System.out.println("║        Selecione um Treinador:         ║");
+                    System.out.println("║════════════════════════════════════════║");
                     for (int i = 0; i < Treinador.treinadores.size(); i++) {
-                        System.out.println("| " + (i + 1) + ". " + Treinador.treinadores.get(i).getNome());
+                        System.out.println("║ " + (i + 1) + ". " + Treinador.treinadores.get(i).getNome());
                     }
-                    System.out.println("| " + (Treinador.treinadores.size()+1) + ". Voltar /----------------------|");
-                    System.out.println("|----------------//----------------|");
+                    System.out.println("║ " + (Treinador.treinadores.size()+1) + ". Voltar.                            ║");
+                    System.out.println("╚════════════════════════════════════════╝");
 
                     int choice4 = scanner.nextInt();
                     scanner.nextLine();
@@ -135,13 +139,14 @@ public class Managers {
                     }
                     break;
                 case "arbitros":
-                    System.out.println("Selecione um Arbitro: ");
-                    System.out.println("|----------------//----------------|");
+                    System.out.println("╔════════════════════════════════════════╗");
+                    System.out.println("║        Selecione um Arbitro:           ║");
+                    System.out.println("║════════════════════════════════════════║");
                     for (int i = 0; i < Arbitros.arbitros.size(); i++) {
-                        System.out.println("| " + (i + 1) + ". " + Arbitros.arbitros.get(i).getNome());
+                        System.out.println("║ " + (i + 1) + ". " + Arbitros.arbitros.get(i).getNome());
                     }
-                    System.out.println("| 7.Voltar /-----------------------|");
-                    System.out.println("|----------------//----------------|");
+                    System.out.println("║ 7.Voltar.                              ║");
+                    System.out.println("╚════════════════════════════════════════╝");
 
                     int choice5 = scanner.nextInt();
                     scanner.nextLine();

@@ -38,7 +38,6 @@ public class Ligas {
         }
         return null;
     }
-
     public static Ligas getLiga(int liga){
         return AllLigas.get(liga);
     }
@@ -50,27 +49,27 @@ public class Ligas {
     private void equipas(String Liga) {
         switch (Liga) {
             case "Portuguesa" -> {
-                Equipas PT1 = new Equipas("SL Benfica", Treinador.autoTraining(0), "Portuguesa");
+                Equipas PT1 = new Equipas("SL Benfica", Treinador.autoTraining(0), "Portuguesa","Lisboa");
                 LigaEquipas.add(PT1);
-                Equipas PT2 = new Equipas("FC Porto", Treinador.autoTraining(1), "Portuguesa");
+                Equipas PT2 = new Equipas("FC Porto", Treinador.autoTraining(1), "Portuguesa", "Porto");
                 LigaEquipas.add(PT2);
-                Equipas PT3 = new Equipas("Sporting SP", Treinador.autoTraining(2), "Portuguesa");
+                Equipas PT3 = new Equipas("Sporting SP", Treinador.autoTraining(2), "Portuguesa","Lisboa");
                 LigaEquipas.add(PT3);
             }
             case "Alema" -> {
-                Equipas AL1 = new Equipas("Barussia Dormund", Treinador.autoTraining(3), "Alema");
+                Equipas AL1 = new Equipas("Barussia Dormund", Treinador.autoTraining(3), "Alema","Dortmund");
                 LigaEquipas.add(AL1);
-                Equipas AL2 = new Equipas("Adelino FC", Treinador.autoTraining(4), "Alema");
+                Equipas AL2 = new Equipas("Adelino FC", Treinador.autoTraining(4), "Alema","Sömmerd");
                 LigaEquipas.add(AL2);
-                Equipas AL3 = new Equipas("Leipzig", Treinador.autoTraining(5), "Alema");
+                Equipas AL3 = new Equipas("Leipzig", Treinador.autoTraining(5), "Alema","lipzia");
                 LigaEquipas.add(AL3);
             }
             case "Espanhola" -> {
                 Equipas ES1 = new Equipas("Real Madrid", Treinador.autoTraining(6), "Espanhola", "Madrid");
                 LigaEquipas.add(ES1);
-                Equipas ES2 = new Equipas("Barcelona", Treinador.autoTraining(7), "Espanhola");
+                Equipas ES2 = new Equipas("Barcelona", Treinador.autoTraining(7), "Espanhola","Barcelona");
                 LigaEquipas.add(ES2);
-                Equipas ES3 = new Equipas("Atlético de Madrid", Treinador.autoTraining(8), "Espanhola");
+                Equipas ES3 = new Equipas("Atlético de Madrid", Treinador.autoTraining(8), "Espanhola","Madrid");
                 LigaEquipas.add(ES3);
             }
         }

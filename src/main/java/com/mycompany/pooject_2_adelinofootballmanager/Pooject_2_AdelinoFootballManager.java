@@ -21,6 +21,7 @@ public class Pooject_2_AdelinoFootballManager {
     }
 
     public static void main(String[] args) {
+
         starter();
         Menu menu = new Menu();
         menu.theMenu();
