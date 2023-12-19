@@ -20,6 +20,10 @@ public class Ligas {
         AllLigas.add(this);
     }
 
+    public String getName() {
+        return Name;
+    }
+
     public static void imprime(String Liga) {
         String info = "Liga: " + Liga  + "\nEquipas:\n";
         for (int i = 0; i < Equipas.numberEquipas(); i++) {
@@ -37,6 +41,12 @@ public class Ligas {
             }
         }
         return null;
+    }
+    public static void setLigatoEquipa(int liga, int equipa){
+        LigaEquipas.remove(equipa);
+        Equipas eq = new Equipas(Equipas.getEquipaName(equipa),Treinador.autoTraining(equipa),AllLigas.get(liga).getLigaName() ,Equipas.getCidade(equipa));
+        LigaEquipas.add(eq);
+
     }
     public static Ligas getLiga(int liga){
         return AllLigas.get(liga);

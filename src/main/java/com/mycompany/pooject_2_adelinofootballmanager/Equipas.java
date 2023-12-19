@@ -118,6 +118,7 @@ public class Equipas {
         return Liga;
     }
 
+
     public void setGolosSofridos( int golosSofridos ) {
         this.golosSofridos += golosSofridos;
     }
@@ -139,8 +140,7 @@ public class Equipas {
     }
 
     public static void mudarLiga(){
-        boolean mudada = true;
-        while(mudada){
+        while(true){
             System.out.println("Que equipa gostaria de mudar de liga?\n");
             for (int i = 0; i < numberEquipas(); i++) {
                 System.out.println((i + 1) + ". " + Equipas.getEquipaName(i));
@@ -148,20 +148,34 @@ public class Equipas {
             int choice = scan.nextInt();
             scan.nextLine();
 
-            if (choice > 0 && choice <= numberEquipas()) {
-                System.out.println("A equipa " + equipaList.get(choice - 1).getName() + " pertence à Liga " + equipaList.get(choice - 1).getLiga() + ", para qual deseja mudar?");
-                for (int i = 0; i < 3; i++) {
-                    System.out.println((i+1) + "." + Ligas.getLiga(i).getLigaName());
+            int choice2;
+            while(true) {
+                if (choice > 0 && choice <= numberEquipas()) {
+                    System.out.println("A equipa " + equipaList.get(choice - 1).getName() + " pertence à Liga " + equipaList.get(choice - 1).getLiga() + ", para qual deseja mudar?");
+                    for (int i = 0; i < 3; i++) {
+                        if (i != choice) {
+                            System.out.println((i + 1) + Ligas.getLiga(i).getLigaName());
+                        }
+                        choice2 = scan.nextInt();
+                        scan.nextLine();
+                        Ligas.setLigatoEquipa(choice2, choice);
+                        break;
+                    }
                 }
-                int choice2 = scan.nextInt();
-                scan.nextLine();
 
             }
-            else {
-                System.out.println("Opção invalida!");
-                mudada = false;
-            }
+
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null ) return false;
+        if (o.getClass() != getClass()) return false;
+
+        Equipas o1 = (Equipas) o;
+        return  o1.getName().equals(getClass().getName());
     }
 
     //Funções normais da classe
