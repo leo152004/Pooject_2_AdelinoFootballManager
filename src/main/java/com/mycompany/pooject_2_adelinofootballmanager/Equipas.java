@@ -118,8 +118,11 @@ public class Equipas {
         return Liga;
     }
 
+    public String getCidade() {
+        return cidade;
+    }
 
-    public void setGolosSofridos( int golosSofridos ) {
+    public void setGolosSofridos(int golosSofridos ) {
         this.golosSofridos += golosSofridos;
     }
 
@@ -190,8 +193,8 @@ public class Equipas {
             System.out.println("Não há equipas!");
 
         for (Equipas equipas : e){
-            System.out.println(equipas.getName() + "(liga: " + equipas.getLiga() + ")" + ": "+ equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates, "+ equipas.getGolosMarcados() + " GM," + equipas.getGolosSofridos() + " GS," + equipas.getDesempenho() + " DM.");
-            System.out.println("Treinador: " + equipas.getTrainer().getNome() + "\nJogadores:");
+            System.out.println(equipas.getName() + " ( Liga " + equipas.getLiga() + ")" + ": "+ equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates, "+ equipas.getGolosMarcados() + " GM," + equipas.getGolosSofridos() + " GS," + equipas.getDesempenho() + " DM.");
+            System.out.println("Treinador: " + equipas.getTrainer().getNome() +"\nCidade: " +equipas.getCidade()+ "\nJogadores:");
             for (Jogadores players : equipas.equipaPlayers)
                 System.out.println(players.getNome());
         }
