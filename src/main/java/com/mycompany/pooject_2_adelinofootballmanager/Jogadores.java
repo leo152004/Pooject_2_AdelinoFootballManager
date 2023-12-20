@@ -14,14 +14,14 @@ import java.util.Scanner;
 
 
 public class Jogadores extends Pessoa {
-    static ArrayList<Jogadores> jogadores = new ArrayList<>(99);
+    public static final ArrayList<Jogadores> jogadores = new ArrayList<>(99);
     private final String posicao;
     private ArrayList<String> lesoes = new ArrayList<>();
     private final int statAt, statDef, angerLevel, titulos, nEquipa;
 
-    static Scanner scan = new Scanner(System.in);
+    public static Scanner scan = new Scanner(System.in);
 //    Random rand = new Random();
-
+//Construtores
     public Jogadores(String position, int ataque, int defesa, int anger, int titulos, int nEquipa) {
         super();
         this.posicao = position;

@@ -13,9 +13,9 @@ import java.util.Scanner;
  */
 public class Treinador extends Pessoa{
 
-    static ArrayList<Treinador> treinadores = new ArrayList<Treinador>(9);
+    public static ArrayList<Treinador> treinadores = new ArrayList<Treinador>(9);
 
-    static Scanner scan = new Scanner(System.in);
+    public static Scanner scan = new Scanner(System.in);
     private String especializacao;
     private String taticasFavo;
     private final int equipa;
@@ -85,12 +85,19 @@ public class Treinador extends Pessoa{
     public static Treinador autoTraining(int Team) {
         return new Treinador(especializacao(), taticas(), Team);
     }
-
+    //Getters e Setters
     public String getEspecializacao() {
         return especializacao;
     }
     public void setEspecializacao(String especializacao){
         this.especializacao = especializacao;
+    }
+
+    public String getTaticasFavo() {
+        return taticasFavo;
+    }
+    public void setTaticasFavo(String taticasFavo){
+        this.taticasFavo = taticasFavo;
     }
 
     public static String especializacao(){
@@ -104,12 +111,6 @@ public class Treinador extends Pessoa{
 
     }
 
-    public String getTaticasFavo() {
-        return taticasFavo;
-    }
-    public void setTaticasFavo(String taticasFavo){
-        this.taticasFavo = taticasFavo;
-    }
 
     public static String taticas(){
         String[] taticas = {"4-3-3","4-4-2","4-5-1","3-5-2","4-3-2-1","4-2-3-1","4-2-4","5-3-2"};
@@ -119,7 +120,6 @@ public class Treinador extends Pessoa{
             text = t.getTaticasFavo();
         }
         return text;
-
     }
 
 }

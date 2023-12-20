@@ -14,9 +14,9 @@ import java.util.Random;
 public class Pessoa {
     private final String nome;
     private final int idade;
-    Faker faker = new Faker();
+    public Faker faker = new Faker();
 
-    static Random random = new Random();
+    public static  Random random = new Random();
     public Pessoa() {
         this.nome = faker.name().fullName();//VerificarNome(faker.name().fullName());
         this.idade = random.nextInt(25,40);

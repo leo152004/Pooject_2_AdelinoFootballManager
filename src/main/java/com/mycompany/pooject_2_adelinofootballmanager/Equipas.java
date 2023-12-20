@@ -20,11 +20,11 @@ public class Equipas {
 
     private String cidade;
 
-    private Random rand = new Random();
+    private final Random rand = new Random();
     private static final Scanner scan = new Scanner(System.in);
 
     private static final ArrayList<Equipas> equipaList = new ArrayList<Equipas>(9);
-    private ArrayList<Jogadores> equipaPlayers = new ArrayList<Jogadores>(11);
+    private final ArrayList<Jogadores> equipaPlayers = new ArrayList<Jogadores>(11);
 
     //Construtor
     public Equipas(String nome, Treinador treinador, String Liga, String cidade) {
@@ -43,9 +43,6 @@ public class Equipas {
     public static int numberEquipas(){
         return equipaList.size();
     }
-    public Treinador getTrainer(){
-        return trainer;
-    }
 
     public int pain(){
         int nLesoes = 0;
@@ -58,23 +55,7 @@ public class Equipas {
         return nLesoes;
     }
 
-    public static Jogadores getEquipaPlayer(int equipa, int player) {
-        return equipaList.get(equipa).equipaPlayers.get(player);
-    }
-    public void setCidade(String cidade){this.cidade = cidade;}
-    public static String getCidade(int Equipa){return equipaList.get(Equipa).cidade;}
-    public static String getEquipaName(int Equipa) {
-        return equipaList.get(Equipa).nome;
-    }
-
-    public static int getEquipaSize(int Equipa) {
-        return equipaList.get(Equipa).equipaPlayers.size();
-    }
-
-    public static String getEquipaLiga(int Equipa) {
-        return equipaList.get(Equipa).Liga;
-    }
-
+    //Getters e setters
     public static int getMinEquipaSize(){
         int min = 0;
         for (int i = 0; i < numberEquipas(); i++)
@@ -91,7 +72,25 @@ public class Equipas {
         return equipaPlayers;
     }
 
-    //Getters e setters
+    public Treinador getTrainer(){
+        return trainer;
+    }
+    public static Jogadores getEquipaPlayer(int equipa, int player) {
+        return equipaList.get(equipa).equipaPlayers.get(player);
+    }
+    public void setCidade(String cidade){this.cidade = cidade;}
+    public static String getCidade(int Equipa){return equipaList.get(Equipa).cidade;}
+    public static String getEquipaName(int Equipa) {
+        return equipaList.get(Equipa).nome;
+    }
+
+    public static int getEquipaSize(int Equipa) {
+        return equipaList.get(Equipa).equipaPlayers.size();
+    }
+
+    public static String getEquipaLiga(int Equipa) {
+        return equipaList.get(Equipa).Liga;
+    }
     public String getName() {
         return nome;
     }
@@ -141,7 +140,7 @@ public class Equipas {
         this.empates++;
         this.pontos++;
     }
-
+    //Função Mudar Liga
     public static void mudarLiga(){
         while(true){
             System.out.println("Que equipa gostaria de mudar de liga?\n");

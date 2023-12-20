@@ -12,14 +12,19 @@ import java.util.ArrayList;
 
 public class Ligas {
     private final String Name;
-    static ArrayList<Equipas> LigaEquipas = new ArrayList<Equipas>(9);
-    static ArrayList<Ligas> AllLigas = new ArrayList<Ligas>(3);
+    public static ArrayList<Equipas> LigaEquipas = new ArrayList<Equipas>(9);
+    public static ArrayList<Ligas> AllLigas = new ArrayList<Ligas>(3);
     public Ligas(String Liga) {
         this.Name = Liga;
         equipas(Liga);
         AllLigas.add(this);
     }
-
+    public static Ligas getLiga(int liga){
+        return AllLigas.get(liga);
+    }
+    public String getLigaName(){
+        return Name;
+    }
     public String getName() {
         return Name;
     }
@@ -47,13 +52,6 @@ public class Ligas {
         Equipas eq = new Equipas(Equipas.getEquipaName(equipa),Treinador.autoTraining(equipa),AllLigas.get(liga).getLigaName() ,Equipas.getCidade(equipa));
         LigaEquipas.add(eq);
 
-    }
-    public static Ligas getLiga(int liga){
-        return AllLigas.get(liga);
-    }
-
-    public String getLigaName(){
-        return Name;
     }
 
     private void equipas(String Liga) {

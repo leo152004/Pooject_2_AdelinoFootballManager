@@ -5,7 +5,6 @@
 package com.mycompany.pooject_2_adelinofootballmanager;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -13,11 +12,10 @@ import java.util.Scanner;
  */
 public class Arbitros extends Pessoa{
 
-
-    static ArrayList<Arbitros> arbitros = new ArrayList<Arbitros>(5);
-
-    static Scanner scan = new Scanner(System.in);
     private final int carreira, profissionalismo;
+
+    public static ArrayList<Arbitros> arbitros = new ArrayList<Arbitros>(5);
+
     public Arbitros(){
         super();
         this.carreira = random.nextInt(5,20);

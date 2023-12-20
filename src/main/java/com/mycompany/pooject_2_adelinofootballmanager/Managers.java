@@ -11,7 +11,7 @@ package com.mycompany.pooject_2_adelinofootballmanager;
 import java.util.Scanner;
 
 public class Managers {
-    static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void theManager(String managerChosen) {
         boolean repeat = true;

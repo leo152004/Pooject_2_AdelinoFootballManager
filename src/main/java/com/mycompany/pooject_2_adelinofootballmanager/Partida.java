@@ -11,8 +11,8 @@ public class Partida {
 
     private static Map<Jogadores, String> jogadoresComCartao = new HashMap<>();
     private String data, local;
-    private static Scanner scan = new Scanner(System.in);
-    static Random random = new Random();
+    private static final Scanner scan = new Scanner(System.in);
+    public static Random random = new Random();
     public static void start(){
         boolean repeat = true;
         while(repeat) {
@@ -158,7 +158,7 @@ public class Partida {
             }
         }
     }
-
+    //Getters e Setters
     public void setData(String data){
         this.data = data;
     }
