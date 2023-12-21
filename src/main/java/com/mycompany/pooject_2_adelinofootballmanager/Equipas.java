@@ -4,6 +4,8 @@
  */
 package com.mycompany.pooject_2_adelinofootballmanager;
 
+import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -12,7 +14,7 @@ import java.util.Scanner;
  *
  * @author hontman
  */
-public class Equipas {
+public class Equipas implements Ficheiros {
     private final String nome, Liga;
     private final Treinador trainer;
     private int vitorias, derrotas, empates, pontos,golosSofridos, golosMarcados;
@@ -155,16 +157,20 @@ public class Equipas {
                 if (choice > 0 && choice <= numberEquipas()) {
                     System.out.println("A equipa " + equipaList.get(choice - 1).getName() + " pertence à Liga " + equipaList.get(choice - 1).getLiga() + ", para qual deseja mudar?");
                     for (int i = 0; i < 3; i++) {
-                        if (i != choice) {
-                            System.out.println((i + 1) + Ligas.getLiga(i).getLigaName());
-                        }
-                        choice2 = scan.nextInt();
-                        scan.nextLine();
-                        Ligas.setLigatoEquipa(choice2, choice);
-                        break;
+                        System.out.println((i + 1) + " " + Ligas.getLiga(i).getLigaName());
                     }
+                    choice2 = scan.nextInt();
+                    scan.nextLine();
+                    if (choice2 > 0 && choice2 <= numberEquipas()){
+                        Ligas.setLigatoEquipa(choice2, choice);
+                        System.out.println("Equipa " + equipaList.get(choice - 1).getName() + " foi mudada para a liga " + Ligas.getLiga(choice2).getLigaName() + " com sucesso!");
+                        break;
+                    } else {
+                        System.out.println("Por favor, selecione uma Liga valida!");
+                    }
+                } else {
+                    System.out.println("Por favor, selecione uma equipa válida!");
                 }
-
             }
 
         }
@@ -254,6 +260,27 @@ public class Equipas {
                 break;
             default:
                 System.out.println("Opção inválida");
+        }
+    }
+
+    public void writer() throws IOException{
+        FileWriter fw = new FileWriter("equipas.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw);
+        out.println(equipaList.size());
+        for (int i = 0; i < equipaList.size(); i++){
+            out.print(nome + " | " + Liga + " | " + trainer.getNome() + " | " + vitorias + " | " + derrotas + " | " + empates + " | " + pontos + " | " + golosSofridos + " | " + golosMarcados + " | " + desempenho
+                    + " | " + cidade + "\n");
+        }
+        out.close();
+    }
+    public void reader() throws IOException{
+        FileReader fr = new FileReader("equipas.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String nEquipas = br.readLine();
+        for (int i = 0; i < nEquipas; i++) {
+            String[] equipa = br.readLine().split(" | ");
+            for (Equipas)
         }
     }
 

@@ -86,10 +86,11 @@ public class Managers {
                 case "equipas":
                     System.out.println("╔════════════════════════════════════════╗");
                     System.out.println("║        Selecione uma Equipa:           ║");
-                    System.out.println("║════════════════════════════════════════║");
+                    System.out.println("║════════════════════════════════════════╝");
                     for (int i = 0; i < Equipas.numberEquipas(); i++) {
                         System.out.println("║ " + (i + 1) + ". " + Equipas.getEquipaName(i));
                     }
+                    System.out.println("║════════════════════════════════════════╗");
                     System.out.println("║ " + (Equipas.numberEquipas()+1) + ". Editar a Equipa.                   ║");
                     System.out.println("║ " + (Equipas.numberEquipas()+2) + ". Mudar Equipa de Liga.              ║");
                     System.out.println("║ " + (Equipas.numberEquipas()+3) + ". Voltar.                            ║");
@@ -118,10 +119,11 @@ public class Managers {
                 case "treinadores":
                     System.out.println("╔════════════════════════════════════════╗");
                     System.out.println("║        Selecione um Treinador:         ║");
-                    System.out.println("║════════════════════════════════════════║");
+                    System.out.println("║════════════════════════════════════════╝");
                     for (int i = 0; i < Treinador.treinadores.size(); i++) {
                         System.out.println("║ " + (i + 1) + ". " + Treinador.treinadores.get(i).getNome());
                     }
+                    System.out.println("║════════════════════════════════════════╗");
                     System.out.println("║ " + (Treinador.treinadores.size()+1) + ". Voltar.                            ║");
                     System.out.println("╚════════════════════════════════════════╝");
 
@@ -141,10 +143,11 @@ public class Managers {
                 case "arbitros":
                     System.out.println("╔════════════════════════════════════════╗");
                     System.out.println("║        Selecione um Arbitro:           ║");
-                    System.out.println("║════════════════════════════════════════║");
+                    System.out.println("║════════════════════════════════════════╝");
                     for (int i = 0; i < Arbitros.arbitros.size(); i++) {
                         System.out.println("║ " + (i + 1) + ". " + Arbitros.arbitros.get(i).getNome());
                     }
+                    System.out.println("║════════════════════════════════════════╗");
                     System.out.println("║ 7.Voltar.                              ║");
                     System.out.println("╚════════════════════════════════════════╝");
 

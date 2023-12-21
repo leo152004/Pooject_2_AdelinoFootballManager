@@ -21,6 +21,8 @@ public class Jogadores extends Pessoa {
 
     public static Scanner scan = new Scanner(System.in);
 //    Random rand = new Random();
+
+
 //Construtores
     public Jogadores(String position, int ataque, int defesa, int anger, int titulos, int nEquipa) {
         super();
@@ -310,6 +312,13 @@ public class Jogadores extends Pessoa {
     @Override
     public String toString() {
         return super.toString() +"| Posição: " + posicao + " | Equipa: " + Equipas.getEquipaName(nEquipa) + " | Ataque: " + statAt + " | Defesa: " + statDef + " | Nivel de Agressividade: " + angerLevel + " | Titulos: " + titulos;
+    }
+
+    public String toString(boolean file){
+        String text = getNome() + " | " + getIdade() + " | " + posicao + " | " + statAt + " | " + statDef + " | " + angerLevel + " | " + titulos + " | " + nEquipa + " | ";
+        for (int i = 0; i < lesoes.size(); i++)
+            text += " | " + lesoes;
+        return text;
     }
 }
 
