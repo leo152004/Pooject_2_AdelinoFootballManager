@@ -4,11 +4,13 @@
  */
 package com.mycompany.pooject_2_adelinofootballmanager;
 
+import java.io.IOException;
+
 /**
  *
  * @author leand
  */
 public interface Ficheiros{
-    public void writer();
-    public void reader();
+    public void writer() throws IOException;
+    public void reader() throws IOException;
 }

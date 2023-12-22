@@ -8,20 +8,20 @@ package com.mycompany.pooject_2_adelinofootballmanager;
  *
  * @author hontman
  */
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
 
-public class Jogadores extends Pessoa {
+public class Jogadores extends Pessoa implements Ficheiros{
     public static final ArrayList<Jogadores> jogadores = new ArrayList<>(99);
     private final String posicao;
     private ArrayList<String> lesoes = new ArrayList<>();
     private final int statAt, statDef, angerLevel, titulos, nEquipa;
 
     public static Scanner scan = new Scanner(System.in);
-//    Random rand = new Random();
-
 
 //Construtores
     public Jogadores(String position, int ataque, int defesa, int anger, int titulos, int nEquipa) {
@@ -44,6 +44,19 @@ public class Jogadores extends Pessoa {
         this.statDef = StatsSetter(defesa, "defesa");
         this.angerLevel = angerLevel;
         this.titulos = titulos;
+        jogadores.add(this);
+        Equipas.addToEquipa(nEquipa - 1, this);
+    }
+
+    public Jogadores(String nome, int idade, String posicao, int ataque, int defesa, int angerLevel, int titulos, int nEquipa, ArrayList<String> lesoes) {
+        super(nome, idade);
+        this.posicao = posicao;
+        this.nEquipa = nEquipa;
+        this.statAt = StatsSetter(ataque, "ataque");
+        this.statDef = StatsSetter(defesa, "defesa");
+        this.angerLevel = angerLevel;
+        this.titulos = titulos;
+        this.lesoes.addAll(lesoes);
         jogadores.add(this);
         Equipas.addToEquipa(nEquipa - 1, this);
     }
@@ -283,6 +296,42 @@ public class Jogadores extends Pessoa {
         }
     }
 
+    public void writer() throws IOException{
+        FileWriter fw = new FileWriter("jogadores.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw);
+        out.println(jogadores.size());
+        for (int i = 0; i < jogadores.size(); i++){
+            out.println(getNome() + " | " + getIdade() + " | " + posicao + " | " + statDef + " | " + angerLevel + " | " + titulos + " | " + nEquipa + " | " + lesoes.size());
+            for(int j = 0; j < lesoes.size(); j++){
+                out.println(lesoes.get(j));
+            }
+        }
+    }
+
+    public void reader() throws IOException{
+        FileReader fr = new FileReader("jogadores.txt");
+        BufferedReader br = new BufferedReader(fr);
+        int size = Integer.parseInt(br.readLine());
+        for (int i = 0; i < size; i++) {
+            String[] jogador = br.readLine().split(" | ");
+            String nome = jogador[0];
+            int Idade = Integer.parseInt(jogador[1]);
+            String posicao = jogador[2];
+            int statAt = Integer.parseInt(jogador[3]);
+            int statDef = Integer.parseInt(jogador[4]);
+            int angerLevel = Integer.parseInt(jogador[5]);
+            int titulos = Integer.parseInt(jogador[6]);
+            int nEquipas = Integer.parseInt(jogador[7]);
+            int nlesoes = Integer.parseInt(jogador[8]);
+            ArrayList<String> lesoes = new ArrayList<String>(nlesoes);
+            for(int j = 0; j < nlesoes; j++){
+                lesoes.add(br.readLine());
+            }
+            new Jogadores(nome, Idade, posicao, statAt, statDef, angerLevel, titulos, nEquipas, lesoes);
+        }
+    }
+
     public void painMaker() {
         String wound = Enum.getRandomWound();
         this.lesoes.add(wound);
@@ -303,6 +352,15 @@ public class Jogadores extends Pessoa {
 
     public int getAnger(){
         return angerLevel;
+    }
+
+    public static Jogadores getPlayer(String name){
+        for(int i = 0; i < jogadores.size(); i++){
+            if (name.equals(jogadores.get(i).getNome())){
+                return jogadores.get(i);
+            }
+        }
+        return null;
     }
 
     public int getEquipa(){

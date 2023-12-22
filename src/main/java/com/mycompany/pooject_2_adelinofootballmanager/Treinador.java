@@ -49,6 +49,16 @@ public class Treinador extends Pessoa{
         return super.toString() + " | Especialização: " + especializacao + " | Táticas Favoritas: " + taticasFavo + " | Equipa: " + Equipas.getEquipaName(equipa);
     }
 
+    public static Treinador getTrainer(String nome){
+        Treinador trainer = null;
+        for(int i = 0; i < treinadores.size(); i++){
+            if(treinadores.get(i).getNome() == nome){
+                trainer = treinadores.get(i);
+            }
+        }
+        return trainer;
+    }
+
     private static int escolheEquipa() {
             System.out.println("Selecione a equipa do novo Treinador:");
             for(int i = 0; i < Equipas.numberEquipas(); i++) {

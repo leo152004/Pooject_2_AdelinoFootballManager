@@ -6,9 +6,7 @@ package com.mycompany.pooject_2_adelinofootballmanager;
 
 import java.io.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  *
@@ -17,8 +15,7 @@ import java.util.Scanner;
 public class Equipas implements Ficheiros {
     private final String nome, Liga;
     private final Treinador trainer;
-    private int vitorias, derrotas, empates, pontos,golosSofridos, golosMarcados;
-    private int desempenho = 50;
+    private int vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho = 50;
 
     private String cidade;
 
@@ -33,7 +30,23 @@ public class Equipas implements Ficheiros {
         this.nome = nome;
         this.trainer = treinador;
         this.Liga = Liga;
-        this.cidade =cidade;
+        this.cidade = cidade;
+        equipaList.add(this);
+    }
+
+    public Equipas(String nome, String Liga, Treinador treinador, int vitorias, int derrotas, int empates, int pontos, int golosSofridos, int golosMarcados, int desempenho, String cidade, ArrayList<Jogadores> players) {
+        this.nome = nome;
+        this.Liga = Liga;
+        this.trainer = treinador;
+        this.vitorias = vitorias;
+        this.derrotas = derrotas;
+        this.empates = empates;
+        this.pontos = pontos;
+        this.golosSofridos = golosSofridos;
+        this.golosMarcados = golosMarcados;
+        this.desempenho = desempenho;
+        this.cidade = cidade;
+        this.equipaPlayers.addAll(players);
         equipaList.add(this);
     }
 
@@ -269,18 +282,39 @@ public class Equipas implements Ficheiros {
         PrintWriter out = new PrintWriter(bw);
         out.println(equipaList.size());
         for (int i = 0; i < equipaList.size(); i++){
-            out.print(nome + " | " + Liga + " | " + trainer.getNome() + " | " + vitorias + " | " + derrotas + " | " + empates + " | " + pontos + " | " + golosSofridos + " | " + golosMarcados + " | " + desempenho
-                    + " | " + cidade + "\n");
+            out.println(nome + " | " + Liga + " | " + trainer.getNome() + " | " + vitorias + " | " + derrotas + " | " + empates + " | " + pontos + " | " + golosSofridos + " | " + golosMarcados + " | " + desempenho
+                    + " | " + cidade + " | " + equipaPlayers.size());
+            for (Jogadores equipaPlayer : equipaPlayers) {
+                out.println(equipaPlayer.getNome());
+            }
         }
         out.close();
     }
-    public void reader() throws IOException{
+    public void reader() throws IOException {
         FileReader fr = new FileReader("equipas.txt");
         BufferedReader br = new BufferedReader(fr);
-        String nEquipas = br.readLine();
-        for (int i = 0; i < nEquipas; i++) {
+        int size = Integer.parseInt(br.readLine());
+        for (int i = 0; i < size; i++) {
             String[] equipa = br.readLine().split(" | ");
-            for (Equipas)
+            for (int j = 0; j < equipa.length; j++) {
+                String nome = equipa[0];
+                String Liga = equipa[1];
+                Treinador trainer = Treinador.getTrainer(equipa[2]);
+                int vitorias = Integer.parseInt(equipa[3]);
+                int derrotas = Integer.parseInt(equipa[4]);
+                int empates = Integer.parseInt(equipa[5]);
+                int pontos = Integer.parseInt(equipa[6]);
+                int golosSofridos = Integer.parseInt(equipa[7]);
+                int golosMarcados = Integer.parseInt(equipa[8]);
+                int desempenho = Integer.parseInt(equipa[9]);
+                String cidade = equipa[10];
+                int nPlayers = Integer.parseInt(equipa[11]);
+                ArrayList<Jogadores> players = new ArrayList<Jogadores>(nPlayers);
+                for (int k = 0; k < nPlayers; k++){
+                    players.add(Jogadores.getPlayer(br.readLine()));
+                }
+                new Equipas(nome, Liga, trainer, vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho, cidade, players);
+            }
         }
     }
 
