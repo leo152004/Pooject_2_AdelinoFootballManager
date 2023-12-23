@@ -4,6 +4,9 @@
 
 package com.mycompany.pooject_2_adelinofootballmanager;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author hontman
@@ -20,9 +23,27 @@ public class Pooject_2_AdelinoFootballManager {
             new Arbitros();
     }
 
-    public static void main(String[] args) {
+    private static void fileChecker() throws IOException {
+        File play = new File("jogadores.txt");
+        boolean BPlay = play.exists() && !play.isDirectory();
+        File team = new File("equipas.txt");
+        boolean BTeam = team.exists() && !team.isDirectory();
+        File league = new File("ligas.txt");
+        boolean BLeague = league.exists() && !league.isDirectory();
+        File trainer = new File("treinadores.txt");
+        boolean BTrainer = trainer.exists() && !trainer.isDirectory();
+        if(!(BPlay && BTeam && BLeague && BTrainer)){
+            starter();
+        } else {
+            Jogadores.reader();
+            Ligas.reader();
+            Treinador.reader();
+            Equipas.reader();
+        }
+    }
 
-        starter();
+    public static void main(String[] args) throws IOException {
+        fileChecker();
         Menu menu = new Menu();
         menu.theMenu();
     }

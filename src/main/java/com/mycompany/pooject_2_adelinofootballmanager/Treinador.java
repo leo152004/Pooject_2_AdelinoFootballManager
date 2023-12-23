@@ -4,6 +4,7 @@
  */
 package com.mycompany.pooject_2_adelinofootballmanager;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,13 +12,12 @@ import java.util.Scanner;
  *
  * @author hontman
  */
-public class Treinador extends Pessoa{
+public class Treinador extends Pessoa implements Ficheiros{
 
     public static ArrayList<Treinador> treinadores = new ArrayList<Treinador>(9);
 
     public static Scanner scan = new Scanner(System.in);
-    private String especializacao;
-    private String taticasFavo;
+    private String especializacao, taticasFavo;
     private final int equipa;
 
     public Treinador(String nome, int idade, String especializacao, String taticasFavo, int equipa) {
@@ -121,6 +121,28 @@ public class Treinador extends Pessoa{
 
     }
 
+    public static void writer() throws IOException {
+        FileWriter fw = new FileWriter("treinadores.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw);
+        for (int i = 0; i < 3; i++){
+            out.println(treinadores.get(i).getNome() + " | " + treinadores.get(i).getIdade() + " | " + treinadores.get(i).especializacao + " | " + treinadores.get(i).taticasFavo + " | " + treinadores.get(i).equipa);
+        }
+    }
+
+    public static void reader() throws IOException{
+        FileReader fr = new FileReader("treinadores.txt");
+        BufferedReader br = new BufferedReader(fr);
+        for (int i = 0; i < 3; i++) {
+            String[] jogador = br.readLine().split(" | ");
+            String nome = jogador[0];
+            int idade = Integer.parseInt(jogador[1]);
+            String especializacao = jogador[2];
+            String taticasFavo = jogador[3];
+            int equipa = Integer.parseInt(jogador[4]);
+            new Treinador(nome, idade, especializacao, taticasFavo, equipa);
+        }
+    }
 
     public static String taticas(){
         String[] taticas = {"4-3-3","4-4-2","4-5-1","3-5-2","4-3-2-1","4-2-3-1","4-2-4","5-3-2"};

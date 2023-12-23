@@ -86,10 +86,10 @@ public class Equipas implements Ficheiros {
     public static Equipas getFullEquipa(String Equipa) {
         for (int i = 0; i < equipaList.size(); i++){
             if (equipaList.get(i).nome.equals(Equipa)){
-
+                return equipaList.get(i);
             }
         }
-        return equipaList.get(Equipa);
+        return null;
     }
 
     public ArrayList<Jogadores> getEquipaPlayers(){
@@ -285,21 +285,22 @@ public class Equipas implements Ficheiros {
         }
     }
 
-    public void writer() throws IOException{
+    public static void writer() throws IOException{
         FileWriter fw = new FileWriter("equipas.txt");
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw);
         out.println(equipaList.size());
         for (int i = 0; i < equipaList.size(); i++){
-            out.println(nome + " | " + Liga + " | " + trainer.getNome() + " | " + vitorias + " | " + derrotas + " | " + empates + " | " + pontos + " | " + golosSofridos + " | " + golosMarcados + " | " + desempenho
-                    + " | " + cidade + " | " + equipaPlayers.size());
-            for (Jogadores equipaPlayer : equipaPlayers) {
+            Equipas a = equipaList.get(i);
+            out.println(a.nome + " | " + a.Liga + " | " + a.trainer.getNome() + " | " + a.vitorias + " | " + a.derrotas + " | " + a.empates + " | " + a.pontos + " | " + a.golosSofridos + " | " + a.golosMarcados
+                    + " | " + a.desempenho + " | " + a.cidade + " | " + a.equipaPlayers.size());
+            for (Jogadores equipaPlayer : a.equipaPlayers) {
                 out.println(equipaPlayer.getNome());
             }
         }
         out.close();
     }
-    public void reader() throws IOException {
+    public static void reader() throws IOException {
         FileReader fr = new FileReader("equipas.txt");
         BufferedReader br = new BufferedReader(fr);
         int size = Integer.parseInt(br.readLine());

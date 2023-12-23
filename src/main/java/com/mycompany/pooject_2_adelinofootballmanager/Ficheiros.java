@@ -11,6 +11,5 @@ import java.io.IOException;
  * @author leand
  */
 public interface Ficheiros{
-    public void writer() throws IOException;
-    public void reader() throws IOException;
+
 }

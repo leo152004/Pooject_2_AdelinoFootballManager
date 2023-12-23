@@ -21,31 +21,11 @@ public class Ligas implements Ficheiros{
         AllLigas.add(this);
     }
 
-    public void writer() throws IOException {
-        FileWriter fw = new FileWriter("ligas.txt");
-        BufferedWriter bw = new BufferedWriter(fw);
-        PrintWriter out = new PrintWriter(bw);
-        for (int i = 0; i < 3; i++){
-            out.println(Name);
-            out.println(LigaEquipas.size());
-            for(int j = 0; j < LigaEquipas.size(); j++){
-                out.println(LigaEquipas.get(j).getName());
-            }
-        }
-    }
-
-    public void reader() throws IOException{
-        FileReader fr = new FileReader("ligas.txt");
-        BufferedReader br = new BufferedReader(fr);
-        for (int i = 0; i < 3; i++) {
-            String nome = br.readLine();
-            int size = Integer.parseInt(br.readLine());
-            ArrayList<Equipas> equipas = new ArrayList<Equipas>(size);
-            for(int j = 0; j < size; j++){
-                equipas.add(Equipas.getFullEquipa()br.readLine());
-            }
-            new Jogadores(nome, Idade, posicao, statAt, statDef, angerLevel, titulos, nEquipas, lesoes);
-        }
+    public Ligas(String Liga, ArrayList<Equipas> equipas) {
+        this.Name = Liga;
+        equipas(Liga);
+        LigaEquipas.addAll(equipas);
+        AllLigas.add(this);
     }
 
     public static Ligas getLiga(int liga){
@@ -109,6 +89,33 @@ public class Ligas implements Ficheiros{
                 Equipas ES3 = new Equipas("Atlético de Madrid", Treinador.autoTraining(8), "Espanhola","Madrid");
                 LigaEquipas.add(ES3);
             }
+        }
+    }
+
+    public static void writer() throws IOException {
+        FileWriter fw = new FileWriter("ligas.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw);
+        for (int i = 0; i < 3; i++){
+            out.println(AllLigas.get(i).Name);
+            out.println(LigaEquipas.size());
+            for (Equipas ligaEquipa : LigaEquipas) {
+                out.println(ligaEquipa.getName());
+            }
+        }
+    }
+
+    public static void reader() throws IOException{
+        FileReader fr = new FileReader("ligas.txt");
+        BufferedReader br = new BufferedReader(fr);
+        for (int i = 0; i < 3; i++) {
+            String nome = br.readLine();
+            int size = Integer.parseInt(br.readLine());
+            ArrayList<Equipas> equipas = new ArrayList<Equipas>(size);
+            for(int j = 0; j < size; j++){
+                equipas.add(Equipas.getFullEquipa(br.readLine()));
+            }
+            new Ligas(nome, equipas);
         }
     }
 }

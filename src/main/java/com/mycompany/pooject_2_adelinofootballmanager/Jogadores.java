@@ -296,20 +296,21 @@ public class Jogadores extends Pessoa implements Ficheiros{
         }
     }
 
-    public void writer() throws IOException{
+    public static void writer() throws IOException{
         FileWriter fw = new FileWriter("jogadores.txt");
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw);
         out.println(jogadores.size());
         for (int i = 0; i < jogadores.size(); i++){
-            out.println(getNome() + " | " + getIdade() + " | " + posicao + " | " + statDef + " | " + angerLevel + " | " + titulos + " | " + nEquipa + " | " + lesoes.size());
-            for(int j = 0; j < lesoes.size(); j++){
-                out.println(lesoes.get(j));
+            Jogadores a = jogadores.get(i);
+            out.println(a.getNome() + " | " + a.getIdade() + " | " + a.posicao + " | " + a.statDef + " | " + a.angerLevel + " | " + a.titulos + " | " + a.nEquipa + " | " + a.lesoes.size());
+            for(int j = 0; j < a.lesoes.size(); j++){
+                out.println(a.lesoes.get(j));
             }
         }
     }
 
-    public void reader() throws IOException{
+    public static void reader() throws IOException{
         FileReader fr = new FileReader("jogadores.txt");
         BufferedReader br = new BufferedReader(fr);
         int size = Integer.parseInt(br.readLine());

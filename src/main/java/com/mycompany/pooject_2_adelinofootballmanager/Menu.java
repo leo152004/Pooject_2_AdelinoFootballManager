@@ -56,6 +56,10 @@ public class Menu {
                         Managers.theManager("criarPartida");
                         break;
                     case 7:
+                        Jogadores.writer();
+                        Ligas.writer();
+                        Treinador.writer();
+                        Equipas.writer();
                         System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                                 "⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⡀⢸⣿⣷⣶⣤⣄⣀⡀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀\n" +
                                 "⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⠛⠀⠀⠀⠀⠀⠀⠀\n" +
