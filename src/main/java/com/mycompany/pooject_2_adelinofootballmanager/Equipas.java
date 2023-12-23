@@ -83,6 +83,15 @@ public class Equipas implements Ficheiros {
         return equipaList.get(Equipa);
     }
 
+    public static Equipas getFullEquipa(String Equipa) {
+        for (int i = 0; i < equipaList.size(); i++){
+            if (equipaList.get(i).nome.equals(Equipa)){
+
+            }
+        }
+        return equipaList.get(Equipa);
+    }
+
     public ArrayList<Jogadores> getEquipaPlayers(){
         return equipaPlayers;
     }

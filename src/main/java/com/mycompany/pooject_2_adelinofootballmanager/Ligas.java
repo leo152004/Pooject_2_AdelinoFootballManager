@@ -8,9 +8,10 @@ package com.mycompany.pooject_2_adelinofootballmanager;
  *
  * @author hontman
  */
+import java.io.*;
 import java.util.ArrayList;
 
-public class Ligas {
+public class Ligas implements Ficheiros{
     private final String Name;
     public static ArrayList<Equipas> LigaEquipas = new ArrayList<Equipas>(9);
     public static ArrayList<Ligas> AllLigas = new ArrayList<Ligas>(3);
@@ -19,6 +20,34 @@ public class Ligas {
         equipas(Liga);
         AllLigas.add(this);
     }
+
+    public void writer() throws IOException {
+        FileWriter fw = new FileWriter("ligas.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw);
+        for (int i = 0; i < 3; i++){
+            out.println(Name);
+            out.println(LigaEquipas.size());
+            for(int j = 0; j < LigaEquipas.size(); j++){
+                out.println(LigaEquipas.get(j).getName());
+            }
+        }
+    }
+
+    public void reader() throws IOException{
+        FileReader fr = new FileReader("ligas.txt");
+        BufferedReader br = new BufferedReader(fr);
+        for (int i = 0; i < 3; i++) {
+            String nome = br.readLine();
+            int size = Integer.parseInt(br.readLine());
+            ArrayList<Equipas> equipas = new ArrayList<Equipas>(size);
+            for(int j = 0; j < size; j++){
+                equipas.add(Equipas.getFullEquipa()br.readLine());
+            }
+            new Jogadores(nome, Idade, posicao, statAt, statDef, angerLevel, titulos, nEquipas, lesoes);
+        }
+    }
+
     public static Ligas getLiga(int liga){
         return AllLigas.get(liga);
     }
