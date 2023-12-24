@@ -1,0 +1,83 @@
+82
+Miss Alysson Smitham ; 33 ; Defesa ; 27 ; 93 ; 11 ; 4 ; 6 ; 0
+Sabina Runolfsson ; 30 ; Avançado ; 84 ; 49 ; 28 ; 49 ; 5 ; 0
+Ms. Seamus Mosciski ; 32 ; Avançado ; 92 ; 46 ; 53 ; 26 ; 5 ; 0
+Madison Mohr ; 29 ; Defesa ; 44 ; 65 ; 42 ; 32 ; 1 ; 0
+Dr. Tiara Haley ; 27 ; Medio ; 54 ; 89 ; 6 ; 44 ; 2 ; 0
+Alfonso Shields ; 39 ; Avançado ; 59 ; 20 ; 34 ; 39 ; 4 ; 0
+Cydney Stamm V ; 31 ; Defesa ; 23 ; 85 ; 92 ; 8 ; 7 ; 0
+Miss Freda VonRueden ; 31 ; Avançado ; 50 ; 23 ; 44 ; 35 ; 8 ; 0
+Oceane Crona DDS ; 38 ; Medio ; 78 ; 97 ; 66 ; 12 ; 8 ; 0
+Geovanny Sipes III ; 37 ; Medio ; 86 ; 88 ; 94 ; 42 ; 5 ; 0
+Margaretta Koelpin ; 30 ; Avançado ; 84 ; 47 ; 85 ; 36 ; 3 ; 0
+Enrico Waters ; 34 ; Medio ; 54 ; 56 ; 62 ; 48 ; 5 ; 0
+Juston Kilback ; 29 ; Avançado ; 67 ; 37 ; 98 ; 45 ; 7 ; 0
+Billie Marvin ; 34 ; Defesa ; 44 ; 83 ; 3 ; 38 ; 5 ; 0
+Ms. Abigale Cormier ; 38 ; Avançado ; 50 ; 27 ; 45 ; 42 ; 0 ; 0
+Miss Johnny Donnelly ; 29 ; Avançado ; 72 ; 23 ; 63 ; 45 ; 1 ; 0
+Deontae Mohr ; 27 ; Avançado ; 86 ; 20 ; 83 ; 36 ; 3 ; 0
+Mabel Erdman ; 39 ; Avançado ; 71 ; 22 ; 17 ; 49 ; 1 ; 0
+Ms. Beulah Kessler ; 34 ; Avançado ; 60 ; 23 ; 23 ; 22 ; 1 ; 0
+Heath Sawayn ; 30 ; Medio ; 70 ; 94 ; 36 ; 35 ; 5 ; 0
+Meggie Paucek ; 28 ; Medio ; 86 ; 76 ; 68 ; 10 ; 8 ; 0
+Devon Kemmer ; 39 ; Avançado ; 59 ; 36 ; 81 ; 11 ; 0 ; 0
+Blair Legros ; 28 ; Avançado ; 88 ; 25 ; 80 ; 48 ; 3 ; 0
+Vincenzo VonRueden PhD ; 36 ; Avançado ; 62 ; 38 ; 76 ; 5 ; 0 ; 0
+Saige Bernier ; 37 ; Defesa ; 37 ; 61 ; 42 ; 35 ; 3 ; 0
+Katlyn Predovic DVM ; 34 ; Medio ; 96 ; 57 ; 15 ; 40 ; 2 ; 0
+Daniela Lind ; 33 ; Medio ; 96 ; 78 ; 80 ; 42 ; 7 ; 0
+Gia Stehr Jr. ; 28 ; Avançado ; 79 ; 21 ; 24 ; 49 ; 6 ; 0
+Mrs. Edward Herman ; 28 ; Avançado ; 69 ; 28 ; 28 ; 6 ; 3 ; 0
+Izabella Hodkiewicz ; 35 ; Avançado ; 88 ; 41 ; 2 ; 36 ; 4 ; 0
+Trinity Pacocha ; 37 ; Defesa ; 42 ; 64 ; 90 ; 23 ; 5 ; 0
+Isai Padberg ; 29 ; Medio ; 62 ; 57 ; 79 ; 12 ; 8 ; 0
+Alexandria Hodkiewicz ; 26 ; Medio ; 85 ; 95 ; 23 ; 31 ; 0 ; 0
+Lazaro Stiedemann ; 30 ; Avançado ; 86 ; 45 ; 58 ; 20 ; 3 ; 0
+Nikki Brown II ; 34 ; Medio ; 91 ; 65 ; 58 ; 29 ; 8 ; 0
+Broderick Roberts ; 25 ; Defesa ; 42 ; 85 ; 42 ; 19 ; 2 ; 0
+Modesta Rosenbaum III ; 35 ; Medio ; 97 ; 78 ; 94 ; 18 ; 6 ; 0
+Miss Faustino Wilkinson ; 31 ; Defesa ; 21 ; 97 ; 88 ; 18 ; 8 ; 0
+Miss Nash Torp ; 27 ; Defesa ; 34 ; 68 ; 50 ; 46 ; 5 ; 0
+Eriberto Homenick ; 39 ; Avançado ; 60 ; 47 ; 37 ; 32 ; 0 ; 0
+Josephine Walker ; 33 ; Defesa ; 46 ; 70 ; 86 ; 29 ; 4 ; 0
+Greta Stokes ; 38 ; Defesa ; 31 ; 54 ; 28 ; 22 ; 8 ; 0
+Freeman Little ; 28 ; Avançado ; 77 ; 39 ; 63 ; 25 ; 3 ; 0
+Vilma Schuster DVM ; 33 ; Avançado ; 86 ; 43 ; 39 ; 15 ; 0 ; 0
+Madge Thompson ; 27 ; Avançado ; 80 ; 39 ; 26 ; 38 ; 8 ; 0
+Noemi Haag ; 28 ; Medio ; 64 ; 85 ; 73 ; 6 ; 3 ; 0
+Mrs. Triston Brown ; 27 ; Medio ; 68 ; 76 ; 47 ; 42 ; 4 ; 0
+Lavern Williamson ; 32 ; Avançado ; 61 ; 37 ; 44 ; 0 ; 1 ; 0
+Cleta Auer ; 33 ; Avançado ; 51 ; 21 ; 87 ; 38 ; 4 ; 0
+Blaise Koch ; 26 ; Medio ; 74 ; 99 ; 88 ; 16 ; 4 ; 0
+Maynard Schuppe PhD ; 30 ; Medio ; 62 ; 91 ; 98 ; 16 ; 1 ; 0
+Zena Collier ; 38 ; Avançado ; 79 ; 37 ; 49 ; 13 ; 4 ; 0
+Cara West II ; 36 ; Medio ; 62 ; 83 ; 1 ; 21 ; 5 ; 0
+Jennings Lakin ; 35 ; Avançado ; 97 ; 41 ; 2 ; 16 ; 3 ; 0
+Dr. Tyra Gusikowski ; 30 ; Medio ; 69 ; 51 ; 57 ; 4 ; 2 ; 0
+Angeline Ledner ; 35 ; Medio ; 70 ; 65 ; 52 ; 43 ; 7 ; 0
+Francisca Cruickshank MD ; 27 ; Medio ; 72 ; 59 ; 66 ; 4 ; 4 ; 0
+Adriel Prohaska ; 37 ; Medio ; 63 ; 71 ; 21 ; 26 ; 2 ; 0
+Verla Cassin ; 26 ; Medio ; 81 ; 62 ; 82 ; 13 ; 0 ; 0
+Althea McDermott ; 37 ; Defesa ; 24 ; 71 ; 40 ; 15 ; 7 ; 0
+Antonio Hilll ; 28 ; Medio ; 84 ; 69 ; 97 ; 40 ; 0 ; 0
+Tyree Sipes Sr. ; 35 ; Defesa ; 21 ; 68 ; 12 ; 27 ; 8 ; 0
+Myra Swift ; 39 ; Defesa ; 36 ; 99 ; 20 ; 9 ; 6 ; 0
+Brandy Bernier ; 38 ; Avançado ; 58 ; 25 ; 83 ; 45 ; 8 ; 0
+Grover Ziemann ; 25 ; Medio ; 65 ; 69 ; 57 ; 33 ; 3 ; 0
+Rodrigo Beahan ; 37 ; Avançado ; 96 ; 32 ; 38 ; 46 ; 6 ; 0
+Maegan Armstrong ; 28 ; Defesa ; 45 ; 70 ; 15 ; 14 ; 6 ; 0
+Maritza Larkin ; 31 ; Avançado ; 82 ; 40 ; 90 ; 29 ; 4 ; 0
+Brando Goyette ; 37 ; Avançado ; 80 ; 30 ; 50 ; 49 ; 2 ; 0
+Emery Koch ; 39 ; Avançado ; 81 ; 25 ; 48 ; 28 ; 5 ; 0
+Lyda Nitzsche ; 25 ; Defesa ; 40 ; 86 ; 67 ; 26 ; 8 ; 0
+Dr. Hulda Frami ; 33 ; Defesa ; 48 ; 89 ; 3 ; 4 ; 6 ; 0
+Daphney Trantow PhD ; 31 ; Defesa ; 36 ; 73 ; 10 ; 46 ; 4 ; 0
+Paul Schmeler ; 30 ; Medio ; 76 ; 95 ; 44 ; 45 ; 8 ; 0
+Miss Blaise Quitzon ; 30 ; Avançado ; 70 ; 21 ; 88 ; 23 ; 1 ; 0
+Mrs. Lois Davis ; 31 ; Avançado ; 83 ; 21 ; 78 ; 39 ; 8 ; 0
+Lonny Spencer DVM ; 30 ; Defesa ; 47 ; 51 ; 12 ; 8 ; 4 ; 0
+Lura Mueller Jr. ; 39 ; Medio ; 50 ; 91 ; 35 ; 4 ; 4 ; 0
+Vallie Muller ; 35 ; Medio ; 87 ; 69 ; 14 ; 21 ; 4 ; 0
+Danika Harris ; 28 ; Medio ; 58 ; 83 ; 4 ; 34 ; 5 ; 0
+Eino Yundt ; 25 ; Avançado ; 89 ; 27 ; 11 ; 2 ; 6 ; 0
+Garrett Prosacco ; 29 ; Defesa ; 45 ; 98 ; 5 ; 13 ; 8 ; 0

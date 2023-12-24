@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class Equipas implements Ficheiros {
     private final String nome, Liga;
-    private final Treinador trainer;
+    private Treinador trainer;
     private int vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho = 50;
 
     private String cidade;
@@ -46,10 +46,9 @@ public class Equipas implements Ficheiros {
         this.golosMarcados = golosMarcados;
         this.desempenho = desempenho;
         this.cidade = cidade;
-        this.equipaPlayers.addAll(players);
         equipaList.add(this);
+        this.equipaPlayers.addAll(players);
     }
-
     //Funções dos ArrayLists
     public static void addToEquipa(int Equipa, Jogadores jogador) {
         equipaList.get(Equipa).equipaPlayers.add(jogador);
@@ -92,6 +91,13 @@ public class Equipas implements Ficheiros {
         return null;
     }
 
+    public int getInt(){
+        for(int i = 0; i < equipaList.size(); i++){
+            if (this == equipaList.get(i))
+                return i;
+        }
+        return 0;
+    }
     public ArrayList<Jogadores> getEquipaPlayers(){
         return equipaPlayers;
     }
@@ -103,9 +109,9 @@ public class Equipas implements Ficheiros {
         return equipaList.get(equipa).equipaPlayers.get(player);
     }
     public void setCidade(String cidade){this.cidade = cidade;}
-    public static String getCidade(int Equipa){return equipaList.get(Equipa).cidade;}
-    public static String getEquipaName(int Equipa) {
-        return equipaList.get(Equipa).nome;
+    public static String  getCidade(int Equipa){return equipaList.get(Equipa).cidade;}
+    public static String getEquipaName(int Equipa ) {
+        return equipaList.get(Equipa).getName();
     }
 
     public static int getEquipaSize(int Equipa) {
@@ -227,7 +233,7 @@ public class Equipas implements Ficheiros {
         }
     }
 
-    public static void inserirEquipa() {
+    public void inserirEquipa() {
             System.out.println("Insira o nome da equipa: ");
             String nome = scan.nextLine();
 //            nome = VerifyEquipa(nome);
@@ -243,7 +249,7 @@ public class Equipas implements Ficheiros {
             scan.nextLine();
             Treinador trainer;
             if(choiceT == 's')
-                trainer = Treinador.inserirTreinador();
+                trainer = this.trainer.inserirTreinador();
             else
                 trainer = Treinador.autoTraining(Equipas.equipaList.size());
             System.out.println("Que cidade pertence a equipa?");
@@ -292,8 +298,8 @@ public class Equipas implements Ficheiros {
         out.println(equipaList.size());
         for (int i = 0; i < equipaList.size(); i++){
             Equipas a = equipaList.get(i);
-            out.println(a.nome + " | " + a.Liga + " | " + a.trainer.getNome() + " | " + a.vitorias + " | " + a.derrotas + " | " + a.empates + " | " + a.pontos + " | " + a.golosSofridos + " | " + a.golosMarcados
-                    + " | " + a.desempenho + " | " + a.cidade + " | " + a.equipaPlayers.size());
+            out.println(a.nome + " ; " + a.Liga + " ; " + a.trainer.getNome() + " ; " + a.vitorias + " ; " + a.derrotas + " ; " + a.empates + " ; " + a.pontos + " ; " + a.golosSofridos + " ; " + a.golosMarcados
+                    + " ; " + a.desempenho + " ; " + a.cidade + " ; " + a.equipaPlayers.size());
             for (Jogadores equipaPlayer : a.equipaPlayers) {
                 out.println(equipaPlayer.getNome());
             }
@@ -305,26 +311,24 @@ public class Equipas implements Ficheiros {
         BufferedReader br = new BufferedReader(fr);
         int size = Integer.parseInt(br.readLine());
         for (int i = 0; i < size; i++) {
-            String[] equipa = br.readLine().split(" | ");
-            for (int j = 0; j < equipa.length; j++) {
-                String nome = equipa[0];
-                String Liga = equipa[1];
-                Treinador trainer = Treinador.getTrainer(equipa[2]);
-                int vitorias = Integer.parseInt(equipa[3]);
-                int derrotas = Integer.parseInt(equipa[4]);
-                int empates = Integer.parseInt(equipa[5]);
-                int pontos = Integer.parseInt(equipa[6]);
-                int golosSofridos = Integer.parseInt(equipa[7]);
-                int golosMarcados = Integer.parseInt(equipa[8]);
-                int desempenho = Integer.parseInt(equipa[9]);
-                String cidade = equipa[10];
-                int nPlayers = Integer.parseInt(equipa[11]);
-                ArrayList<Jogadores> players = new ArrayList<Jogadores>(nPlayers);
-                for (int k = 0; k < nPlayers; k++){
-                    players.add(Jogadores.getPlayer(br.readLine()));
-                }
-                new Equipas(nome, Liga, trainer, vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho, cidade, players);
+            String[] equipa = br.readLine().split(" ; ");
+            String nome = equipa[0];
+            String Liga = equipa[1];
+            Treinador trainer = Treinador.getTrainer(equipa[2]);
+            int vitorias = Integer.parseInt(equipa[3]);
+            int derrotas = Integer.parseInt(equipa[4]);
+            int empates = Integer.parseInt(equipa[5]);
+            int pontos = Integer.parseInt(equipa[6]);
+            int golosSofridos = Integer.parseInt(equipa[7]);
+            int golosMarcados = Integer.parseInt(equipa[8]);
+            int desempenho = Integer.parseInt(equipa[9]);
+            String cidade = equipa[10];
+            int nPlayers = Integer.parseInt(equipa[11]);
+            ArrayList<Jogadores> players = new ArrayList<Jogadores>(nPlayers);
+            for (int k = 0; k < nPlayers; k++) {
+                players.add(Jogadores.getPlayer(br.readLine()));
             }
+            new Equipas(nome, Liga, trainer, vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho, cidade, players);
         }
     }
 
@@ -332,4 +336,5 @@ public class Equipas implements Ficheiros {
     public String toString() {
         return nome + " - " + vitorias + " Vitorias, " + empates + " Empates, " + derrotas + " Derrotas," + golosMarcados+" Golos Marcados," + golosSofridos + " Golos Sofridos," + desempenho + " Desempenho Médio," + pontos + " Pontos." + "\n";
     }
+
 }

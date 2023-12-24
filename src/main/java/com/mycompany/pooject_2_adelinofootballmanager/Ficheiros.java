@@ -5,11 +5,10 @@
 package com.mycompany.pooject_2_adelinofootballmanager;
 
 import java.io.IOException;
-
+import java.util.List;
 /**
  *
  * @author leand
  */
 public interface Ficheiros{
-
 }

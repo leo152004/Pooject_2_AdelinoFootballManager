@@ -12,7 +12,7 @@ import java.util.Scanner;
  *
  * @author hontman
  */
-public class Treinador extends Pessoa implements Ficheiros{
+public class Treinador extends Pessoa{
 
     public static ArrayList<Treinador> treinadores = new ArrayList<Treinador>(9);
 
@@ -59,7 +59,7 @@ public class Treinador extends Pessoa implements Ficheiros{
         return trainer;
     }
 
-    private static int escolheEquipa() {
+    private int escolheEquipa() {
             System.out.println("Selecione a equipa do novo Treinador:");
             for(int i = 0; i < Equipas.numberEquipas(); i++) {
                 System.out.println(i+1 + ". " + Equipas.getEquipaName(i));
@@ -70,7 +70,7 @@ public class Treinador extends Pessoa implements Ficheiros{
             return EquipaID-1;
     }
 
-    public static Treinador inserirTreinador() {
+    public Treinador inserirTreinador() {
         System.out.println("Insira o nome do treinador: ");
         String name = scan.nextLine();
         System.out.println("Insira a idade do treinador: ");
@@ -125,16 +125,17 @@ public class Treinador extends Pessoa implements Ficheiros{
         FileWriter fw = new FileWriter("treinadores.txt");
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw);
-        for (int i = 0; i < 3; i++){
-            out.println(treinadores.get(i).getNome() + " | " + treinadores.get(i).getIdade() + " | " + treinadores.get(i).especializacao + " | " + treinadores.get(i).taticasFavo + " | " + treinadores.get(i).equipa);
+        for (int i = 0; i < treinadores.size(); i++){
+            out.println(treinadores.get(i).getNome() + " ; " + treinadores.get(i).getIdade() + " ; " + treinadores.get(i).especializacao + " ; " + treinadores.get(i).taticasFavo + " ; " + treinadores.get(i).equipa);
         }
+        out.close();
     }
 
     public static void reader() throws IOException{
         FileReader fr = new FileReader("treinadores.txt");
         BufferedReader br = new BufferedReader(fr);
         for (int i = 0; i < 3; i++) {
-            String[] jogador = br.readLine().split(" | ");
+            String[] jogador = br.readLine().split(" ; ");
             String nome = jogador[0];
             int idade = Integer.parseInt(jogador[1]);
             String especializacao = jogador[2];

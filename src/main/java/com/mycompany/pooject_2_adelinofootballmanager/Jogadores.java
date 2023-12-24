@@ -15,8 +15,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 
-public class Jogadores extends Pessoa implements Ficheiros{
-    public static final ArrayList<Jogadores> jogadores = new ArrayList<>(99);
+public class Jogadores extends Pessoa{
+    public static final ArrayList<Jogadores> jogadores = new ArrayList<>(89);
+
     private final String posicao;
     private ArrayList<String> lesoes = new ArrayList<>();
     private final int statAt, statDef, angerLevel, titulos, nEquipa;
@@ -58,7 +59,6 @@ public class Jogadores extends Pessoa implements Ficheiros{
         this.titulos = titulos;
         this.lesoes.addAll(lesoes);
         jogadores.add(this);
-        Equipas.addToEquipa(nEquipa - 1, this);
     }
 
     private static String givenChoiceP() {
@@ -212,9 +212,9 @@ public class Jogadores extends Pessoa implements Ficheiros{
             case 4 -> "Guarda-Redes";
             default -> "Avançado";
         };
-        int tem = random.nextInt(Equipas.numberEquipas() - 1);
+        int tem = random.nextInt(Equipas.numberEquipas());
         while (Equipas.getMinEquipaSize() < 9){
-            tem = random.nextInt(Equipas.numberEquipas() - 1);
+            tem = random.nextInt(Equipas.numberEquipas());
             if (Equipas.getEquipaSize(tem) < 9){
                 break;
             }
@@ -303,11 +303,12 @@ public class Jogadores extends Pessoa implements Ficheiros{
         out.println(jogadores.size());
         for (int i = 0; i < jogadores.size(); i++){
             Jogadores a = jogadores.get(i);
-            out.println(a.getNome() + " | " + a.getIdade() + " | " + a.posicao + " | " + a.statDef + " | " + a.angerLevel + " | " + a.titulos + " | " + a.nEquipa + " | " + a.lesoes.size());
+            out.println(a.getNome() + " ; " + a.getIdade() + " ; " + a.posicao + " ; " + a.statAt + " ; " + a.statDef + " ; " + a.angerLevel + " ; " + a.titulos + " ; " + a.nEquipa + " ; " + a.lesoes.size());
             for(int j = 0; j < a.lesoes.size(); j++){
                 out.println(a.lesoes.get(j));
             }
         }
+        out.close();
     }
 
     public static void reader() throws IOException{
@@ -315,7 +316,7 @@ public class Jogadores extends Pessoa implements Ficheiros{
         BufferedReader br = new BufferedReader(fr);
         int size = Integer.parseInt(br.readLine());
         for (int i = 0; i < size; i++) {
-            String[] jogador = br.readLine().split(" | ");
+            String[] jogador = br.readLine().split(" ; ");
             String nome = jogador[0];
             int Idade = Integer.parseInt(jogador[1]);
             String posicao = jogador[2];
@@ -366,6 +367,10 @@ public class Jogadores extends Pessoa implements Ficheiros{
 
     public int getEquipa(){
         return nEquipa;
+    }
+
+    public String getPos(){
+        return posicao;
     }
 
     @Override

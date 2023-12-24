@@ -16,7 +16,6 @@ public class Pooject_2_AdelinoFootballManager {
         new Ligas("Portuguesa");
         new Ligas("Alema");
         new Ligas("Espanhola");
-
         for(int i = 0; i <= 81; i++)
             Jogadores.autoPlayer();
         for (int i = 0; i <= 5; i++)
@@ -32,6 +31,8 @@ public class Pooject_2_AdelinoFootballManager {
         boolean BLeague = league.exists() && !league.isDirectory();
         File trainer = new File("treinadores.txt");
         boolean BTrainer = trainer.exists() && !trainer.isDirectory();
+        File arbitos = new File("arbitros.txt");
+        boolean BArbitos = arbitos.exists() && !arbitos.isDirectory();
         if(!(BPlay && BTeam && BLeague && BTrainer)){
             starter();
         } else {
@@ -39,6 +40,7 @@ public class Pooject_2_AdelinoFootballManager {
             Ligas.reader();
             Treinador.reader();
             Equipas.reader();
+            Arbitros.reader();
         }
     }
 

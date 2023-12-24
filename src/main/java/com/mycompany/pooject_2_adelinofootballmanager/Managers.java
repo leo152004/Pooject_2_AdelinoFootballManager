@@ -12,8 +12,9 @@ import java.util.Scanner;
 
 public class Managers {
     private static final Scanner scanner = new Scanner(System.in);
-
-    public static void theManager(String managerChosen) {
+    private Jogadores jogador;
+    private Equipas equipas;
+    public void theManager(String managerChosen) {
         boolean repeat = true;
 
         while (repeat) {
@@ -42,7 +43,7 @@ public class Managers {
                             Jogadores.Data(player);
                             break;
                         case 3:
-                            Jogadores.inserirJogador();
+                            jogador.inserirJogador();
                             break;
                         case 4:
                             break;
@@ -100,15 +101,15 @@ public class Managers {
                     scanner.nextLine();
 
                     if(choice3 > 0 && choice3 <= Equipas.numberEquipas()) {
-                        Equipas.imprime(Equipas.getEquipaName(choice3-1));
+                        equipas.imprime(equipas.getEquipaName(choice3-1));
                     }
-                    else if (choice3 == Equipas.numberEquipas()+1){
-                        Equipas.inserirEquipa();
+                    else if (choice3 == equipas.numberEquipas()+1){
+                        equipas.inserirEquipa();
                     }
-                    else if (choice3 == Equipas.numberEquipas()+2){
-                        Equipas.mudarLiga();
+                    else if (choice3 == equipas.numberEquipas()+2){
+                        equipas.mudarLiga();
                     }
-                    else if (choice3 == Equipas.numberEquipas()+3){
+                    else if (choice3 == equipas.numberEquipas()+3){
                         break;
                     }
                     else {

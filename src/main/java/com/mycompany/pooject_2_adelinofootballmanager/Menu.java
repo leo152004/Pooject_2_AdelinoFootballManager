@@ -13,6 +13,7 @@ import com.github.javafaker.Faker;
 import java.util.Scanner;
 
 public class Menu {
+    private Managers managers;
     public void theMenu() {
         int option, exit = 1;
         Scanner scan = new Scanner(System.in);
@@ -38,28 +39,29 @@ public class Menu {
 
                 switch (option) {
                     case 1:
-                        Managers.theManager("jogadores");
+                        managers.theManager("jogadores");
                         break;
                     case 2:
-                        Managers.theManager("ligas");
+                        managers.theManager("ligas");
                         break;
                     case 3:
-                        Managers.theManager("equipas");
+                        managers.theManager("equipas");
                         break;
                     case 4:
-                        Managers.theManager("treinadores");
+                        managers.theManager("treinadores");
                         break;
                     case 5:
-                        Managers.theManager("arbitros");
+                        managers.theManager("arbitros");
                         break;
                     case 6:
-                        Managers.theManager("criarPartida");
+                        managers.theManager("criarPartida");
                         break;
                     case 7:
                         Jogadores.writer();
                         Ligas.writer();
                         Treinador.writer();
                         Equipas.writer();
+                        Arbitros.writer();
                         System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                                 "⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⡀⢸⣿⣷⣶⣤⣄⣀⡀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀\n" +
                                 "⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠀⠛⠀⠀⠀⠀⠀⠀⠀\n" +
@@ -77,10 +79,10 @@ public class Menu {
                                 "⠀⠀⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠀⠀");
                         exit = 0;
                        break;
-                       case 8: //easteregg
-                           Faker faker = new Faker();
-                           System.out.println(faker.chuckNorris().fact());
-                           break;
+                   case 8: //easteregg
+                       Faker faker = new Faker();
+                       System.out.println(faker.chuckNorris().fact());
+                       break;
                     default:
                         System.out.println("Opção inválida!");
                 }

@@ -1,0 +1,9 @@
+Kiera McLaughlin ; 35 ; Cursos de Futebol ; 3-5-2 ; 0
+Gail Walsh II ; 29 ; Licença B: Federação Portuguesa de Futebol (FPF) ; 4-3-2-1 ; 1
+Dayana Williamson ; 27 ; Mestrado em Treino Desportivo: Especialização em Futebol ; 4-5-1 ; 2
+Vivian Shields ; 38 ; Licença A: Federação Portuguesa de Futebol (FPF) ; 4-3-2-1 ; 3
+Titus Schmidt ; 25 ; Cursos de Futebol ; 4-3-3 ; 4
+Dannie Goyette ; 30 ; Mestrado em Treino Desportivo: Especialização em Futebol ; 4-5-1 ; 5
+Deontae Adams ; 27 ; Licença B: Federação Portuguesa de Futebol (FPF) ; 4-3-3 ; 6
+Elfrieda O'Conner ; 32 ; Mestrado em Treino Desportivo: Especialização em Futebol ; 4-2-3-1 ; 7
+Katlynn Zemlak ; 29 ; Mestrado em Treino Desportivo: Especialização em Futebol ; 4-2-3-1 ; 8

@@ -1,5 +1,6 @@
 package com.mycompany.pooject_2_adelinofootballmanager;
 
+import javax.swing.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -8,7 +9,8 @@ import java.util.stream.Collectors;
  * @author hontman
  */
 public class Partida {
-
+    private Equipas equipas;
+    private Arbitros arbitros;
     private static Map<Jogadores, String> jogadoresComCartao = new HashMap<>();
     private String data, local;
     private static final Scanner scan = new Scanner(System.in);
@@ -60,7 +62,7 @@ public class Partida {
                         else break;
                     }
 
-                    startPartida(arbitro, coin, ChoosenEquipa, ChoosenEquipa2);
+                    startPartida(arbitro, coin, Equipas.getFullEquipa(ChoosenEquipa), Equipas.getFullEquipa(ChoosenEquipa2));
                     break;
 
                 case 2:
@@ -79,7 +81,7 @@ public class Partida {
 
                     int ChoosenEquipa4 = scan.nextInt() +2 ;
 
-                    startPartida(arbitro, coin, ChoosenEquipa3, ChoosenEquipa4);
+                    startPartida(arbitro, coin, Equipas.getFullEquipa(ChoosenEquipa3), Equipas.getFullEquipa(ChoosenEquipa4));
                     break;
                 case 3:
                     System.out.println("Escolha a equipa:");
@@ -98,7 +100,7 @@ public class Partida {
                     int ChoosenEquipa6 = scan.nextInt() +5 ;
 
 
-                    startPartida(arbitro, coin, ChoosenEquipa5, ChoosenEquipa6);
+                    startPartida(arbitro, coin, Equipas.getFullEquipa(ChoosenEquipa5), Equipas.getFullEquipa(ChoosenEquipa6));
                     break;
                 default:
                     System.out.println("Opção Inválida");
@@ -178,60 +180,87 @@ public class Partida {
         data += "Data: " + dia + "/" + mes + "/" + ano+ ".\n";
         return data;
     }
-    private static void startPartida(String arbitro, boolean coin, int Equipa1, int Equipa2) {
+
+    private static int NAtaque(Equipas equipa){
+        int size = equipa.getEquipaPlayers().size();
+        int count = 0;
+        for (int i = 0; i < size; i++){
+            if(equipa.getEquipaPlayers().get(i).getPos().equals("Avançado"))
+                count++;
+        }
+        return size-count;
+    }
+
+    private static void startPartida(String arbitro, boolean coin, Equipas Equipa1, Equipas Equipa2) {
         jogadoresComCartao.clear();
         // Simulate the match
-        String EquipaVencedora1 = Equipas.getEquipaName(Equipa1);
-        String EquipaVencedora2 = Equipas.getEquipaName(Equipa2);
+        String EquipaVencedora1 = Equipa1.getName();
+        String EquipaVencedora2 = Equipa1.getName();
         String vencedor;
-        chanceCard(Equipa1);
-        chanceCard(Equipa2);
+        chanceCard(Equipa1.getInt());
+        chanceCard(Equipa2.getInt());
 
-        int chanceWin1 = 100 - findCards(Equipa1) + Equipas.getFullEquipa(Equipa1).getEquipaPlayers().size()-Equipas.getFullEquipa(Equipa1).pain();
-        int chanceWin2 = 100 - findCards(Equipa2) + Equipas.getFullEquipa(Equipa2).getEquipaPlayers().size()-Equipas.getFullEquipa(Equipa1).pain();
+        int actualPlayers1 = (Equipa1.getEquipaPlayers().size()-Equipa1.pain())*2 - NAtaque(Equipa1);
+        int actualPlayers2 = (Equipa2.getEquipaPlayers().size()-Equipa1.pain())*2 - NAtaque(Equipa2);
+
+        int chanceWin1 = 100 - findCards(Equipa1.getInt()) + actualPlayers1;
+        int chanceWin2 = 100 - findCards(Equipa2.getInt()) + actualPlayers2;
+
         if (coin)
             chanceWin1 += 5;
         else
             chanceWin2 += 5;
 
+        if(Arbitros.getArbitro(arbitro).getExperiencia() > 50) {
+            if (chanceWin1 > chanceWin2)
+                chanceWin1 += 10;
+            else
+                chanceWin2 += 10;
+        } else {
+            if (chanceWin1 > chanceWin2)
+                chanceWin1 -= 10;
+            else
+                chanceWin2 -= 10;
+        }
+
         int golos1 = Math.round((float) random.nextInt(chanceWin1)/10);
         int golos2 = Math.round((float) random.nextInt(chanceWin2)/10);
         if (golos1 > golos2) {
             vencedor = EquipaVencedora1;
-            Equipas.getFullEquipa(Equipa1).setVitorias();
-            Equipas.getFullEquipa(Equipa2).setDerrotas();
-            Equipas.getFullEquipa(Equipa1).setDesempenho((5));
-            Equipas.getFullEquipa(Equipa2).setDesempenho((-5));
+            Equipa1.setVitorias();
+            Equipa2.setDerrotas();
+            Equipa1.setDesempenho((5));
+            Equipa2.setDesempenho((-5));
 
 
         } else if (golos2 > golos1) {
             vencedor = EquipaVencedora2;
-            Equipas.getFullEquipa(Equipa2).setVitorias();
-            Equipas.getFullEquipa(Equipa1).setDerrotas();
-            Equipas.getFullEquipa(Equipa1).setDesempenho((-5));
-            Equipas.getFullEquipa(Equipa2).setDesempenho((5));
+            Equipa2.setVitorias();
+            Equipa1.setDerrotas();
+            Equipa1.setDesempenho((-5));
+            Equipa2.setDesempenho((5));
         } else {
             vencedor = "Empate";
-            Equipas.getFullEquipa(Equipa1).setEmpates();
-            Equipas.getFullEquipa(Equipa2).setEmpates();
-            Equipas.getFullEquipa(Equipa1).setDesempenho((0));
-            Equipas.getFullEquipa(Equipa2).setDesempenho((0));
+            Equipa1.setEmpates();
+            Equipa2.setEmpates();
+            Equipa1.setDesempenho((0));
+            Equipa2.setDesempenho((0));
 
         }
 
         System.out.println("\n");
-        System.out.println(Equipas.getEquipaName(Equipa1) + " vs " + Equipas.getEquipaName(Equipa2));
+        System.out.println(Equipa1.getName() + " vs " + Equipa2.getName());
         System.out.println("Árbitro: " + arbitro);
-        System.out.println("Local: " + Equipas.getCidade(Equipa1));
+        System.out.println("Local: " + Equipa1.getCidade());
         System.out.println(defineData());
         System.out.println("Resultado da partida:");
         System.out.println(EquipaVencedora1 + ": " + golos1 + " golos");
         System.out.println(EquipaVencedora2 + ": "+ golos2 + " golos");
         System.out.println("Vencedor: " + vencedor + "\n");
-        Equipas.getFullEquipa(Equipa1).setGolosMarcados(golos1);
-        Equipas.getFullEquipa(Equipa2).setGolosMarcados(golos2);
-        Equipas.getFullEquipa(Equipa1).setGolosSofridos(golos2);
-        Equipas.getFullEquipa(Equipa2).setGolosSofridos(golos1);
+        Equipa1.setGolosMarcados(golos1);
+        Equipa2.setGolosMarcados(golos2);
+        Equipa1.setGolosSofridos(golos2);
+        Equipa2.setGolosSofridos(golos1);
     }
 
 }
