@@ -8,7 +8,9 @@ import java.io.*;
 import java.io.IOException;
 import java.util.*;
 
-import static com.mycompany.pooject_2_adelinofootballmanager.Jogadores.scan;
+import static com.mycompany.pooject_2_adelinofootballmanager.EquipaPT.getLigaPT;
+import static com.mycompany.pooject_2_adelinofootballmanager.EquipaES.getLigaES;
+import static com.mycompany.pooject_2_adelinofootballmanager.EquipaAL.getLigaAL;
 
 /**
  *
@@ -16,23 +18,19 @@ import static com.mycompany.pooject_2_adelinofootballmanager.Jogadores.scan;
  */
 public abstract class Equipas {
     //Array das equipas
-    static ArrayList<Liga> equipaList = new ArrayList<Liga>(9);
+    static ArrayList<EquipaInterface> equipaList = new ArrayList<EquipaInterface>(9);
+
+    static Scanner scan = new Scanner(System.in);
 
     //Metodos abstratos
-    public abstract void addEquipa();
-    public abstract  void addToEquipa(Jogadores jogador);
-    public abstract int pain();
-
     public abstract int getInt();
-
-    public abstract ArrayList<Jogadores> getEquipaPlayers();
-
-    public abstract Jogadores getPlayer(int player);
     //Metodos da classe
+
+    //Metodo que retorna o número de equipas
     public static int numberEquipas(){
         return equipaList.size();
     }
-
+    //Getter's e Setter's
     public static int getMinEquipaSize(){
         int min = 0;
         for (int i = 0; i < numberEquipas(); i++)
@@ -41,19 +39,19 @@ public abstract class Equipas {
         return min;
     }
 
-    public static Liga getFullEquipa(int Equipa) {
+    public static EquipaInterface getFullEquipa(int Equipa) {
         return equipaList.get(Equipa);
     }
 
-    public static Liga getFullEquipa(String Equipa) {
-        for (Liga equipa : equipaList) {
+    public static EquipaInterface getFullEquipa(String Equipa) {
+        for (EquipaInterface equipa : equipaList) {
             if (equipa.getNome().equals(Equipa)) {
                 return equipa;
             }
         }
         return null;
     }
-
+    //Método que ajuda o utilizador a trocar uma equipa de liga
     public static void mudarLiga(){
         while(true){
             System.out.println("Que equipa gostaria de mudar de liga?\n");
@@ -62,15 +60,17 @@ public abstract class Equipas {
             }
             int choice = scan.nextInt();
             scan.nextLine();
-            if(choice > 0 && choice < numberEquipas())
-                getFullEquipa(choice).mudarLigaMini();
+            if(choice > 0 && choice < numberEquipas()) {
+                getFullEquipa(choice-1).mudarLigaMini();
+                break;
+            }
             else
                 System.out.println("Escolha uma opção valida");
         }
     }
-
+    //Método que imprime as estatisticas de uma determinada equipa
     public static void imprime(String equipa) {
-        Liga a = getFullEquipa(equipa);
+        EquipaInterface a = getFullEquipa(equipa);
         if (a != null) {
             System.out.println(a.imprime());
         }
@@ -79,9 +79,9 @@ public abstract class Equipas {
         }
     }
 
-    //M´
+    //Método para inserir uma equipa em uma das 3 ligas disponiveis
 
-    public void inserirEquipa() {
+    public static void inserirEquipa() {
         System.out.println("Insira o nome da equipa: ");
         String nome = scan.nextLine();
         System.out.println("Gostaria de inserir o Treinador manualmente?(s/n)");
@@ -94,7 +94,7 @@ public abstract class Equipas {
             trainer = Treinador.autoTraining(Equipas.equipaList.size());
         System.out.println("Que cidade pertence a equipa?");
         String cidade = scan.nextLine();
-        System.out.println("Insira a Liga a que pertence: ");
+        System.out.println("Insira a liga a que pertence: ");
         System.out.println("1. Portuguesa");
         System.out.println("2. Espanhola");
         System.out.println("3. Alemã");
@@ -112,12 +112,12 @@ public abstract class Equipas {
                 new EquipaAL(nome, trainer, cidade);
                 break;
             default:
-                System.out.println("Selecione uma Liga valida por favor.");
+                System.out.println("Selecione uma liga valida por favor.");
                 break;
         }
         addPlayers();
     }
-
+    //Método que pergunta ao utilizada se que inserir os jogadores manualmente ou não
     private static void addPlayers() {
         System.out.println("Gostaria de inserir jogadores manualmente?");
         System.out.println("1. Sim, inserir os 11 jogadores manualmente");
@@ -138,49 +138,86 @@ public abstract class Equipas {
                     Jogadores.inserirJogador(equipaList.size());
                 }
                 for (int i = 0; i < 11 - playerMaking; i++) {
-                    Jogadores.autoPlayer(equipaList.size());
+                    Jogadores.autoPlayer(equipaList.size()-1);
                 }
                 break;
             case 3:
                 for (int i = 0; i < 11; i++) {
-                    Jogadores.autoPlayer(equipaList.size());
+                    Jogadores.autoPlayer(equipaList.size()-1);
                 }
                 break;
             default:
                 System.out.println("Opção inválida");
         }
     }
-
+    //Método que escreve num ficheiro .txt todas as equipas e Ligas do
     public static void writer() throws IOException {
         String classe;
-        for (Liga equipa : equipaList) {
-            classe = equipa.getLigaNome();
-            switch (classe) {
-                case "Portuguesa":
+        for(EquipaInterface equipa : equipaList){
+            if(equipa.getLigaNome().equals("Portuguesa")) {
+                ArrayList<EquipaInterface> pts = new ArrayList<EquipaInterface>(equipa.getEquipas());
+                for (EquipaInterface pt : pts) {
                     FileWriter PTFW = new FileWriter("equipasPT.txt");
                     BufferedWriter PTBW = new BufferedWriter(PTFW);
                     PrintWriter PT = new PrintWriter(PTBW);
-                    PT.println(equipa.printable());
+                    PT.println(pt.equipasLiga());
+                    PT.println(pt.printable());
                     PT.close();
-                    break;
-                case "Espanhola":
+                }
+            } else if (equipa.getLigaNome().equals("Espanhola")){
+                ArrayList<EquipaInterface> ess = new ArrayList<EquipaInterface>(equipa.getEquipas());
+                for (EquipaInterface es : ess) {
                     FileWriter ESFW = new FileWriter("equipasES.txt");
                     BufferedWriter ESBW = new BufferedWriter(ESFW);
                     PrintWriter ES = new PrintWriter(ESBW);
-                    ES.println(equipa.printable());
+                    ES.println(es.equipasLiga());
+                    ES.println(es.printable());
                     ES.close();
-                    break;
-                case "Alema":
+                }
+            } else if (equipa.getLigaNome().equals("Alema")){
+                ArrayList<EquipaInterface> als = new ArrayList<EquipaInterface>(equipa.getEquipas());
+                for (EquipaInterface al : als) {
                     FileWriter ALFW = new FileWriter("equipasAL.txt");
                     BufferedWriter ALBW = new BufferedWriter(ALFW);
                     PrintWriter AL = new PrintWriter(ALBW);
-                    AL.println(equipa.printable());
+                    AL.println(al.equipasLiga());
+                    AL.println(al.printable());
                     AL.close();
-                    break;
-                default:
-                    System.out.println("Equipa de Liga não reconhecida");
+                }
             }
-
         }
+
+//        for (EquipaInterface equipa : equipaList) {
+//            classe = equipa.getLigaNome();
+//            switch (classe) {
+//                case "Portuguesa":
+//                    FileWriter PTFW = new FileWriter("equipasPT.txt");
+//                    BufferedWriter PTBW = new BufferedWriter(PTFW);
+//                    PrintWriter PT = new PrintWriter(PTBW);
+//                    PT.println(equipa.equipasLiga());
+//                    PT.println(equipa.printable());
+//                    PT.close();
+//                    break;
+//                case "Espanhola":
+//                    FileWriter ESFW = new FileWriter("equipasES.txt");
+//                    BufferedWriter ESBW = new BufferedWriter(ESFW);
+//                    PrintWriter ES = new PrintWriter(ESBW);
+//                    ES.println(equipa.equipasLiga());
+//                    ES.println(equipa.printable());
+//                    ES.close();
+//                    break;
+//                case "Alema":
+//                    FileWriter ALFW = new FileWriter("equipasAL.txt");
+//                    BufferedWriter ALBW = new BufferedWriter(ALFW);
+//                    PrintWriter AL = new PrintWriter(ALBW);
+//                    AL.println(equipa.equipasLiga());
+//                    AL.println(equipa.printable());
+//                    AL.close();
+//                    break;
+//                default:
+//                    System.out.println("Equipa de Liga não reconhecida");
+//            }
+//
+//        }
     }
 }

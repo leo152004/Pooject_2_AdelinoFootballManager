@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,24 +17,31 @@ import java.util.Scanner;
  *
  * @author leand
  */
-public class EquipaES extends Equipas implements Liga{
-    //variaveis
+public class EquipaES extends Equipas implements EquipaInterface{
+    //variaveis String nome e cidade
     private final String nome, cidade;
+    //declaração de uma variável do tipo "Treinador" com o nome "trainer"
     private Treinador trainer;
+    //Variaveis inteiras das estatisticas de uma equipa
     private int vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho = 50;
-
-    private static final String Liga = "Portuguesa";
+    //Variavel para a Liga Espanhola
+    private static final String Liga = "Espanhola";
+    // Importação da classe Random para gerar numeros aleatorios
     private final Random rand = new Random();
+    // Importação da classe Scanner para permitir a interação com o utilizador
     private static final Scanner scan = new Scanner(System.in);
-
+    //Arrays de jogadores para cada equipa com capacidade para 11 jogadores
     private final ArrayList<Jogadores> equipaPlayers = new ArrayList<Jogadores>(11);
+    private static ArrayList<EquipaInterface> equipasES = new ArrayList<>(3);
+
 
     //construtores
     public EquipaES(String nome, Treinador treinador, String cidade) {
         this.nome = nome;
         this.trainer = treinador;
         this.cidade = cidade;
-        addEquipa();
+        equipaList.add(this);
+        equipasES.add(this);
     }
 
     public EquipaES(String nome, Treinador treinador, int vitorias, int derrotas, int empates, int pontos, int golosSofridos, int golosMarcados, int desempenho, String cidade, ArrayList<Jogadores> players) {
@@ -47,7 +55,8 @@ public class EquipaES extends Equipas implements Liga{
         this.golosMarcados = golosMarcados;
         this.desempenho = desempenho;
         this.cidade = cidade;
-        addEquipa();
+        equipaList.add(this);
+        equipasES.add(this);
         this.equipaPlayers.addAll(players);
     }
 
@@ -61,19 +70,15 @@ public class EquipaES extends Equipas implements Liga{
     public void setVitorias(){vitorias++; pontos += 3;}
     public void setDerrotas(){derrotas++;}
     public void setEmpate(){empates++; pontos++;}
-    public void setGolosSofridos(){golosSofridos++;}
-    public void setGolosMarcados(){golosMarcados++;}
     public Treinador getTrainer(){return trainer;}
     public int getSize(){return equipaPlayers.size();}
-    public String getLiga(){ return Liga;}
-    public int getVitorias(){return vitorias;}
-    public int getDerrotas(){return derrotas;}
-    public int getEmpates(){return empates;}
-    public int getPontos(){return pontos;}
-    public int getGolosS(){return golosSofridos;}
-    public int getGolosM(){return golosMarcados;}
-    public int getDesempenho(){return desempenho;}
-    public int playerSize(){return equipaPlayers.size();}
+    public void setDesempenho(int dif){desempenho += dif;}
+    public void setGolosMarcados(int golos){golosMarcados+=golos;}
+    public void setGolosSofridos(int golos){golosSofridos+=golos;}
+    public int equipasLiga(){return equipasES.size();}
+    public ArrayList<EquipaInterface> getEquipas(){return equipasES;}
+
+    public ArrayList<Jogadores> getAllEquipaPlayers(){return equipaPlayers;}
     public String getAllPlayersName(){
         String names = "";
         for (Jogadores Player : equipaPlayers) {
@@ -82,14 +87,12 @@ public class EquipaES extends Equipas implements Liga{
         return names;
     }
     //metodos da Equipas
-    public void addEquipa(){
-        equipaList.add(this);
-    }
 
+    //Método para adicionar jogadores à equipa
     public void addToEquipa(Jogadores jogador) {
         this.equipaPlayers.add(jogador);
     }
-
+    //Método para impor lesoes nos jogadores
     public int pain(){
         int nLesoes = 0;
         int chance = rand.nextInt(100);
@@ -100,7 +103,7 @@ public class EquipaES extends Equipas implements Liga{
             }
         return nLesoes;
     }
-
+   //Getter's e Setter's
     public int getInt(){
         for(int i = 0; i < equipaList.size(); i++){
             if (this == equipaList.get(i))
@@ -116,35 +119,49 @@ public class EquipaES extends Equipas implements Liga{
     public Jogadores getPlayer(int player){
         return equipaPlayers.get(player);
     }
+    //Método para mudar a equipa,à escolha do utilizador para uma das outras ligas
     public void mudarLigaMini() {
-        System.out.println("A equipa " + nome + " pertence á liga " + Liga + ", para qual pretende mudar?");
-        System.out.println("1. Portuguesa");
-        System.out.println("2. Alemã");
-        int choice = scan.nextInt();
-        scan.nextLine();
-        while (true) {
-            switch (choice) {
-                case 1:
-                    new EquipaPT(nome, trainer, vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho, cidade, equipaPlayers);
-                    equipaList.remove(this);
-                case 2:
-                    new EquipaAL(nome, trainer, vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho, cidade, equipaPlayers);
-                    equipaList.remove(this);
-                default:
-                    System.out.println("Por favor, escolha uma opção valida");
-                    break;
+        boolean repeat = true;
+        while (repeat) {
+            repeat = false;
+            System.out.println("A equipa " + nome + " pertence a liga " + Liga + ", para qual pretende mudar?");
+            System.out.println("1. Alemã");
+            System.out.println("2. Portuguesa");
+            try{
+                int choice = scan.nextInt();
+                scan.nextLine();
+                switch (choice) {
+                    case 1:
+                        new EquipaAL(nome, trainer, vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho, cidade, equipaPlayers);
+                        equipaList.remove(this);
+                        equipasES.remove(this);
+                        break;
+                    case 2:
+                        new EquipaPT(nome, trainer, vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho, cidade, equipaPlayers);
+                        equipaList.remove(this);
+                        equipasES.remove(this);
+                        break;
+                    default:
+                        System.out.println("Por favor, escolha uma opção valida");
+                        scan.nextLine();
+                        repeat = true;
+                        break;
+                }
+            }catch (InputMismatchException error){
+                System.out.println("Ocorreu um erro, por favor insira um número!");
+                scan.nextLine();
             }
         }
     }
-
+    //Método que imprime a tabela de pontos e estatisticas da liga Espanhola
     public String imprime(){
-        String text = nome + " (Liga " + Liga + "):\n" + vitorias + "vitorias, "  + derrotas + "derrotas, " + empates + "empates, " + golosMarcados + "golos marcados, "
-                + golosSofridos + "golos sofridos, " + desempenho + "desempenho medio, " + "treinador: " + trainer.getNome() + ",cidade " + cidade + ", \nJogadores:\n";
+        String text = nome + " (Liga " + Liga + "):\n" + vitorias + " vitorias, "  + derrotas + " derrotas, " + empates + " empates, " + golosMarcados + " golos marcados, "
+                + golosSofridos + " golos sofridos, " + desempenho + " desempenho medio, " + " treinador: " + trainer.getNome() + " ,cidade " + cidade + " , \nJogadores:\n";
         for(Jogadores players : equipaPlayers)
             text += players.getNome();
         return text;
     }
-
+    //Método que irá ler o ficheiro de texto das equipas espanholas criadas, previamente, no nosso programa
     public static void reader() throws IOException {
         FileReader fr = new FileReader("equipasES.txt");
         BufferedReader br = new BufferedReader(fr);
@@ -169,12 +186,16 @@ public class EquipaES extends Equipas implements Liga{
             new EquipaES(nome, trainer, vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho, cidade, players);
         }
     }
-    //Metodos de Liga
     public String getLigaNome(){return Liga;}
 
+    public static ArrayList<EquipaInterface> getLigaES(){
+        return equipasES;
+    }
+
+    //Método de impressão de uma equipa, num ficheiro .txt
     public String printable(){
         return nome + " ; " + trainer.getNome() + " ; " + vitorias + " ; " + derrotas + " ; " + empates + " ; " + pontos + " ; " + golosSofridos + " ; " + golosMarcados
-                + " ; " + desempenho + " ; " + cidade + " ; " + playerSize() + "\n" + getAllPlayersName();
+                + " ; " + desempenho + " ; " + cidade + " ; " + equipaPlayers.size() + "\n" + getAllPlayersName();
     }
     //Overrides
     @Override
@@ -183,7 +204,7 @@ public class EquipaES extends Equipas implements Liga{
         if (o == null ) return false;
         if (o.getClass() != getClass()) return false;
 
-        Liga o1 = (Liga) o;
+        EquipaInterface o1 = (EquipaInterface) o;
         return  o1.getNome().equals(getClass().getName());
     }
 

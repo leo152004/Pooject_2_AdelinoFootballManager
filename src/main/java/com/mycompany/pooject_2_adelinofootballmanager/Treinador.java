@@ -6,6 +6,7 @@ package com.mycompany.pooject_2_adelinofootballmanager;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -51,13 +52,13 @@ public class Treinador extends Pessoa{
     //Método toString
     @Override
     public String toString() {
-        return super.toString() + " | Especialização: " + especializacao + " | Táticas Favoritas: " + taticasFavo + " | Equipa: " + Equipas.getEquipaName(equipa);
+        return super.toString() + " | Especialização: " + especializacao + " | Táticas Favoritas: " + taticasFavo + " | Equipa: " + Equipas.getFullEquipa(equipa).getNome();
     }
     //Método que irá buscar o treinador e todos os seus stats, caso o utilizador escolha um existente
     public static Treinador getTrainer(String nome){
         Treinador trainer = null;
         for(int i = 0; i < treinadores.size(); i++){
-            if(treinadores.get(i).getNome() == nome){
+            if(nome.equals(treinadores.get(i).getNome())){
                 trainer = treinadores.get(i);
             }
         }
@@ -68,7 +69,7 @@ public class Treinador extends Pessoa{
     private static int escolheEquipa() {
             System.out.println("Selecione a equipa do novo Treinador:");
             for(int i = 0; i < Equipas.numberEquipas(); i++) {
-                System.out.println(i+1 + ". " + Equipas.getEquipaName(i));
+                System.out.println(i+1 + ". " + Equipas.getFullEquipa(i).getNome());
             }
 
             int EquipaID = scan.nextInt();
@@ -87,7 +88,8 @@ public class Treinador extends Pessoa{
         System.out.println("Insira a tatica favorita do treinador: ");
         String taticasFavo = scan.nextLine();
         System.out.println("Insira a equipa do treinador: ");
-        int equipa = escolheEquipa();
+        //int equipa = escolheEquipa();
+        int equipa = Equipas.equipaList.size();
         try {
             return new Treinador(name, age, especializacao, taticasFavo, equipa);
         }

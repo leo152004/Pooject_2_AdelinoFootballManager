@@ -37,7 +37,7 @@ public class Jogadores extends Pessoa{
         this.angerLevel = anger;
         this.titulos = titulos;
         jogadores.add(this);
-        Equipas.addToEquipa(nEquipa, this);
+        Equipas.getFullEquipa(nEquipa).addToEquipa(this);
     }
 
     public Jogadores(String nome, int idade, String posicao, int ataque, int defesa, int angerLevel, int titulos, int nEquipa) {
@@ -49,10 +49,10 @@ public class Jogadores extends Pessoa{
         this.angerLevel = angerLevel;
         this.titulos = titulos;
         jogadores.add(this);
-        Equipas.addToEquipa(nEquipa - 1, this);
+        Equipas.getFullEquipa(nEquipa-1).addToEquipa(this);
     }
 
-    public Jogadores(String nome, int idade, String posicao, int ataque, int defesa, int angerLevel, int titulos, int nEquipa, ArrayList<String> lesoes) {
+    public Jogadores(String nome, int idade, String posicao, int ataque, int defesa, int angerLevel, int titulos, int nEquipa, int i) {
         super(nome, idade);
         this.posicao = posicao;
         this.nEquipa = nEquipa;
@@ -60,6 +60,7 @@ public class Jogadores extends Pessoa{
         this.statDef = StatsSetter(defesa, "defesa");
         this.angerLevel = angerLevel;
         this.titulos = titulos;
+        this.lesoes = new ArrayList<String>();
         this.lesoes.addAll(lesoes);
         jogadores.add(this);
     }
@@ -88,7 +89,7 @@ public class Jogadores extends Pessoa{
     private static int givenChoiceT() {
             System.out.println("Selecione a equipa do jogador:");
             for(int i = 0; i < Equipas.numberEquipas(); i++) {
-                System.out.println(i+1 + ". " + Equipas.getEquipaName(i));
+                System.out.println(i+1 + ". " + Equipas.getFullEquipa(i).getNome());
             }
 
         return scan.nextInt() - 1;
@@ -165,7 +166,6 @@ public class Jogadores extends Pessoa{
         }
         scan.nextLine();
         String position = givenChoiceP();
-        int whatTeam = team;
         System.out.println("Digite o nivel de agrissividade do jogador (número):");
         try {
             anger = scan.nextInt();
@@ -200,7 +200,7 @@ public class Jogadores extends Pessoa{
             scan.nextLine();
         }
         try {
-            new Jogadores(name, age, position, ataque, defesa, anger, titulos, whatTeam);
+            new Jogadores(name, age, position, ataque, defesa, anger, titulos, team);
         }
         catch (Exception e) {
             System.out.println("Por favor, insira valores validos!");
@@ -219,7 +219,7 @@ public class Jogadores extends Pessoa{
         int tem = random.nextInt(Equipas.numberEquipas());
         while (Equipas.getMinEquipaSize() < 9){
             tem = random.nextInt(Equipas.numberEquipas());
-            if (Equipas.getEquipaSize(tem) < 9){
+            if (Equipas.getFullEquipa(tem).getSize() < 9){
                 break;
             }
         }
@@ -305,12 +305,11 @@ public class Jogadores extends Pessoa{
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw);
         out.println(jogadores.size());
-        for (int i = 0; i < jogadores.size(); i++){
-            Jogadores a = jogadores.get(i);
-            out.println(a.getNome() + " ; " + a.getIdade() + " ; " + a.posicao + " ; " + a.statAt + " ; " + a.statDef + " ; " + a.angerLevel + " ; " + a.titulos + " ; " + a.nEquipa + " ; " + a.lesoes.size());
-            for(int j = 0; j < a.lesoes.size(); j++){
-                out.println(a.lesoes.get(j));
-            }
+        for (Jogadores a : jogadores) {
+            out.println(a.getNome() + " ; " + a.getIdade() + " ; " + a.posicao + " ; " + a.statAt + " ; " + a.statDef + " ; " + a.angerLevel + " ; " + a.titulos + " ; " + a.nEquipa);// + " ; " + a.lesoes.size());
+//            for (int j = 0; j < a.lesoes.size(); j++) {
+//                out.println(a.lesoes.get(j));
+//            }
         }
         out.close();
     }
@@ -329,12 +328,12 @@ public class Jogadores extends Pessoa{
             int angerLevel = Integer.parseInt(jogador[5]);
             int titulos = Integer.parseInt(jogador[6]);
             int nEquipas = Integer.parseInt(jogador[7]);
-            int nlesoes = Integer.parseInt(jogador[8]);
-            ArrayList<String> lesoes = new ArrayList<String>(nlesoes);
-            for(int j = 0; j < nlesoes; j++){
-                lesoes.add(br.readLine());
-            }
-            new Jogadores(nome, Idade, posicao, statAt, statDef, angerLevel, titulos, nEquipas, lesoes);
+//            int nlesoes = Integer.parseInt(jogador[8]);
+//            ArrayList<String> lesoes = new ArrayList<String>(nlesoes);
+//            for(int j = 0; j < nlesoes; j++){
+//                lesoes.add(br.readLine());
+//            }
+            new Jogadores(nome, Idade, posicao, statAt, statDef, angerLevel, titulos, nEquipas, 1);
         }
     }
     //Método que irá provocar as lesões nos jogadores
@@ -356,10 +355,6 @@ public class Jogadores extends Pessoa{
         }
     }
     //Getters
-    public int getAnger(){
-        return angerLevel;
-    }
-
     public static Jogadores getPlayer(String name){
         for(int i = 0; i < jogadores.size(); i++){
             if (name.equals(jogadores.get(i).getNome())){
@@ -367,6 +362,10 @@ public class Jogadores extends Pessoa{
             }
         }
         return null;
+    }
+
+    public int getAnger(){
+        return angerLevel;
     }
 
     public int getEquipa(){
@@ -379,14 +378,7 @@ public class Jogadores extends Pessoa{
     // Método toString
     @Override
     public String toString() {
-        return super.toString() +"| Posição: " + posicao + " | Equipa: " + Equipas.getEquipaName(nEquipa) + " | Ataque: " + statAt + " | Defesa: " + statDef + " | Nivel de Agressividade: " + angerLevel + " | Titulos: " + titulos;
-    }
-    //Método toString
-    public String toString(boolean file){
-        String text = getNome() + " | " + getIdade() + " | " + posicao + " | " + statAt + " | " + statDef + " | " + angerLevel + " | " + titulos + " | " + nEquipa + " | ";
-        for (int i = 0; i < lesoes.size(); i++)
-            text += " | " + lesoes;
-        return text;
+        return super.toString() +"| Posição: " + posicao + " | Equipa: " + Equipas.getFullEquipa(nEquipa).getNome() + " | Ataque: " + statAt + " | Defesa: " + statDef + " | Nivel de Agressividade: " + angerLevel + " | Titulos: " + titulos;
     }
 }
 

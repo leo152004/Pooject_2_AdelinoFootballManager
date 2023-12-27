@@ -33,18 +33,7 @@ public class Pessoa {
             this.nome = nome;
             this.idade = idade;
     }
-/*   public String VerificarNome(String nome){
-        if(nome.length() <= 30){
-            if(nome.length() < 30){
-               VerificarNome(nome + " ");
-            }
-            else
-               return nome;
-            }
-            else
-                VerificarNome(faker.name().fullName());
-                return nome;
-  }*/
+
     //Método toString
     @Override
     public String toString(){

@@ -57,8 +57,8 @@ public class Arbitros extends Pessoa{
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw);
         out.println(arbitros.size());
-        for (int i = 0; i < arbitros.size(); i++){
-            out.println(arbitros.get(i).getNome() + " ; " + arbitros.get(i).getIdade() + " ; " + arbitros.get(i).carreira + " ; " + arbitros.get(i).profissionalismo);
+        for (Arbitros arbitro : arbitros) {
+            out.println(arbitro.getNome() + " ; " + arbitro.getIdade() + " ; " + arbitro.carreira + " ; " + arbitro.profissionalismo);
         }
         out.close();
     }
