@@ -16,12 +16,15 @@ import java.util.Scanner;
 
 
 public class Jogadores extends Pessoa{
+    //Array List que irá armazenar todos os jopgadores criados pela classe
     public static final ArrayList<Jogadores> jogadores = new ArrayList<>(89);
-
+    //Variável de posição do jogador
     private final String posicao;
+    //Array List que armazena os tipos de lesão
     private ArrayList<String> lesoes = new ArrayList<>();
+    //variáveis inteiras para as estatisticas dos jogadores
     private final int statAt, statDef, angerLevel, titulos, nEquipa;
-
+    // Importação da classe Scanner para permitir a interação com o utilizador
     public static Scanner scan = new Scanner(System.in);
 
 //Construtores
@@ -60,7 +63,7 @@ public class Jogadores extends Pessoa{
         this.lesoes.addAll(lesoes);
         jogadores.add(this);
     }
-
+    //Método String que retorna a reposta que o utilizador deu, de acordo com as opções fornecidas
     private static String givenChoiceP() {
         System.out.println("Selecione a posição do jogador:");
         System.out.println("1.Avançado");
@@ -81,6 +84,7 @@ public class Jogadores extends Pessoa{
             }
         };
     }
+    //Método inteiro que retorna o inteiro correspondente à equipa que o utilizador escolheu
     private static int givenChoiceT() {
             System.out.println("Selecione a equipa do jogador:");
             for(int i = 0; i < Equipas.numberEquipas(); i++) {
@@ -89,7 +93,7 @@ public class Jogadores extends Pessoa{
 
         return scan.nextInt() - 1;
     }
-
+    //Método que permite interação com o utilizador na criação de um novo jogador
     public static void inserirJogador() {
         int age, anger, titulos, ataque, defesa;
         System.out.println("Digite o nome do jogador:");
@@ -146,7 +150,7 @@ public class Jogadores extends Pessoa{
             inserirJogador();
         }
     }
-
+    //Overload do método acima, que permite a inserção de um jogador diretamente na equipa
     public static void inserirJogador(int team) {
         int age, anger, titulos, ataque, defesa;
         System.out.println("Digite o nome do jogador:");
@@ -203,7 +207,7 @@ public class Jogadores extends Pessoa{
             inserirJogador();
         }
     }
-
+    //Método que criar aleatoriamente os jogadores com todas as suas estatisticas,posições,etc...
     public static void autoPlayer() {
         int posi = random.nextInt(1, 4);
         String position = switch (posi) {
@@ -243,7 +247,7 @@ public class Jogadores extends Pessoa{
         }
         new Jogadores (position, ataque, defesa, anger, titulos, tem);
     }
-
+    //Overload do método anterior que permite a criação de jogadores para cada equipa
     public static void autoPlayer(int team) {
         int posi = random.nextInt(1, 4);
         String position = switch (posi) {
@@ -276,13 +280,13 @@ public class Jogadores extends Pessoa{
         }
         new Jogadores (position, ataque, defesa, anger, titulos, team);
     }
-
+    //Método que imprime todos os jogadores guardados no array
     public static void allData() {
         for (Jogadores jogador : jogadores) {
             System.out.println(jogador);
         }
     }
-
+    //Método que permite a que o utilizador procure um jogador em especifico
     public static void Data(String player) {
         player = player.toLowerCase();
         for (int i = 0; i < jogadores.size(); i++) {
@@ -295,7 +299,7 @@ public class Jogadores extends Pessoa{
             }
         }
     }
-
+    //Método que irá escrever num ficheiro de texto os jogadores criados no nosso programa
     public static void writer() throws IOException{
         FileWriter fw = new FileWriter("jogadores.txt");
         BufferedWriter bw = new BufferedWriter(fw);
@@ -310,7 +314,7 @@ public class Jogadores extends Pessoa{
         }
         out.close();
     }
-
+    //Método que irá ler o ficheiro de texto dos jogadores criados, previamente, no nosso programa
     public static void reader() throws IOException{
         FileReader fr = new FileReader("jogadores.txt");
         BufferedReader br = new BufferedReader(fr);
@@ -333,12 +337,12 @@ public class Jogadores extends Pessoa{
             new Jogadores(nome, Idade, posicao, statAt, statDef, angerLevel, titulos, nEquipas, lesoes);
         }
     }
-
+    //Método que irá provocar as lesões nos jogadores
     public void painMaker() {
         String wound = Enum.getRandomWound();
         this.lesoes.add(wound);
     }
-
+    //Método que verifica se os dados inseridos pelo utilizador estão de acordo com o que é previsto
     private int StatsSetter(int stats, String stat) {
         if (stats <= 100)
             return stats;
@@ -351,7 +355,7 @@ public class Jogadores extends Pessoa{
             return 0;
         }
     }
-
+    //Getters
     public int getAnger(){
         return angerLevel;
     }
@@ -372,12 +376,12 @@ public class Jogadores extends Pessoa{
     public String getPos(){
         return posicao;
     }
-
+    // Método toString
     @Override
     public String toString() {
         return super.toString() +"| Posição: " + posicao + " | Equipa: " + Equipas.getEquipaName(nEquipa) + " | Ataque: " + statAt + " | Defesa: " + statDef + " | Nivel de Agressividade: " + angerLevel + " | Titulos: " + titulos;
     }
-
+    //Método toString
     public String toString(boolean file){
         String text = getNome() + " | " + getIdade() + " | " + posicao + " | " + statAt + " | " + statDef + " | " + angerLevel + " | " + titulos + " | " + nEquipa + " | ";
         for (int i = 0; i < lesoes.size(); i++)

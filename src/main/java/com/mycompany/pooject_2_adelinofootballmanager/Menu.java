@@ -13,7 +13,9 @@ import com.github.javafaker.Faker;
 import java.util.Scanner;
 
 public class Menu {
+    //declaração de uma variável do tipo "Managers" com o nome "managers"
     private Managers managers;
+    //Método que apresenta o menu principal do nosso jogo
     public void theMenu() {
         int option, exit = 1;
         Scanner scan = new Scanner(System.in);

@@ -12,10 +12,11 @@ import java.util.ArrayList;
  * @author hontman
  */
 public class Arbitros extends Pessoa{
-
+    //Variáveis inteiras para os anos de carreira e profissionalismo dos arbitros
     private final int carreira, profissionalismo;
-
+    //Array que armazena os arbitros
     public static ArrayList<Arbitros> arbitros = new ArrayList<Arbitros>(5);
+    //Construtores
     public Arbitros(){
         super();
         this.carreira = random.nextInt(5,20);
@@ -28,6 +29,7 @@ public class Arbitros extends Pessoa{
         this.profissionalismo = profissionalismo;
         arbitros.add(this);
     }
+    //Método que imprime a lista de arbitros existentes
     public static void imprime(String Arbitros){
         for(Arbitros arbitros : arbitros) {
             if(arbitros.getNome().equals(Arbitros)) {
@@ -36,11 +38,11 @@ public class Arbitros extends Pessoa{
             }
         }
     }
-
+    //Método inteiro para calcular a experiencia de um arbitro
     public int getExperiencia(){
         return ((carreira + profissionalismo) / 2);
     }
-
+    //método que irá buscar o arbitro prentendido
     public static Arbitros getArbitro(String nome){
         for (Arbitros arbitro : arbitros) {
             if (arbitro.getNome().equals(nome)) {
@@ -49,7 +51,7 @@ public class Arbitros extends Pessoa{
         }
         return null;
     }
-
+    //Método que iráescrever num ficheiro de texto os arbitros criados no nosso programa
     public static void writer() throws IOException {
         FileWriter fw = new FileWriter("arbitros.txt");
         BufferedWriter bw = new BufferedWriter(fw);
@@ -60,7 +62,7 @@ public class Arbitros extends Pessoa{
         }
         out.close();
     }
-
+    //método que vai ler o ficheiro, previamente escrito pelo writer()
     public static void reader() throws IOException{
         FileReader fr = new FileReader("arbitros.txt");
         BufferedReader br = new BufferedReader(fr);
@@ -74,6 +76,7 @@ public class Arbitros extends Pessoa{
             new Arbitros(nome, idade, carreira, profissionalismo);
         }
     }
+    //Método toString
     @Override
     public String toString (){
         return super.toString() + "| Carreira: " + carreira + " | Profissionalismo: " + profissionalismo;

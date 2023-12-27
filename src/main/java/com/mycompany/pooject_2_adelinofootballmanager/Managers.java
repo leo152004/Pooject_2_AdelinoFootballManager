@@ -11,9 +11,13 @@ package com.mycompany.pooject_2_adelinofootballmanager;
 import java.util.Scanner;
 
 public class Managers {
+    // Importação da classe Scanner para permitir a interação com o utilizador
     private static final Scanner scanner = new Scanner(System.in);
+    //declaração de uma variável do tipo "Jogadores" com o nome "jogador"
     private Jogadores jogador;
+    //declaração de uma variável do tipo "Equipas" com o nome "equipas"
     private Equipas equipas;
+    //método que dependente da opção escolhida pelo utilizador irá mostrar submenus, referentes a cada opção
     public void theManager(String managerChosen) {
         boolean repeat = true;
 

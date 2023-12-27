@@ -13,12 +13,17 @@ import java.util.Scanner;
  * @author hontman
  */
 public class Treinador extends Pessoa{
+    //Array que irá guardar os treinadores criados pela classse
 
     public static ArrayList<Treinador> treinadores = new ArrayList<Treinador>(9);
+    // Importação da classe Scanner para permitir a interação com o utilizador
 
     public static Scanner scan = new Scanner(System.in);
+    //Variáveis String para a especialização e táticas favoritas dos Treinadores
     private String especializacao, taticasFavo;
+    //Variável inteira para a equipa que cada treinador irá treinar
     private final int equipa;
+    //Construtores
 
     public Treinador(String nome, int idade, String especializacao, String taticasFavo, int equipa) {
         super(nome, idade);
@@ -34,7 +39,7 @@ public class Treinador extends Pessoa{
         this.equipa = equipa;
         treinadores.add(this);
     }
-
+    //Método impressor de todosa os treinadores existentes no array
     public static void imprime(String Treinador) {
         for(Treinador treinador : treinadores) {
             if(treinador.getNome().equals(Treinador)) {
@@ -43,12 +48,12 @@ public class Treinador extends Pessoa{
             }
         }
     }
-
+    //Método toString
     @Override
     public String toString() {
         return super.toString() + " | Especialização: " + especializacao + " | Táticas Favoritas: " + taticasFavo + " | Equipa: " + Equipas.getEquipaName(equipa);
     }
-
+    //Método que irá buscar o treinador e todos os seus stats, caso o utilizador escolha um existente
     public static Treinador getTrainer(String nome){
         Treinador trainer = null;
         for(int i = 0; i < treinadores.size(); i++){
@@ -58,8 +63,9 @@ public class Treinador extends Pessoa{
         }
         return trainer;
     }
+    //Método que permite ao utilizador escolher a equipa do novo treinador
 
-    private int escolheEquipa() {
+    private static int escolheEquipa() {
             System.out.println("Selecione a equipa do novo Treinador:");
             for(int i = 0; i < Equipas.numberEquipas(); i++) {
                 System.out.println(i+1 + ". " + Equipas.getEquipaName(i));
@@ -69,8 +75,8 @@ public class Treinador extends Pessoa{
 
             return EquipaID-1;
     }
-
-    public Treinador inserirTreinador() {
+    //Método que interage com o utilizador para a inserção de um novo treinador no jogo
+    public static Treinador inserirTreinador() {
         System.out.println("Insira o nome do treinador: ");
         String name = scan.nextLine();
         System.out.println("Insira a idade do treinador: ");
@@ -91,11 +97,10 @@ public class Treinador extends Pessoa{
         }
         return null;
     }
-
+    //Getters e Setters
     public static Treinador autoTraining(int Team) {
         return new Treinador(especializacao(), taticas(), Team);
     }
-    //Getters e Setters
     public String getEspecializacao() {
         return especializacao;
     }
@@ -109,7 +114,7 @@ public class Treinador extends Pessoa{
     public void setTaticasFavo(String taticasFavo){
         this.taticasFavo = taticasFavo;
     }
-
+    //Método String que destribui a especialização de cada treinador, de forma aleatoria
     public static String especializacao(){
         String[] especializacoes = {"Licença A: Federação Portuguesa de Futebol (FPF)", "Mestrado em Treino Desportivo: Especialização em Futebol", "Cursos de Futebol","Licença B: Federação Portuguesa de Futebol (FPF)"};
         String text = "";
@@ -120,7 +125,7 @@ public class Treinador extends Pessoa{
         return text;
 
     }
-
+    //Método que irá escrever num ficheiro de texto os treinadores criados no nosso programa
     public static void writer() throws IOException {
         FileWriter fw = new FileWriter("treinadores.txt");
         BufferedWriter bw = new BufferedWriter(fw);
@@ -130,7 +135,7 @@ public class Treinador extends Pessoa{
         }
         out.close();
     }
-
+    //Método que irá ler o ficheiro de texto dos treinadores criados, previamente, no nosso programa
     public static void reader() throws IOException{
         FileReader fr = new FileReader("treinadores.txt");
         BufferedReader br = new BufferedReader(fr);
@@ -144,7 +149,7 @@ public class Treinador extends Pessoa{
             new Treinador(nome, idade, especializacao, taticasFavo, equipa);
         }
     }
-
+//Método String que irá distribuir pelos diversos treinadores, uma tática para cada um deles
     public static String taticas(){
         String[] taticas = {"4-3-3","4-4-2","4-5-1","3-5-2","4-3-2-1","4-2-3-1","4-2-4","5-3-2"};
         String text = "";

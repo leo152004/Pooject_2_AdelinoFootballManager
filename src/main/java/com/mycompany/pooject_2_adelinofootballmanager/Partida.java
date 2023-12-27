@@ -9,12 +9,15 @@ import java.util.stream.Collectors;
  * @author hontman
  */
 public class Partida {
-    private Equipas equipas;
-    private Arbitros arbitros;
+    //Map dos jogadores com cartão
     private static Map<Jogadores, String> jogadoresComCartao = new HashMap<>();
+    //variáveis String data e local do jogo
     private String data, local;
+    // Importação da classe Scanner para permitir a interação com o utilizador
     private static final Scanner scan = new Scanner(System.in);
+    // Importação da classe Random para gerar numeros aleatorios
     public static Random random = new Random();
+    //Método que permite ao utilizador escolher o arbito da partida, a liga e as 2 equipas que irão se defrontar
     public static void start(){
         boolean repeat = true;
         while(repeat) {
@@ -109,7 +112,7 @@ public class Partida {
             }
         }
     }
-
+//Método que aplica is cartoes amarelos e vermelhos aos jogadores
     private static void getCard(Jogadores player){
         boolean redCard = random.nextBoolean();
         if (redCard)
@@ -117,7 +120,7 @@ public class Partida {
         else
             jogadoresComCartao.put(player, "amarelo");
     }
-
+//Método que verifica a probabilidade de um jogador de cada equipa reveber um cartão
     private static void chanceCard(int Equipa){
         for (int  i = 0; i < Equipas.getEquipaSize(Equipa);i++){
             int probabilidade = random.nextInt(100);
@@ -128,7 +131,7 @@ public class Partida {
 
         }
     }
-
+//Método inteiro que aumenta a chance de perder da equipa que estiver com mais cartoes na sua equipa
     private static int findCards(int Equipa){
         int EquipaLoss = 0;
         List<Map.Entry<Jogadores, String>> CartoesList = jogadoresComCartao.entrySet().stream().toList();
@@ -143,7 +146,7 @@ public class Partida {
         }
         return EquipaLoss;
     }
-
+//Método que ajuda o utilizar a selecionar o arbitro para o jogo
     public static String selectorDeArbitro(){
         while (true) {
             System.out.println("Selecione o árbitro a usar:");
@@ -165,6 +168,8 @@ public class Partida {
         this.data = data;
     }
     public String getData(){return data;}
+
+    //Método String que devolve uma data random para o jogo de futebol
     public static String defineData()
     {
         int dia, mes, ano;
@@ -180,7 +185,7 @@ public class Partida {
         data += "Data: " + dia + "/" + mes + "/" + ano+ ".\n";
         return data;
     }
-
+//Método que verifica quantos avançados tem cada equipa
     private static int NAtaque(Equipas equipa){
         int size = equipa.getEquipaPlayers().size();
         int count = 0;
@@ -190,7 +195,7 @@ public class Partida {
         }
         return size-count;
     }
-
+    //Método que simula a partida de futebol, demonstrando o resultado, dependente de todas as probabilidades impostas
     private static void startPartida(String arbitro, boolean coin, Equipas Equipa1, Equipas Equipa2) {
         jogadoresComCartao.clear();
         // Simulate the match
@@ -202,16 +207,37 @@ public class Partida {
 
         int actualPlayers1 = (Equipa1.getEquipaPlayers().size()-Equipa1.pain())*2 - NAtaque(Equipa1);
         int actualPlayers2 = (Equipa2.getEquipaPlayers().size()-Equipa1.pain())*2 - NAtaque(Equipa2);
-
-        int chanceWin1 = 100 - findCards(Equipa1.getInt()) + actualPlayers1;
-        int chanceWin2 = 100 - findCards(Equipa2.getInt()) + actualPlayers2;
+        int chance1 = switch (Equipa1.getTrainer().getTaticasFavo()) {
+            case "4-3-3" -> 10;
+            case "4-2-2" -> 8;
+            case "4-5-1" -> 6;
+            case "3-5-2" -> 5;
+            case "4-3-2-1" -> 4;
+            case "4-2-3-1" -> 3;
+            case "4-2-4" -> 2;
+            case "5-3-2" -> 1;
+            default -> 0;
+        };
+        int chance2 = switch (Equipa2.getTrainer().getTaticasFavo()) {
+            case "4-3-3" -> 10;
+            case "4-2-2" -> 8;
+            case "4-5-1" -> 6;
+            case "3-5-2" -> 5;
+            case "4-3-2-1" -> 4;
+            case "4-2-3-1" -> 3;
+            case "4-2-4" -> 2;
+            case "5-3-2" -> 1;
+            default -> 0;
+        };
+        int chanceWin1 = 100 - findCards(Equipa1.getInt()) + actualPlayers1 + chance1;
+        int chanceWin2 = 100 - findCards(Equipa2.getInt()) + actualPlayers2 + chance2;
 
         if (coin)
             chanceWin1 += 5;
         else
             chanceWin2 += 5;
 
-        if(Arbitros.getArbitro(arbitro).getExperiencia() > 50) {
+        if(Objects.requireNonNull(Arbitros.getArbitro(arbitro)).getExperiencia() > 50) {
             if (chanceWin1 > chanceWin2)
                 chanceWin1 += 10;
             else

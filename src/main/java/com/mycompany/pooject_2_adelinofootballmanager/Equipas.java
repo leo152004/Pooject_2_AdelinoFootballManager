@@ -8,254 +8,114 @@ import java.io.*;
 import java.io.IOException;
 import java.util.*;
 
+import static com.mycompany.pooject_2_adelinofootballmanager.Jogadores.scan;
+
 /**
  *
  * @author hontman
  */
-public class Equipas implements Ficheiros {
-    private final String nome, Liga;
-    private Treinador trainer;
-    private int vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho = 50;
+public abstract class Equipas {
+    //Array das equipas
+    static ArrayList<Liga> equipaList = new ArrayList<Liga>(9);
 
-    private String cidade;
+    //Metodos abstratos
+    public abstract void addEquipa();
+    public abstract  void addToEquipa(Jogadores jogador);
+    public abstract int pain();
 
-    private final Random rand = new Random();
-    private static final Scanner scan = new Scanner(System.in);
+    public abstract int getInt();
 
-    private static final ArrayList<Equipas> equipaList = new ArrayList<Equipas>(9);
-    private final ArrayList<Jogadores> equipaPlayers = new ArrayList<Jogadores>(11);
+    public abstract ArrayList<Jogadores> getEquipaPlayers();
 
-    //Construtor
-    public Equipas(String nome, Treinador treinador, String Liga, String cidade) {
-        this.nome = nome;
-        this.trainer = treinador;
-        this.Liga = Liga;
-        this.cidade = cidade;
-        equipaList.add(this);
-    }
-
-    public Equipas(String nome, String Liga, Treinador treinador, int vitorias, int derrotas, int empates, int pontos, int golosSofridos, int golosMarcados, int desempenho, String cidade, ArrayList<Jogadores> players) {
-        this.nome = nome;
-        this.Liga = Liga;
-        this.trainer = treinador;
-        this.vitorias = vitorias;
-        this.derrotas = derrotas;
-        this.empates = empates;
-        this.pontos = pontos;
-        this.golosSofridos = golosSofridos;
-        this.golosMarcados = golosMarcados;
-        this.desempenho = desempenho;
-        this.cidade = cidade;
-        equipaList.add(this);
-        this.equipaPlayers.addAll(players);
-    }
-    //Funções dos ArrayLists
-    public static void addToEquipa(int Equipa, Jogadores jogador) {
-        equipaList.get(Equipa).equipaPlayers.add(jogador);
-    }
-
+    public abstract Jogadores getPlayer(int player);
+    //Metodos da classe
     public static int numberEquipas(){
         return equipaList.size();
     }
 
-    public int pain(){
-        int nLesoes = 0;
-        int chance = rand.nextInt(100);
-        for(int i = 0; i < equipaPlayers.size(); i++)
-            if(chance < 10) {
-                equipaPlayers.get(i).painMaker();
-                nLesoes++;
-            }
-        return nLesoes;
-    }
-
-    //Getters e setters
     public static int getMinEquipaSize(){
         int min = 0;
         for (int i = 0; i < numberEquipas(); i++)
-            if (min < getEquipaSize(i))
-                min = getEquipaSize(i);
+            if (min < getFullEquipa(i).getSize())
+                min = getFullEquipa(i).getSize();
         return min;
     }
 
-    public static Equipas getFullEquipa(int Equipa) {
+    public static Liga getFullEquipa(int Equipa) {
         return equipaList.get(Equipa);
     }
 
-    public static Equipas getFullEquipa(String Equipa) {
-        for (int i = 0; i < equipaList.size(); i++){
-            if (equipaList.get(i).nome.equals(Equipa)){
-                return equipaList.get(i);
+    public static Liga getFullEquipa(String Equipa) {
+        for (Liga equipa : equipaList) {
+            if (equipa.getNome().equals(Equipa)) {
+                return equipa;
             }
         }
         return null;
     }
 
-    public int getInt(){
-        for(int i = 0; i < equipaList.size(); i++){
-            if (this == equipaList.get(i))
-                return i;
-        }
-        return 0;
-    }
-    public ArrayList<Jogadores> getEquipaPlayers(){
-        return equipaPlayers;
-    }
-
-    public Treinador getTrainer(){
-        return trainer;
-    }
-    public static Jogadores getEquipaPlayer(int equipa, int player) {
-        return equipaList.get(equipa).equipaPlayers.get(player);
-    }
-    public void setCidade(String cidade){this.cidade = cidade;}
-    public static String  getCidade(int Equipa){return equipaList.get(Equipa).cidade;}
-    public static String getEquipaName(int Equipa ) {
-        return equipaList.get(Equipa).getName();
-    }
-
-    public static int getEquipaSize(int Equipa) {
-        return equipaList.get(Equipa).equipaPlayers.size();
-    }
-
-    public static String getEquipaLiga(int Equipa) {
-        return equipaList.get(Equipa).Liga;
-    }
-    public String getName() {
-        return nome;
-    }
-
-    public int getVitorias() {
-        return vitorias;
-    }
-    public int getGolosSofridos(){return golosSofridos;}
-    public int getGolosMarcados(){return golosMarcados;}
-
-    public int getDesempenho(){return desempenho;}
-    public void setDesempenho(int desempenho){
-        this.desempenho += desempenho;
-    }
-    public int getDerrotas() {
-        return derrotas;
-    }
-
-    public int getEmpates() {
-        return empates;
-    }
-
-    public String getLiga(){
-        return Liga;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setGolosSofridos(int golosSofridos ) {
-        this.golosSofridos += golosSofridos;
-    }
-
-    public void setGolosMarcados(int golosMarcados){
-        this.golosMarcados += golosMarcados;
-    }
-
-    public void setVitorias(){
-        this.vitorias++;
-        this.pontos += 3;
-    }
-    public void setDerrotas(){
-        this.derrotas++;
-    }
-    public void setEmpates(){
-        this.empates++;
-        this.pontos++;
-    }
-    //Função Mudar Liga
     public static void mudarLiga(){
         while(true){
             System.out.println("Que equipa gostaria de mudar de liga?\n");
             for (int i = 0; i < numberEquipas(); i++) {
-                System.out.println((i + 1) + ". " + Equipas.getEquipaName(i));
+                System.out.println((i + 1) + ". " + equipaList.get(i).getNome());
             }
             int choice = scan.nextInt();
             scan.nextLine();
-
-            int choice2;
-            while(true) {
-                if (choice > 0 && choice <= numberEquipas()) {
-                    System.out.println("A equipa " + equipaList.get(choice - 1).getName() + " pertence à Liga " + equipaList.get(choice - 1).getLiga() + ", para qual deseja mudar?");
-                    for (int i = 0; i < 3; i++) {
-                        System.out.println((i + 1) + " " + Ligas.getLiga(i).getLigaName());
-                    }
-                    choice2 = scan.nextInt();
-                    scan.nextLine();
-                    if (choice2 > 0 && choice2 <= numberEquipas()){
-                        Ligas.setLigatoEquipa(choice2, choice);
-                        System.out.println("Equipa " + equipaList.get(choice - 1).getName() + " foi mudada para a liga " + Ligas.getLiga(choice2).getLigaName() + " com sucesso!");
-                        break;
-                    } else {
-                        System.out.println("Por favor, selecione uma Liga valida!");
-                    }
-                } else {
-                    System.out.println("Por favor, selecione uma equipa válida!");
-                }
-            }
-
+            if(choice > 0 && choice < numberEquipas())
+                getFullEquipa(choice).mudarLigaMini();
+            else
+                System.out.println("Escolha uma opção valida");
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null ) return false;
-        if (o.getClass() != getClass()) return false;
-
-        Equipas o1 = (Equipas) o;
-        return  o1.getName().equals(getClass().getName());
-    }
-
-    //Funções normais da classe
     public static void imprime(String equipa) {
-        ArrayList<Equipas> e = new ArrayList<>();
-        for (Equipas equipas : equipaList) {
-            if (equipas.getName().equals(equipa)) {
-                e.add(equipas);
-            }
+        Liga a = getFullEquipa(equipa);
+        if (a != null) {
+            System.out.println(a.imprime());
         }
-        if(e.isEmpty())
-            System.out.println("Não há equipas!");
-
-        for (Equipas equipas : e){
-            System.out.println(equipas.getName() + " ( Liga " + equipas.getLiga() + ")" + ": "+ equipas.getVitorias() + " vitorias, " + equipas.getDerrotas() + " derrotas, " + equipas.getEmpates() + " empates, "+ equipas.getGolosMarcados() + " GM," + equipas.getGolosSofridos() + " GS," + equipas.getDesempenho() + " DM.");
-            System.out.println("Treinador: " + equipas.getTrainer().getNome() +"\nCidade: " +equipas.getCidade()+ "\nJogadores:");
-            for (Jogadores players : equipas.equipaPlayers)
-                System.out.println(players.getNome());
+        else {
+            System.out.println("A equipa não existe");
         }
     }
+
+    //M´
 
     public void inserirEquipa() {
-            System.out.println("Insira o nome da equipa: ");
-            String nome = scan.nextLine();
-//            nome = VerifyEquipa(nome);
-            System.out.println("Insira a Liga a que pertence: ");
-            for (int i = 0; i < Ligas.AllLigas.size(); i++){
-                System.out.println((i+1) + ". " + Ligas.getLiga(i).getLigaName());
-            }
-            int liga = scan.nextInt();
-            scan.nextLine();
-            String Liga = Ligas.getLiga(liga-1).getLigaName();
-            System.out.println("Gostaria de inserir o Treinador manualmente?(s/n)");
-            char choiceT = scan.next().charAt(0);
-            scan.nextLine();
-            Treinador trainer;
-            if(choiceT == 's')
-                trainer = this.trainer.inserirTreinador();
-            else
-                trainer = Treinador.autoTraining(Equipas.equipaList.size());
-            System.out.println("Que cidade pertence a equipa?");
-            String cidade = scan.nextLine();
-            new Equipas(nome, trainer, Liga, cidade);
-            addPlayers();
+        System.out.println("Insira o nome da equipa: ");
+        String nome = scan.nextLine();
+        System.out.println("Gostaria de inserir o Treinador manualmente?(s/n)");
+        char choiceT = scan.next().charAt(0);
+        scan.nextLine();
+        Treinador trainer;
+        if(choiceT == 's')
+            trainer = Treinador.inserirTreinador();
+        else
+            trainer = Treinador.autoTraining(Equipas.equipaList.size());
+        System.out.println("Que cidade pertence a equipa?");
+        String cidade = scan.nextLine();
+        System.out.println("Insira a Liga a que pertence: ");
+        System.out.println("1. Portuguesa");
+        System.out.println("2. Espanhola");
+        System.out.println("3. Alemã");
+        int liga = scan.nextInt();
+        scan.nextLine();
+
+        switch(liga){
+            case 1:
+                new EquipaPT(nome, trainer, cidade);
+                break;
+            case 2:
+                new EquipaES(nome, trainer, cidade);
+                break;
+            case 3:
+                new EquipaAL(nome, trainer, cidade);
+                break;
+            default:
+                System.out.println("Selecione uma Liga valida por favor.");
+                break;
+        }
+        addPlayers();
     }
 
     private static void addPlayers() {
@@ -291,50 +151,36 @@ public class Equipas implements Ficheiros {
         }
     }
 
-    public static void writer() throws IOException{
-        FileWriter fw = new FileWriter("equipas.txt");
-        BufferedWriter bw = new BufferedWriter(fw);
-        PrintWriter out = new PrintWriter(bw);
-        out.println(equipaList.size());
-        for (int i = 0; i < equipaList.size(); i++){
-            Equipas a = equipaList.get(i);
-            out.println(a.nome + " ; " + a.Liga + " ; " + a.trainer.getNome() + " ; " + a.vitorias + " ; " + a.derrotas + " ; " + a.empates + " ; " + a.pontos + " ; " + a.golosSofridos + " ; " + a.golosMarcados
-                    + " ; " + a.desempenho + " ; " + a.cidade + " ; " + a.equipaPlayers.size());
-            for (Jogadores equipaPlayer : a.equipaPlayers) {
-                out.println(equipaPlayer.getNome());
+    public static void writer() throws IOException {
+        String classe;
+        for (Liga equipa : equipaList) {
+            classe = equipa.getLigaNome();
+            switch (classe) {
+                case "Portuguesa":
+                    FileWriter PTFW = new FileWriter("equipasPT.txt");
+                    BufferedWriter PTBW = new BufferedWriter(PTFW);
+                    PrintWriter PT = new PrintWriter(PTBW);
+                    PT.println(equipa.printable());
+                    PT.close();
+                    break;
+                case "Espanhola":
+                    FileWriter ESFW = new FileWriter("equipasES.txt");
+                    BufferedWriter ESBW = new BufferedWriter(ESFW);
+                    PrintWriter ES = new PrintWriter(ESBW);
+                    ES.println(equipa.printable());
+                    ES.close();
+                    break;
+                case "Alema":
+                    FileWriter ALFW = new FileWriter("equipasAL.txt");
+                    BufferedWriter ALBW = new BufferedWriter(ALFW);
+                    PrintWriter AL = new PrintWriter(ALBW);
+                    AL.println(equipa.printable());
+                    AL.close();
+                    break;
+                default:
+                    System.out.println("Equipa de Liga não reconhecida");
             }
-        }
-        out.close();
-    }
-    public static void reader() throws IOException {
-        FileReader fr = new FileReader("equipas.txt");
-        BufferedReader br = new BufferedReader(fr);
-        int size = Integer.parseInt(br.readLine());
-        for (int i = 0; i < size; i++) {
-            String[] equipa = br.readLine().split(" ; ");
-            String nome = equipa[0];
-            String Liga = equipa[1];
-            Treinador trainer = Treinador.getTrainer(equipa[2]);
-            int vitorias = Integer.parseInt(equipa[3]);
-            int derrotas = Integer.parseInt(equipa[4]);
-            int empates = Integer.parseInt(equipa[5]);
-            int pontos = Integer.parseInt(equipa[6]);
-            int golosSofridos = Integer.parseInt(equipa[7]);
-            int golosMarcados = Integer.parseInt(equipa[8]);
-            int desempenho = Integer.parseInt(equipa[9]);
-            String cidade = equipa[10];
-            int nPlayers = Integer.parseInt(equipa[11]);
-            ArrayList<Jogadores> players = new ArrayList<Jogadores>(nPlayers);
-            for (int k = 0; k < nPlayers; k++) {
-                players.add(Jogadores.getPlayer(br.readLine()));
-            }
-            new Equipas(nome, Liga, trainer, vitorias, derrotas, empates, pontos, golosSofridos, golosMarcados, desempenho, cidade, players);
+
         }
     }
-
-    @Override
-    public String toString() {
-        return nome + " - " + vitorias + " Vitorias, " + empates + " Empates, " + derrotas + " Derrotas," + golosMarcados+" Golos Marcados," + golosSofridos + " Golos Sofridos," + desempenho + " Desempenho Médio," + pontos + " Pontos." + "\n";
-    }
-
 }
